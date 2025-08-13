@@ -69,7 +69,7 @@
                                        @elseif($value->approval==0)
                                        <a href="{{ route('listing_statusupdateres',[$value->id,3,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-success'>Review</a>
                                        @elseif($value->approval==1)
-                                       <a href="{{ route('listing_statusupdateres',[$value->id,2,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-danger'>Reject</a>
+                                       {{-- <a href="{{ route('listing_statusupdateres',[$value->id,2,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-danger'>Reject</a> --}}
                                        @endif
                                     @endif
                                  </td>
