@@ -134,11 +134,8 @@
 
                <div class="form-group pl-0 ind_sub_cls">
                   <label for="usr">Industry</label>
-                  <select name="industry[]" class="chzn-select form-control" data-placeholder="Choose Industries..." id="ind_cls">
-                     <option>1</option>
-                     <option>2</option>
-                     <option>3</option>
-                     <option>4</option>
+                  <select name="industry[]" class="chzn-select form-control" data-placeholder="Choose Industries..." id="ind_cls" multiple>
+                     <option value="">Select</option>
                   </select>
                   @if($errors->has('industry'))
                   <ul class="parsley-errors-list filled">
@@ -1082,6 +1079,8 @@
 <script src="{{url('/assets/js')}}/editor.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link href="{{url('/assets/css')}}/editor.css" type="text/css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
+
 
 <script>
    function fileValidation(id){
@@ -1187,6 +1186,60 @@
             });
             $(this).find('.remove-row-btn').data('index', i).attr('data-index', i);
          });
+      });
+   });
+
+   $(document).ready(function() {
+      // Decode the JSON string to an array of strings
+      var industry_val = <?php echo isset($response['industry']) ? $response['industry'] : '[]'; ?>;
+      console.log("Industry Values:", industry_val); // Debug: Log the raw industry values
+
+      // Ensure industry_val is an array
+      if (typeof industry_val === 'string') {
+         industry_val = JSON.parse(industry_val);
+      }
+      console.log("Parsed Industry Values:", industry_val); // Debug: Log the parsed values
+
+      // Initialize Chosen for dropdowns with multiple option
+      $("#ind_cls").chosen({
+         width: "100%",
+         max_selected_options: 5 // Optional: Limit the number of selections
+      });
+
+      // Fetch industry and segment data
+      $.ajax({
+         type: 'GET',
+         url: "https://uat.envesya.com/api/get_industry_segment",
+         success: function(response) {
+               var industrySegmentData = JSON.parse(response);
+               console.log("Industry Data:", industrySegmentData); // Debug: Log the fetched data
+
+               // Populate industry dropdown
+               var industryOptions = '<option value="">Select</option>';
+               $.each(industrySegmentData.industry, function(index, item) {
+                  industryOptions += '<option value="' + item.id + '">' + item.name + '</option>';
+               });
+               $("#ind_cls").html(industryOptions);
+               console.log("Options Populated:", $("#ind_cls").html()); // Debug: Log the populated options
+
+               // Set selected industries for edit mode
+               if (industry_val.length > 0 && industry_val[0] !== '') {
+                  $("#ind_cls").val(industry_val).trigger("chosen:updated");
+                  console.log("Selected Values Set:", $("#ind_cls").val()); // Debug: Log the selected values
+               } else {
+                  $("#ind_cls").trigger("chosen:updated");
+               }
+         },
+         error: function(e) {
+               console.error("AJAX Error:", e); // Debug: Log any AJAX errors
+               alert("Error fetching industry and segment data");
+         }
+      });
+
+      // On industry change, handle segment population if needed
+      $("#ind_cls").on("change", function() {
+         var industry_ids = $(this).val() || [];
+         console.log("Selected Industries:", industry_ids); // Debug: Log the selected industries
       });
    });
 </script>
