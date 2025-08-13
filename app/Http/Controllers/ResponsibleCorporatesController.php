@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ResponsibleCorporates;
+use Illuminate\Support\Facades\Http;
 
 class ResponsibleCorporatesController extends Controller
 {
@@ -238,6 +239,69 @@ class ResponsibleCorporatesController extends Controller
         $corporate = ResponsibleCorporates::findOrFail($id);
         $corporate->approval = $status;
         $corporate->save();
+
+        if ($status == '1') {
+            $response = Http::post('https://uat.envesya.com/api/store-responsible-corporate', [
+                'name' => $corporate->name,
+                'slug' => $corporate->slug,
+                'short_name' => $corporate->short_name,
+                'keyword_search' => $corporate->keyword_for_search, // match receiving API param name
+                'industry' => $corporate->industry,
+                'product_profile_sector' => $corporate->product_profile_sector,
+                'ho_location' => $corporate->ho_location,
+                'factory_locations' => $corporate->factory_locations,
+                'net_zero_target' => $corporate->net_zero_target,
+                'certifications_accreditations' => $corporate->certifications_accreditations,
+                'reporting_formats' => $corporate->reporting_formats,
+                'ratings' => $corporate->ratings,
+                'assessment_verification' => $corporate->assessment_verification,
+                'policy_ems' => $corporate->policy_ems,
+                'energy_detail' => $corporate->energy_detail,
+                'total_energy_consumption' => $corporate->total_energy_consumption,
+                'total_renewable_energy_consumption' => $corporate->total_renewable_energy_consumption,
+                'total_non_renewable_energy_consumption' => $corporate->total_non_renewable_energy_consumption,
+                'renewable_power_percentage' => $corporate->renewable_power_percentage,
+                'total_electricity_consumption' => $corporate->total_electricity_consumption,
+                'total_fuel_consumption' => $corporate->total_fuel_consumption,
+                'specific_energy_consumption' => $corporate->specific_energy_consumption,
+                'energy_intensity_per_rupee_turnover' => $corporate->energy_intensity_per_rupee_turnover,
+                'water_detail' => $corporate->water_detail,
+                'water_replenishment_percentage' => $corporate->water_replenishment_percentage,
+                'total_water_withdrawal' => $corporate->total_water_withdrawal,
+                'total_water_withdrawal_by_source' => $corporate->total_water_withdrawal_by_source,
+                'total_water_consumption' => $corporate->total_water_consumption,
+                'total_water_discharged' => $corporate->total_water_discharged,
+                'water_intensity_per_rupee_turnover' => $corporate->water_intensity_per_rupee_turnover,
+                'specific_water_consumption' => $corporate->specific_water_consumption,
+                'waste_detail' => $corporate->waste_detail,
+                'hazardous_waste' => $corporate->hazardous_waste,
+                'non_hazardous_waste' => $corporate->non_hazardous_waste,
+                'waste_by_type' => $corporate->waste_by_type,
+                'waste_by_disposal_method' => $corporate->waste_by_disposal_method,
+                'waste_intensity_per_rupee_turnover' => $corporate->waste_intensity_per_rupee_turnover,
+                'waste_intensity_physical_output' => $corporate->waste_intensity_physical_output,
+                'product_stewardship' => $corporate->product_stewardship,
+                'emission_detail' => $corporate->emission_detail,
+                'scope_1_emissions' => $corporate->scope_1_emissions,
+                'scope_2_emissions' => $corporate->scope_2_emissions,
+                'scope_3_emissions' => $corporate->scope_3_emissions,
+                'total_scope_1_2_emission_intensity' => $corporate->total_scope_1_2_emission_intensity,
+                'specific_emissions_scope_1_2_per_rupee_turnover' => $corporate->specific_emissions_scope_1_2_per_rupee_turnover,
+                'air_pollutants' => $corporate->air_pollutants,
+                'hazardous_air_pollutants' => $corporate->hazardous_air_pollutants,
+                'natural_capital' => $corporate->natural_capital,
+                'csr_for_climate_action' => $corporate->csr_for_climate_action,
+            ]);
+            \Log::info($response);
+
+            if (!$response->successful()) {
+                // handle error, maybe log it
+                \Log::error('Failed to send corporate to other DB', [
+                    'corporate_id' => $corporate->id,
+                    'response' => $response->body(),
+                ]);
+            }
+        }
 
         $page = $request->query('page');
 
