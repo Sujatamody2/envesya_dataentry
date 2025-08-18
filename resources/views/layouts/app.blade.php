@@ -19,10 +19,12 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        @if(auth()->user()->is_admin == 1)
-                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
+                        @if(auth()->user())
+                            @if(auth()->user()->is_admin == 1)
+                            <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
+                            @endif
+                            <li class="nav-item"><a class="nav-link" href="{{ route('responsible-corp-list') }}">Responsible Corporates</a></li>
                         @endif
-                        <li class="nav-item"><a class="nav-link" href="{{ route('responsible-corp-list') }}">Responsible Corporates</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         @guest
