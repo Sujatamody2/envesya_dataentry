@@ -271,6 +271,9 @@
 
                <div class="incrementable-section" data-field="total_energy_consumption">
                   <label for="usr">Total Energy Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_energy_consumption_unit" placeholder="Unit" id="total_energy_consumption_unit" value="{{ isset($response['total_energy_consumption_unit']) ? $response['total_energy_consumption_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_energy_consumption']) ? json_decode($response['total_energy_consumption'], true): [];
@@ -297,6 +300,9 @@
 
                <div class="incrementable-section" data-field="total_renewable_energy_consumption">
                   <label for="usr">Total Renewable Energy Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_renewable_energy_consumption_unit" placeholder="Unit" id="total_renewable_energy_consumption_unit" value="{{ isset($response['total_renewable_energy_consumption_unit']) ? $response['total_renewable_energy_consumption_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_renewable_energy_consumption']) ? json_decode($response['total_renewable_energy_consumption'], true): [];
@@ -323,6 +329,9 @@
 
                <div class="incrementable-section" data-field="total_non_renewable_energy_consumption">
                   <label for="usr">Total Non Renewable Energy Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_non_renewable_energy_consumption_unit" placeholder="Unit" id="total_non_renewable_energy_consumption_unit" value="{{ isset($response['total_non_renewable_energy_consumption_unit']) ? $response['total_non_renewable_energy_consumption_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_non_renewable_energy_consumption']) ? json_decode($response['total_non_renewable_energy_consumption'], true): [];
@@ -349,6 +358,9 @@
 
                <div class="incrementable-section" data-field="renewable_power_percentage">
                   <label for="usr">Renewable Power % of Total</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="renewable_power_percentage_unit" placeholder="Unit" id="renewable_power_percentage_unit" value="{{ isset($response['renewable_power_percentage_unit']) ? $response['renewable_power_percentage_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['renewable_power_percentage']) ? json_decode($response['renewable_power_percentage'], true): [];
@@ -374,6 +386,9 @@
 
                <div class="incrementable-section" data-field="total_electricity_consumption">
                   <label for="usr">Total Electricity Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_electricity_consumption_unit" placeholder="Unit" id="total_electricity_consumption_unit" value="{{ isset($response['total_electricity_consumption_unit']) ? $response['total_electricity_consumption_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_electricity_consumption']) ? json_decode($response['total_electricity_consumption'], true): [];
@@ -399,6 +414,9 @@
 
                <div class="incrementable-section" data-field="total_fuel_consumption">
                   <label for="usr">Total Fuel Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_fuel_consumption_unit" placeholder="Unit" id="total_fuel_consumption_unit" value="{{ isset($response['total_fuel_consumption_unit']) ? $response['total_fuel_consumption_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_fuel_consumption']) ? json_decode($response['total_fuel_consumption'], true): [];
@@ -424,6 +442,9 @@
 
                <div class="incrementable-section" data-field="specific_energy_consumption">
                   <label for="usr">Specific Energy Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="specific_energy_consumption_unit" placeholder="Unit" id="specific_energy_consumption_unit" value="{{ isset($response['specific_energy_consumption_unit']) ? $response['specific_energy_consumption_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['specific_energy_consumption']) ? json_decode($response['specific_energy_consumption'], true): [];
@@ -449,6 +470,9 @@
 
                <div class="incrementable-section" data-field="energy_intensity_per_rupee_turnover">
                   <label for="usr">Energy Intensity per Rupee of Turnover</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover_unit" placeholder="Unit" id="energy_intensity_per_rupee_turnover_unit" value="{{ isset($response['energy_intensity_per_rupee_turnover_unit']) ? $response['energy_intensity_per_rupee_turnover_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['energy_intensity_per_rupee_turnover']) ? json_decode($response['energy_intensity_per_rupee_turnover'], true): [];
@@ -489,6 +513,9 @@
 
                <div class="incrementable-section" data-field="water_replenishment_percentage">
                   <label for="usr">Water Replenishment % of Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_replenishment_percentage_unit" placeholder="Unit" id="water_replenishment_percentage_unit" value="{{ isset($response['water_replenishment_percentage_unit']) ? $response['water_replenishment_percentage_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['water_replenishment_percentage']) ? json_decode($response['water_replenishment_percentage'], true): [];
@@ -514,6 +541,9 @@
 
                <div class="incrementable-section" data-field="total_water_withdrawal">
                   <label for="usr">Total Water Withdrawal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_water_withdrawal_unit" placeholder="Unit" id="total_water_withdrawal_unit" value="{{ isset($response['total_water_withdrawal_unit']) ? $response['total_water_withdrawal_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_water_withdrawal']) ? json_decode($response['total_water_withdrawal'], true): [];
@@ -539,6 +569,9 @@
 
                <div class="incrementable-section" data-field="total_water_withdrawal_by_source">
                   <label for="usr">Total Water Withdrawal by Source</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_water_withdrawal_by_source_unit" placeholder="Unit" id="total_water_withdrawal_by_source_unit" value="{{ isset($response['total_water_withdrawal_by_source_unit']) ? $response['total_water_withdrawal_by_source_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_water_withdrawal_by_source']) ? json_decode($response['total_water_withdrawal_by_source'], true): [];
@@ -564,6 +597,9 @@
 
                <div class="incrementable-section" data-field="total_water_consumption">
                   <label for="usr">Total Water Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_water_consumption_unit" placeholder="Unit" id="total_water_consumption_unit" value="{{ isset($response['total_water_consumption_unit']) ? $response['total_water_consumption_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_water_consumption']) ? json_decode($response['total_water_consumption'], true): [];
@@ -589,6 +625,9 @@
 
                <div class="incrementable-section" data-field="total_water_discharged">
                   <label for="usr">Total Water Discharged</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_water_discharged_unit" placeholder="Unit" id="total_water_discharged_unit" value="{{ isset($response['total_water_discharged_unit']) ? $response['total_water_discharged_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_water_discharged']) ? json_decode($response['total_water_discharged'], true): [];
@@ -614,6 +653,9 @@
 
                <div class="incrementable-section" data-field="water_intensity_per_rupee_turnover">
                   <label for="usr">Water Intensity per Rupee of Turnover</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_intensity_per_rupee_turnover_unit" placeholder="Unit" id="water_intensity_per_rupee_turnover_unit" value="{{ isset($response['water_intensity_per_rupee_turnover_unit']) ? $response['water_intensity_per_rupee_turnover_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['water_intensity_per_rupee_turnover']) ? json_decode($response['water_intensity_per_rupee_turnover'], true): [];
@@ -639,6 +681,9 @@
 
                <div class="incrementable-section" data-field="specific_water_consumption">
                   <label for="usr">Specific Water Consumption</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="specific_water_consumption_unit" placeholder="Unit" id="specific_water_consumption_unit" value="{{ isset($response['specific_water_consumption_unit']) ? $response['specific_water_consumption_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['specific_water_consumption']) ? json_decode($response['specific_water_consumption'], true): [];
@@ -679,6 +724,9 @@
 
                <div class="incrementable-section" data-field="hazardous_waste">
                   <label for="usr">Hazardous Waste</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="hazardous_waste_unit" placeholder="Unit" id="hazardous_waste_unit" value="{{ isset($response['hazardous_waste_unit']) ? $response['hazardous_waste_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['hazardous_waste']) ? json_decode($response['hazardous_waste'], true): [];
@@ -704,6 +752,9 @@
 
                <div class="incrementable-section" data-field="non_hazardous_waste">
                   <label for="usr">Non-Hazardous Waste</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="non_hazardous_waste_unit" placeholder="Unit" id="non_hazardous_waste_unit" value="{{ isset($response['non_hazardous_waste_unit']) ? $response['non_hazardous_waste_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['non_hazardous_waste']) ? json_decode($response['non_hazardous_waste'], true): [];
@@ -729,6 +780,9 @@
 
                <div class="incrementable-section" data-field="waste_by_type">
                   <label for="usr">Waste by Type</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="waste_by_type_unit" placeholder="Unit" id="waste_by_type_unit" value="{{ isset($response['waste_by_type_unit']) ? $response['waste_by_type_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['waste_by_type']) ? json_decode($response['waste_by_type'], true): [];
@@ -754,6 +808,9 @@
 
                <div class="incrementable-section" data-field="waste_by_disposal_method">
                   <label for="usr">Waste by Disposal Method</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="waste_by_disposal_method_unit" placeholder="Unit" id="waste_by_disposal_method_unit" value="{{ isset($response['waste_by_disposal_method_unit']) ? $response['waste_by_disposal_method_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['waste_by_disposal_method']) ? json_decode($response['waste_by_disposal_method'], true): [];
@@ -779,6 +836,9 @@
 
                <div class="incrementable-section" data-field="waste_intensity_per_rupee_turnover">
                   <label for="usr">Waste Intensity per Rupee of Turnover</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="waste_intensity_per_rupee_turnover_unit" placeholder="Unit" id="waste_intensity_per_rupee_turnover_unit" value="{{ isset($response['waste_intensity_per_rupee_turnover_unit']) ? $response['waste_intensity_per_rupee_turnover_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['waste_intensity_per_rupee_turnover']) ? json_decode($response['waste_intensity_per_rupee_turnover'], true): [];
@@ -804,6 +864,9 @@
 
                <div class="incrementable-section" data-field="waste_intensity_physical_output">
                   <label for="usr">Waste Intensity in Terms of Physical Output</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="waste_intensity_physical_output_unit" placeholder="Unit" id="waste_intensity_physical_output_unit" value="{{ isset($response['waste_intensity_physical_output_unit']) ? $response['waste_intensity_physical_output_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['waste_intensity_physical_output']) ? json_decode($response['waste_intensity_physical_output'], true): [];
@@ -844,6 +907,9 @@
 
                <div class="incrementable-section" data-field="scope_1_emissions">
                   <label for="usr">Scope 1 Emissions</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="scope_1_emissions_unit" placeholder="Unit" id="scope_1_emissions_unit" value="{{ isset($response['scope_1_emissions_unit']) ? $response['scope_1_emissions_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['scope_1_emissions']) ? json_decode($response['scope_1_emissions'], true): [];
@@ -869,6 +935,9 @@
 
                <div class="incrementable-section" data-field="scope_2_emissions">
                   <label for="usr">Scope 2 Emissions</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="scope_2_emissions_unit" placeholder="Unit" id="scope_2_emissions_unit" value="{{ isset($response['scope_2_emissions_unit']) ? $response['scope_2_emissions_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['scope_2_emissions']) ? json_decode($response['scope_2_emissions'], true): [];
@@ -894,6 +963,9 @@
 
                <div class="incrementable-section" data-field="scope_3_emissions">
                   <label for="usr">Scope 3 Emissions</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="scope_3_emissions_unit" placeholder="Unit" id="scope_3_emissions_unit" value="{{ isset($response['scope_3_emissions_unit']) ? $response['scope_3_emissions_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['scope_3_emissions']) ? json_decode($response['scope_3_emissions'], true): [];
@@ -919,6 +991,9 @@
 
                <div class="incrementable-section" data-field="total_scope_1_2_emission_intensity">
                   <label for="usr">Total Scope 1 and Scope 2 Emission Intensity</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_scope_1_2_emission_intensity_unit" placeholder="Unit" id="total_scope_1_2_emission_intensity_unit" value="{{ isset($response['total_scope_1_2_emission_intensity_unit']) ? $response['total_scope_1_2_emission_intensity_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['total_scope_1_2_emission_intensity']) ? json_decode($response['total_scope_1_2_emission_intensity'], true): [];
@@ -944,6 +1019,9 @@
 
                <div class="incrementable-section" data-field="specific_emissions_scope_1_2_per_rupee_turnover">
                   <label for="usr">Specific Emissions-Scope 1 and Scope 2 per Rs Turnover</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="specific_emissions_scope_1_2_per_rupee_turnover_unit" placeholder="Unit" id="specific_emissions_scope_1_2_per_rupee_turnover_unit" value="{{ isset($response['specific_emissions_scope_1_2_per_rupee_turnover_unit']) ? $response['specific_emissions_scope_1_2_per_rupee_turnover_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['specific_emissions_scope_1_2_per_rupee_turnover']) ? json_decode($response['specific_emissions_scope_1_2_per_rupee_turnover'], true): [];
@@ -969,6 +1047,9 @@
 
                <div class="incrementable-section" data-field="air_pollutants">
                   <label for="usr">Air Pollutants</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="air_pollutants_unit" placeholder="Unit" id="air_pollutants_unit" value="{{ isset($response['air_pollutants_unit']) ? $response['air_pollutants_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['air_pollutants']) ? json_decode($response['air_pollutants'], true): [];
@@ -994,6 +1075,9 @@
 
                <div class="incrementable-section" data-field="hazardous_air_pollutants">
                   <label for="usr">Hazardous Air Pollutants</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="hazardous_air_pollutants_unit" placeholder="Unit" id="hazardous_air_pollutants_unit" value="{{ isset($response['hazardous_air_pollutants_unit']) ? $response['hazardous_air_pollutants_unit'] : "" }}">
+                  </div>
                   <?php 
                   $count = 0;
                   $energyDetail = isset($response['hazardous_air_pollutants']) ? json_decode($response['hazardous_air_pollutants'], true): [];
