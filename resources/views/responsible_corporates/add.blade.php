@@ -170,9 +170,39 @@
                   @endif
                </div>
 
-               <div class="form-group">
+               {{-- <div class="form-group">
                   <label for="usr">Factory Locations</label>
                   <input type="text" class="form-control" name="factory_locations" value="{{(isset($response['factory_locations']) && $response['factory_locations'] != '') ? $response['factory_locations'] : ''}}" placeholder="Location" id="factory_locations">
+                  @if($errors->has('factory_locations'))
+                  <ul class="parsley-errors-list filled">
+                     @foreach($errors->get('factory_locations') as $error)
+                     <li class="parsley-required">{{ $error }}</li>
+                     @endforeach
+                  </ul>
+                  @endif
+               </div> --}}
+
+               <div class="incrementable-section" data-field="factory_locations">
+                  <label for="usr">Factory Locations</label>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $factoryLocations = isset($response['factory_locations']) ? json_decode($response['factory_locations'], true) : [];
+                     foreach ($factoryLocations as $location) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-10">
+                                 <input type="text" class="form-control" name="factory_locations[<?php echo $count; ?>]" placeholder="Location" id="factory_locations_<?php echo $count; ?>" value="<?php echo htmlspecialchars($location); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } 
+                     ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="factory_locations">+</button>
                   @if($errors->has('factory_locations'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('factory_locations') as $error)
@@ -1229,26 +1259,75 @@
       });
 
       // Add row functionality
-      $('.add-row-btn').on('click', function() {
-         var field = $(this).data('field');
-         var container = $(this).prev('ul');
-         var lastIndex = container.find('li').length > 0 ? parseInt(container.find('li:last .remove-row-btn').data('index')) : -1;
-         var newIndex = lastIndex + 1;
+      $(document).ready(function() {
+         // Add row functionality
+         $('.add-row-btn').on('click', function() {
+            var field = $(this).data('field');
+            var container = $(this).prev('ul');
+            var lastIndex = container.find('li').length > 0 ? parseInt(container.find('li:last .remove-row-btn').data('index')) : -1;
+            var newIndex = lastIndex + 1;
 
-         var newRow = `
-            <li class="d-flex gap-2">
-               <div class="form-group col-md-5">
-                  <input type="text" class="form-control" name="${field}[${newIndex}][year]" placeholder="Year" id="${field}_${newIndex}_year">
-               </div>
-               <div class="form-group col-md-5">
-                  <input type="text" class="form-control" name="${field}[${newIndex}][value]" placeholder="Value" id="${field}_${newIndex}_value">
-               </div>
-               <div class="form-group col-md-2">
-                  <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
-               </div>
-            </li>
-         `;
-         container.append(newRow);
+            var newRow;
+            if (field === 'factory_locations') {
+                  // Single input for factory_locations
+                  newRow = `
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-10">
+                              <input type="text" class="form-control" name="${field}[${newIndex}]" placeholder="Location" id="${field}_${newIndex}">
+                        </div>
+                        <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
+                        </div>
+                     </li>
+                  `;
+            } else {
+                  // Existing year/value pair logic for other fields
+                  newRow = `
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="${field}[${newIndex}][year]" placeholder="Year" id="${field}_${newIndex}_year">
+                        </div>
+                        <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="${field}[${newIndex}][value]" placeholder="Value" id="${field}_${newIndex}_value">
+                        </div>
+                        <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
+                        </div>
+                     </li>
+                  `;
+            }
+            container.append(newRow);
+         });
+
+         // Remove row functionality
+         $(document).on('click', '.remove-row-btn', function() {
+            var index = $(this).data('index');
+            var field = $(this).closest('.incrementable-section').data('field');
+            $(this).closest('li').remove();
+
+            // Reindex the remaining rows
+            var container = $(this).closest('ul');
+            container.find('li').each(function(i) {
+                  if (field === 'factory_locations') {
+                     // Reindex for single input
+                     $(this).find('input[name="' + field + '[' + index + ']"]').attr({
+                        name: field + '[' + i + ']',
+                        id: field + '_' + i
+                     });
+                  } else {
+                     // Reindex for year/value pairs
+                     $(this).find('input[name="' + field + '[' + index + '][year]"]').attr({
+                        name: field + '[' + i + '][year]',
+                        id: field + '_' + i + '_year'
+                     });
+                     $(this).find('input[name="' + field + '[' + index + '][value]"]').attr({
+                        name: field + '[' + i + '][value]',
+                        id: field + '_' + i + '_value'
+                     });
+                  }
+                  $(this).find('.remove-row-btn').data('index', i).attr('data-index', i);
+            });
+         });
       });
 
       // Remove row functionality

@@ -34,7 +34,7 @@ class ResponsibleCorporatesController extends Controller
                 'industry' => json_encode($request->input('industry', [])),
                 'product_profile_sector' => $request->input('product_profile_sector'),
                 'ho_location' => $request->input('ho_location'),
-                'factory_locations' => $request->input('factory_locations'),
+                // 'factory_locations' => $request->input('factory_locations'),
                 'net_zero_target' => $request->input('net_zero_target'),
                 'certifications_accreditations' => $request->input('certifications_accreditations'),
                 'reporting_formats' => $request->input('reporting_formats'),
@@ -110,6 +110,10 @@ class ResponsibleCorporatesController extends Controller
                 'entered_by' => auth()->id()
             ];
 
+            $factoryLocations = $request->input('factory_locations', []);
+            $factoryLocations = array_filter($factoryLocations, fn($value) => !empty(trim($value))); // Remove empty values
+            $data_l['factory_locations'] = json_encode($factoryLocations);
+
             ResponsibleCorporates::create($data_l);
 
             return redirect()->route('responsible-corp-list')->withFlashSuccess('Responsible Corporate created successfully!');
@@ -184,6 +188,8 @@ class ResponsibleCorporatesController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        
+
         $data_l = [
             'name' => $request->input('name'),
             'slug' => str_replace(' ', '-', strtolower($request->input('name'))),
@@ -192,7 +198,7 @@ class ResponsibleCorporatesController extends Controller
             'industry' => json_encode($request->input('industry', [])),
             'product_profile_sector' => $request->input('product_profile_sector'),
             'ho_location' => $request->input('ho_location'),
-            'factory_locations' => $request->input('factory_locations'),
+            // 'factory_locations' => $request->input('factory_locations'),
             'net_zero_target' => $request->input('net_zero_target'),
             'certifications_accreditations' => $request->input('certifications_accreditations'),
             'reporting_formats' => $request->input('reporting_formats'),
@@ -263,6 +269,10 @@ class ResponsibleCorporatesController extends Controller
             'natural_capital' => $request->input('natural_capital'),
             'csr_for_climate_action' => $request->input('csr_for_climate_action'),
         ];
+
+        $factoryLocations = $request->input('factory_locations', []);
+        $factoryLocations = array_filter($factoryLocations, fn($value) => !empty(trim($value))); // Remove empty values
+        $data_l['factory_locations'] = json_encode($factoryLocations);
 
         $corporate->update($data_l);
 
