@@ -431,7 +431,7 @@ class ResponsibleCorporatesController extends Controller
     {
         $data = $this->encodeArrays($request->all());
         $data['entered_by'] = Auth::id();
-        echo $request->listing_id;die;
+        // echo $request->listing_id;die;
         $corporate = ResponsibleCorporates::findOrFail($request->listing_id);
         $corporate->update(Arr::only($data, [
             'name','slug','short_name','keyword_for_search','industry',
