@@ -48,7 +48,7 @@
       <div class="card-body">
          <?php if (isset($response)) { ?>
          <form action="<?php echo route('responsible-corp-updating', $id); ?>" page="<?php echo (isset($response)) ? 'edit' : 'add'; ?>" method="post" class="form-horizontal">
-            <input type="hidden" name="listing_id" value="<?php echo (isset($response['id']) && $response['id']) ? $response['id'] : ''; ?>">
+            <input type="hidden" name="listing_id" value="<?php echo (isset($id) && $id) ? $id : ''; ?>">
             <input type="hidden" name="slug" value="<?php echo (isset($response['slug']) && $response['slug']) ? $response['slug'] : ''; ?>">
             <input type="hidden" name="org_id" value="<?php echo (isset($response['org_id']) && $response['org_id']) ? $response['org_id'] : ''; ?>">
          <?php } else { ?>
