@@ -397,9 +397,6 @@ class ResponsibleCorporatesController extends Controller
     public function update(Request $request)
     {
         $data = $this->encodeArrays($request->all());
-        echo "<pre>";
-        print_r($data);
-        die;
         $data['entered_by'] = Auth::id();
 
         $corporate = ResponsibleCorporates::findOrFail($request->listing_id);
