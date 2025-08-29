@@ -429,66 +429,29 @@ class ResponsibleCorporatesController extends Controller
      */
     public function update(Request $request)
     {
-        $corporateId = $request->listing_id;
-
-        // Step 2: Find the existing corporate record
-        $corporate = ResponsibleCorporates::findOrFail($corporateId);
-
-        // Step 3: Encode arrays into JSON for storage
         $data = $this->encodeArrays($request->all());
         $data['entered_by'] = Auth::id();
 
-        // Step 4: Define the specific keys for each database table
-        $coreKeys = [
-            'name', 'slug', 'short_name', 'keyword_for_search', 'industry', 'product_profile_sector',
-            'ho_location', 'factory_locations', 'net_zero_target', 'certifications_accreditations',
-            'reporting_formats', 'ratings', 'assessment_verification', 'policy_ems', 'org_id',
-            'type', 'approval', 'entered_by'
-        ];
+        $corporate = ResponsibleCorporates::findOrFail($request->listing_id);
+        $corporate->update(Arr::only($data, [
+            'name','slug','short_name','keyword_for_search','industry',
+            'product_profile_sector','ho_location','factory_locations',
+            'net_zero_target','certifications_accreditations','reporting_formats',
+            'ratings','assessment_verification','policy_ems','org_id',
+            'type','approval','entered_by'
+        ]));
 
-        // We can get all the metric keys directly from the keys of the validation rules array
-        $allKeys = array_keys($this->getValidationRules());
-
-        // Filter keys for each metric type
-        $energyKeys = array_values(preg_grep('/^energy_|^total_.*energy|^non_renewable_energy|^renewable_power|^specific_energy/', $allKeys));
-        $waterKeys = array_values(preg_grep('/^water_|^total_water|^specific_water/', $allKeys));
-        $wasteKeys = array_values(preg_grep('/^waste_|^plastic_|^e_waste|^biological_|^construction_|^battery_|^radioactive_|^hazardous_|^non_hazardous_/', $allKeys));
-        $emissionKeys = array_values(preg_grep('/^emission_|^scope_|^specific_emissions_|^total_scope_|^no_x|^so_x|^particulate_matter|^pop|^voc|^hazardous_air|^other_emission|^air_pollutants/', $allKeys));
-        $csrKeys = array_values(preg_grep('/^csr_/', $allKeys));
-        $productStewardshipKeys = ['product_stewardship', 'natural_capital'];
-
-
-        // Step 5: Update the main corporate record with only its data
-        $corporate->update(Arr::only($data, $coreKeys));
-
-        // Step 6: Update or Create each metric record with only its specific data
-        $corporate->energyMetrics()->updateOrCreate(
-            ['responsible_corporate_id' => $corporate->id],
-            Arr::only($data, $energyKeys)
-        );
-        $corporate->waterMetrics()->updateOrCreate(
-            ['responsible_corporate_id' => $corporate->id],
-            Arr::only($data, $waterKeys)
-        );
-        $corporate->wasteMetrics()->updateOrCreate(
-            ['responsible_corporate_id' => $corporate->id],
-            Arr::only($data, $wasteKeys)
-        );
-        $corporate->emissionMetrics()->updateOrCreate(
-            ['responsible_corporate_id' => $corporate->id],
-            Arr::only($data, $emissionKeys)
-        );
-        $corporate->csrMetrics()->updateOrCreate(
-            ['responsible_corporate_id' => $corporate->id],
-            Arr::only($data, $csrKeys)
-        );
-        $corporate->productStewardship()->updateOrCreate(
-            ['responsible_corporate_id' => $corporate->id],
-            Arr::only($data, $productStewardshipKeys)
-        );
+        // Update or create metrics
+        $corporate->energyMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->waterMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->wasteMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->emissionMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->csrMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->productStewardship()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
 
         return redirect()->route('responsible-corp-list')->with('success', 'Corporate record updated successfully.');
     }
+
     /**
      * Remove the specified resource from storage.
      */
