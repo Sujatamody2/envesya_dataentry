@@ -428,7 +428,7 @@ class ResponsibleCorporatesController extends Controller
 
     private function encodeArrays($data)
     {
-        foreach ($input as $key => $value) {
+        foreach ($data as $key => $value) {
             if (is_array($value)) {
                 // If it's an array of [year, value] pairs
                 if (isset($value[0]['year']) && isset($value[0]['value'])) {
@@ -445,6 +445,6 @@ class ResponsibleCorporatesController extends Controller
                 }
             }
         }
-        return $input;
+        return $data;
     }
 }
