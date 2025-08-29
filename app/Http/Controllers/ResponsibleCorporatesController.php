@@ -431,7 +431,6 @@ class ResponsibleCorporatesController extends Controller
     {
         $data = $this->encodeArrays($request->all());
         $data['entered_by'] = Auth::id();
-        echo $request->listing_id;die;
         $corporate = ResponsibleCorporates::findOrFail($request->listing_id);
         $corporate->update(Arr::only($data, [
             'name','slug','short_name','keyword_for_search','industry',
@@ -440,7 +439,6 @@ class ResponsibleCorporatesController extends Controller
             'ratings','assessment_verification','policy_ems','org_id',
             'type','approval','entered_by'
         ]));
-        echo "<pre>";print_r($corporate);die;
 
         // Update or create metrics
         $corporate->energyMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
