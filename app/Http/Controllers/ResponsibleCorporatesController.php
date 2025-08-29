@@ -433,10 +433,11 @@ class ResponsibleCorporatesController extends Controller
 
     private function encodeArrays($data)
     {
-        $input = [];
+        $input = []; // initialize
+
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                // If it's an array of [year, value] pairs
+                // Case: array of [year, value] pairs
                 if (isset($value[0]['year']) && isset($value[0]['value'])) {
                     $mapped = [];
                     foreach ($value as $row) {
@@ -446,11 +447,15 @@ class ResponsibleCorporatesController extends Controller
                     }
                     $input[$key] = json_encode($mapped);
                 } else {
-                    // Otherwise, just encode the array normally
+                    // Generic array (e.g. multi-select checkboxes)
                     $input[$key] = json_encode($value);
                 }
+            } else {
+                // Keep scalar values as-is
+                $input[$key] = $value;
             }
         }
+
         return $input;
     }
 }
