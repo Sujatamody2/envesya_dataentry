@@ -2,416 +2,449 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\ResponsibleCorporates;
-use Illuminate\Support\Facades\Http;
+use App\Models\ResponsibleCorporateEnergyMetrics;
+use App\Models\ResponsibleCorporateWaterMetrics;
+use App\Models\ResponsibleCorporateWasteMetrics;
+use App\Models\ResponsibleCorporateEmissionMetrics;
+use App\Models\ResponsibleCorporateCsrMetrics;
+use App\Models\ResponsibleCorporateProductStewardship;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResponsibleCorporatesController extends Controller
 {
-    public function __construct()
+    /**
+     * Validation rules for core and metrics fields.
+     */
+    protected function getValidationRules($corporateId = null)
     {
-        $this->data = [];
+        return [
+            // Core fields
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:responsible_corporates,slug' . ($corporateId ? ',' . $corporateId : ''),
+            'short_name' => 'nullable|string|max:255',
+            'keyword_for_search' => 'nullable|string|max:255',
+            'industry' => 'nullable|string',
+            'product_profile_sector' => 'nullable|string|max:255',
+            'ho_location' => 'nullable|string|max:255',
+            'factory_locations' => 'nullable|string',
+            'net_zero_target' => 'nullable|string|max:255',
+            'certifications_accreditations' => 'nullable|string|max:255',
+            'reporting_formats' => 'nullable|string|max:255',
+            'ratings' => 'nullable|string|max:255',
+            'assessment_verification' => 'nullable|string|max:255',
+            'policy_ems' => 'nullable|string|max:255',
+            'org_id' => 'nullable|integer',
+            'type' => 'nullable|string|max:255',
+            'approval' => 'nullable|string|max:255',
+
+            // Energy Metrics (all nullable)
+            'energy_detail' => 'nullable|string',
+            'energy_initiative_detail' => 'nullable|string',
+            'total_electricity_consumption' => 'nullable|string',
+            'total_electricity_consumption_unit' => 'nullable|string|max:25',
+            'total_fuel_consumption' => 'nullable|string',
+            'total_fuel_consumption_unit' => 'nullable|string|max:25',
+            'energy_consumption_through_source' => 'nullable|string',
+            'energy_consumption_through_source_unit' => 'nullable|string|max:25',
+            'total_renewable_energy_consumption' => 'nullable|string',
+            'total_renewable_energy_consumption_unit' => 'nullable|string|max:25',
+            'total_non_renewable_energy_consumption' => 'nullable|string',
+            'total_non_renewable_energy_consumption_unit' => 'nullable|string|max:25',
+            'total_non_renewable_electricity_consumption' => 'nullable|string',
+            'total_non_renewable_electricity_consumption_unit' => 'nullable|string|max:25',
+            'total_non_renewable_fuel_consumption' => 'nullable|string',
+            'total_non_renewable_fuel_consumption_unit' => 'nullable|string|max:25',
+            'non_renewable_energy_consumption_through_source' => 'nullable|string',
+            'non_renewable_energy_consumption_through_source_unit' => 'nullable|string|max:25',
+            'total_energy_consumption' => 'nullable|string',
+            'total_energy_consumption_unit' => 'nullable|string|max:25',
+            'energy_intensity_per_rupee_turnover' => 'nullable|string',
+            'energy_intensity_per_rupee_turnover_unit' => 'nullable|string|max:25',
+            'energy_intensity_per_rupee_turnover_ppp' => 'nullable|string',
+            'energy_intensity_per_rupee_turnover_ppp_unit' => 'nullable|string|max:25',
+            'energy_intensity_physical_output' => 'nullable|string',
+            'energy_intensity_physical_output_unit' => 'nullable|string|max:25',
+            'energy_intensity' => 'nullable|string',
+            'energy_intensity_unit' => 'nullable|string|max:25',
+            'renewable_power_percentage' => 'nullable|string',
+            'renewable_power_percentage_unit' => 'nullable|string|max:25',
+            'specific_energy_consumption' => 'nullable|string',
+            'specific_energy_consumption_unit' => 'nullable|string|max:25',
+
+            // Water Metrics (all nullable)
+            'water_detail' => 'nullable|string',
+            'water_initiative_detail' => 'nullable|string',
+            'water_withdrawal_source_surface' => 'nullable|string',
+            'water_withdrawal_source_surface_unit' => 'nullable|string|max:25',
+            'water_withdrawal_source_ground' => 'nullable|string',
+            'water_withdrawal_source_ground_unit' => 'nullable|string|max:25',
+            'water_withdrawal_source_thirdparty' => 'nullable|string',
+            'water_withdrawal_source_thirdparty_unit' => 'nullable|string|max:25',
+            'water_withdrawal_source_sea' => 'nullable|string',
+            'water_withdrawal_source_sea_unit' => 'nullable|string|max:25',
+            'water_withdrawal_source_other' => 'nullable|string',
+            'water_withdrawal_source_other_unit' => 'nullable|string|max:25',
+            'total_water_withdrawal' => 'nullable|string',
+            'total_water_withdrawal_unit' => 'nullable|string|max:25',
+            'total_water_consumption' => 'nullable|string',
+            'total_water_consumption_unit' => 'nullable|string|max:25',
+            'water_intensity_per_rupee_turnover' => 'nullable|string',
+            'water_intensity_per_rupee_turnover_unit' => 'nullable|string|max:25',
+            'water_intensity_per_rupee_ppp_turnover' => 'nullable|string',
+            'water_intensity_per_rupee_ppp_turnover_unit' => 'nullable|string|max:25',
+            'water_intensity_physical_output' => 'nullable|string',
+            'water_intensity_physical_output_unit' => 'nullable|string|max:25',
+            'water_intensity' => 'nullable|string',
+            'water_intensity_unit' => 'nullable|string|max:25',
+            'water_discharge_to_surface_water_no_treatment' => 'nullable|string',
+            'water_discharge_to_surface_water_no_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_surface_water_with_treatment' => 'nullable|string',
+            'water_discharge_to_surface_water_with_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_ground_water_no_treatment' => 'nullable|string',
+            'water_discharge_to_ground_water_no_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_ground_water_with_treatment' => 'nullable|string',
+            'water_discharge_to_ground_water_with_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_sea_water_no_treatment' => 'nullable|string',
+            'water_discharge_to_sea_water_no_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_sea_water_with_treatment' => 'nullable|string',
+            'water_discharge_to_sea_water_with_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_thirdparty_water_no_treatment' => 'nullable|string',
+            'water_discharge_to_thirdparty_water_no_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_thirdparty_water_with_treatment' => 'nullable|string',
+            'water_discharge_to_thirdparty_water_with_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_other_water_no_treatment' => 'nullable|string',
+            'water_discharge_to_other_water_no_treatment_unit' => 'nullable|string|max:25',
+            'water_discharge_to_other_water_with_treatment' => 'nullable|string',
+            'water_discharge_to_other_water_with_treatment_unit' => 'nullable|string|max:25',
+            'total_water_discharged' => 'nullable|string',
+            'total_water_discharged_unit' => 'nullable|string|max:25',
+            'water_replenishment_percentage' => 'nullable|string',
+            'water_replenishment_percentage_unit' => 'nullable|string|max:25',
+            'total_water_withdrawal_by_source' => 'nullable|string',
+            'total_water_withdrawal_by_source_unit' => 'nullable|string|max:25',
+            'specific_water_consumption' => 'nullable|string',
+            'specific_water_consumption_unit' => 'nullable|string|max:25',
+
+            // Waste Metrics (all nullable)
+            'waste_detail' => 'nullable|string',
+            'waste_initiative_detail' => 'nullable|string',
+            'plastic_waste' => 'nullable|string',
+            'plastic_waste_unit' => 'nullable|string|max:25',
+            'e_waste' => 'nullable|string',
+            'e_waste_unit' => 'nullable|string|max:25',
+            'biological_waste' => 'nullable|string',
+            'biological_waste_unit' => 'nullable|string|max:25',
+            'construction_waste' => 'nullable|string',
+            'construction_waste_unit' => 'nullable|string|max:25',
+            'battery_waste' => 'nullable|string',
+            'battery_waste_unit' => 'nullable|string|max:25',
+            'radioactive_waste' => 'nullable|string',
+            'radioactive_waste_unit' => 'nullable|string|max:25',
+            'hazardous_waste' => 'nullable|string',
+            'hazardous_waste_unit' => 'nullable|string|max:25',
+            'non_hazardous_waste' => 'nullable|string',
+            'non_hazardous_waste_unit' => 'nullable|string|max:25',
+            'waste_intensity_per_rupee_turnover' => 'nullable|string',
+            'waste_intensity_per_rupee_turnover_unit' => 'nullable|string|max:25',
+            'waste_intensity_ppp' => 'nullable|string',
+            'waste_intensity_ppp_unit' => 'nullable|string|max:25',
+            'waste_intensity_physical_output' => 'nullable|string',
+            'waste_intensity_physical_output_unit' => 'nullable|string|max:25',
+            'waste_intensity' => 'nullable|string',
+            'waste_intensity_unit' => 'nullable|string|max:25',
+            'plastic_waste_recycled' => 'nullable|string',
+            'plastic_waste_recycled_unit' => 'nullable|string|max:25',
+            'plastic_waste_reused' => 'nullable|string',
+            'plastic_waste_reused_unit' => 'nullable|string|max:25',
+            'plastic_waste_other_recovery' => 'nullable|string',
+            'plastic_waste_other_recovery_unit' => 'nullable|string|max:25',
+            'e_waste_recycled' => 'nullable|string',
+            'e_waste_recycled_unit' => 'nullable|string|max:25',
+            'e_waste_reused' => 'nullable|string',
+            'e_waste_reused_unit' => 'nullable|string|max:25',
+            'e_waste_other_recovery' => 'nullable|string',
+            'e_waste_other_recovery_unit' => 'nullable|string|max:25',
+            'biological_waste_recycled' => 'nullable|string',
+            'biological_waste_recycled_unit' => 'nullable|string|max:25',
+            'biological_waste_reused' => 'nullable|string',
+            'biological_waste_reused_unit' => 'nullable|string|max:25',
+            'biological_waste_other_recovery' => 'nullable|string',
+            'biological_waste_other_recovery_unit' => 'nullable|string|max:25',
+            'construction_waste_recycled' => 'nullable|string',
+            'construction_waste_recycled_unit' => 'nullable|string|max:25',
+            'construction_waste_reused' => 'nullable|string',
+            'construction_waste_reused_unit' => 'nullable|string|max:25',
+            'construction_waste_other_recovery' => 'nullable|string',
+            'construction_waste_other_recovery_unit' => 'nullable|string|max:25',
+            'battery_waste_recycled' => 'nullable|string',
+            'battery_waste_recycled_unit' => 'nullable|string|max:25',
+            'battery_waste_reused' => 'nullable|string',
+            'battery_waste_reused_unit' => 'nullable|string|max:25',
+            'battery_waste_other_recovery' => 'nullable|string',
+            'battery_waste_other_recovery_unit' => 'nullable|string|max:25',
+            'radioactive_waste_recycled' => 'nullable|string',
+            'radioactive_waste_recycled_unit' => 'nullable|string|max:25',
+            'radioactive_waste_reused' => 'nullable|string',
+            'radioactive_waste_reused_unit' => 'nullable|string|max:25',
+            'radioactive_waste_other_recovery' => 'nullable|string',
+            'radioactive_waste_other_recovery_unit' => 'nullable|string|max:25',
+            'hazardous_waste_recycled' => 'nullable|string',
+            'hazardous_waste_recycled_unit' => 'nullable|string|max:25',
+            'hazardous_waste_reused' => 'nullable|string',
+            'hazardous_waste_reused_unit' => 'nullable|string|max:25',
+            'hazardous_waste_other_recovery' => 'nullable|string',
+            'hazardous_waste_other_recovery_unit' => 'nullable|string|max:25',
+            'non_hazardous_waste_recycled' => 'nullable|string',
+            'non_hazardous_waste_recycled_unit' => 'nullable|string|max:25',
+            'non_hazardous_waste_reused' => 'nullable|string',
+            'non_hazardous_waste_reused_unit' => 'nullable|string|max:25',
+            'non_hazardous_waste_other_recovery' => 'nullable|string',
+            'non_hazardous_waste_other_recovery_unit' => 'nullable|string|max:25',
+            'plastic_waste_incineration' => 'nullable|string',
+            'plastic_waste_incineration_unit' => 'nullable|string|max:25',
+            'plastic_waste_landfilling' => 'nullable|string',
+            'plastic_waste_landfilling_unit' => 'nullable|string|max:25',
+            'plastic_waste_other_disposal' => 'nullable|string',
+            'plastic_waste_other_disposal_unit' => 'nullable|string|max:25',
+            'e_waste_incineration' => 'nullable|string',
+            'e_waste_incineration_unit' => 'nullable|string|max:25',
+            'e_waste_landfilling' => 'nullable|string',
+            'e_waste_landfilling_unit' => 'nullable|string|max:25',
+            'e_waste_other_disposal' => 'nullable|string',
+            'e_waste_other_disposal_unit' => 'nullable|string|max:25',
+            'biological_waste_incineration' => 'nullable|string',
+            'biological_waste_incineration_unit' => 'nullable|string|max:25',
+            'biological_waste_landfilling' => 'nullable|string',
+            'biological_waste_landfilling_unit' => 'nullable|string|max:25',
+            'biological_waste_other_disposal' => 'nullable|string',
+            'biological_waste_other_disposal_unit' => 'nullable|string|max:25',
+            'construction_waste_incineration' => 'nullable|string',
+            'construction_waste_incineration_unit' => 'nullable|string|max:25',
+            'construction_waste_landfilling' => 'nullable|string',
+            'construction_waste_landfilling_unit' => 'nullable|string|max:25',
+            'construction_waste_other_disposal' => 'nullable|string',
+            'construction_waste_other_disposal_unit' => 'nullable|string|max:25',
+            'battery_waste_incineration' => 'nullable|string',
+            'battery_waste_incineration_unit' => 'nullable|string|max:25',
+            'battery_waste_landfilling' => 'nullable|string',
+            'battery_waste_landfilling_unit' => 'nullable|string|max:25',
+            'battery_waste_other_disposal' => 'nullable|string',
+            'battery_waste_other_disposal_unit' => 'nullable|string|max:25',
+            'radioactive_waste_incineration' => 'nullable|string',
+            'radioactive_waste_incineration_unit' => 'nullable|string|max:25',
+            'radioactive_waste_landfilling' => 'nullable|string',
+            'radioactive_waste_landfilling_unit' => 'nullable|string|max:25',
+            'radioactive_waste_other_disposal' => 'nullable|string',
+            'radioactive_waste_other_disposal_unit' => 'nullable|string|max:25',
+            'hazardous_waste_incineration' => 'nullable|string',
+            'hazardous_waste_incineration_unit' => 'nullable|string|max:25',
+            'hazardous_waste_landfilling' => 'nullable|string',
+            'hazardous_waste_landfilling_unit' => 'nullable|string|max:25',
+            'hazardous_waste_other_disposal' => 'nullable|string',
+            'hazardous_waste_other_disposal_unit' => 'nullable|string|max:25',
+            'non_hazardous_waste_incineration' => 'nullable|string',
+            'non_hazardous_waste_incineration_unit' => 'nullable|string|max:25',
+            'non_hazardous_waste_landfilling' => 'nullable|string',
+            'non_hazardous_waste_landfilling_unit' => 'nullable|string|max:25',
+            'non_hazardous_waste_other_disposal' => 'nullable|string',
+            'non_hazardous_waste_other_disposal_unit' => 'nullable|string|max:25',
+            'waste_by_type' => 'nullable|string',
+            'waste_by_type_unit' => 'nullable|string|max:25',
+            'waste_by_disposal_method' => 'nullable|string',
+            'waste_by_disposal_method_unit' => 'nullable|string|max:25',
+
+            // Emission Metrics (all nullable)
+            'emission_detail' => 'nullable|string',
+            'emission_initiative_detail' => 'nullable|string',
+            'scope_1_emissions' => 'nullable|string',
+            'scope_1_emissions_unit' => 'nullable|string|max:25',
+            'scope_2_emissions' => 'nullable|string',
+            'scope_2_emissions_unit' => 'nullable|string|max:25',
+            'specific_emissions_scope_1_2_per_rupee_turnover' => 'nullable|string',
+            'specific_emissions_scope_1_2_per_rupee_turnover_unit' => 'nullable|string|max:25',
+            'specific_emissions_scope_1_2_intensity_ppp' => 'nullable|string',
+            'specific_emissions_scope_1_2_intensity_ppp_unit' => 'nullable|string|max:25',
+            'specific_emissions_scope_1_2_intensity_physical_output' => 'nullable|string',
+            'specific_emissions_scope_1_2_intensity_physical_output_unit' => 'nullable|string|max:25',
+            'total_scope_1_2_emission_intensity' => 'nullable|string',
+            'total_scope_1_2_emission_intensity_unit' => 'nullable|string|max:25',
+            'scope_3_emissions' => 'nullable|string',
+            'scope_3_emissions_unit' => 'nullable|string|max:25',
+            'specific_emissions_scope_3_per_rupee_turnover' => 'nullable|string',
+            'specific_emissions_scope_3_per_rupee_turnover_unit' => 'nullable|string|max:25',
+            'total_scope_3_emission_intensity' => 'nullable|string',
+            'total_scope_3_emission_intensity_unit' => 'nullable|string|max:25',
+            'no_x' => 'nullable|string',
+            'no_x_unit' => 'nullable|string|max:25',
+            'so_x' => 'nullable|string',
+            'so_x_unit' => 'nullable|string|max:25',
+            'particulate_matter' => 'nullable|string',
+            'particulate_matter_unit' => 'nullable|string|max:25',
+            'pop' => 'nullable|string',
+            'pop_unit' => 'nullable|string|max:25',
+            'voc' => 'nullable|string',
+            'voc_unit' => 'nullable|string|max:25',
+            'hazardous_air_pollutants' => 'nullable|string',
+            'hazardous_air_pollutants_unit' => 'nullable|string|max:25',
+            'other_emission_detail' => 'nullable|string',
+            'air_pollutants' => 'nullable|string',
+            'air_pollutants_unit' => 'nullable|string|max:25',
+
+            // CSR Metrics (all nullable)
+            'csr_for_climate_action' => 'nullable|string',
+            'csr_initiative_detail' => 'nullable|string',
+            'csr_budget' => 'nullable|string',
+            'csr_budget_unit' => 'nullable|string|max:25',
+
+            // Product Stewardship (all nullable)
+            'product_stewardship' => 'nullable|string',
+            'natural_capital' => 'nullable|string',
+        ];
     }
 
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $this->data['industry'] = [];
-        $this->data['subsegment'] = [];
-        $this->data['industry_arr'] = [];
-        $this->data['segment_arr'] = [];
-        $this->data['fin_type_arr'] = [];
-        return view('responsible_corporates.add', $this->data);
+        $corporates = ResponsibleCorporates::with([
+            'energyMetrics',
+            'waterMetrics',
+            'wasteMetrics',
+            'emissionMetrics',
+            'csrMetrics',
+            'productStewardship'
+        ])->get();
+        return view('responsible_corporates.index', compact('corporates'));
     }
 
-    public function create_responsible_corporate(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        if ($request->all()) {
-            $data_l = [
-                'name' => $request->input('name'),
-                'slug' => str_replace(' ', '-', strtolower($request->input('name'))),
-                'short_name' => $request->input('short_name'),
-                'keyword_for_search' => $request->input('keyword_search'),
-                'industry' => json_encode($request->input('industry', [])),
-                'product_profile_sector' => $request->input('product_profile_sector'),
-                'ho_location' => $request->input('ho_location'),
-                // 'factory_locations' => $request->input('factory_locations'),
-                'net_zero_target' => $request->input('net_zero_target'),
-                'certifications_accreditations' => $request->input('certifications_accreditations'),
-                'reporting_formats' => $request->input('reporting_formats'),
-                'ratings' => $request->input('ratings'),
-                'assessment_verification' => $request->input('assessment_verification'),
-                'policy_ems' => $request->input('policy_ems'),
-                'energy_detail' => nl2br($request->input('energy_detail')),
-                'total_energy_consumption' => $this->encode_data($request->input('total_energy_consumption', [])),
-                'total_energy_consumption_unit' => $request->input('total_energy_consumption_unit'),
-                'total_renewable_energy_consumption' => $this->encode_data($request->input('total_renewable_energy_consumption', [])),
-                'total_renewable_energy_consumption_unit' => $request->input('total_renewable_energy_consumption_unit'),
-                'total_non_renewable_energy_consumption' => $this->encode_data($request->input('total_non_renewable_energy_consumption', [])),
-                'total_non_renewable_energy_consumption_unit' => $request->input('total_non_renewable_energy_consumption_unit'),
-                'renewable_power_percentage' => $this->encode_data($request->input('renewable_power_percentage', [])),
-                'renewable_power_percentage_unit' => $request->input('renewable_power_percentage_unit'),
-                'total_electricity_consumption' => $this->encode_data($request->input('total_electricity_consumption', [])),
-                'total_electricity_consumption_unit' => $request->input('total_electricity_consumption_unit'),
-                'total_fuel_consumption' => $this->encode_data($request->input('total_fuel_consumption', [])),
-                'total_fuel_consumption_unit' => $request->input('total_fuel_consumption_unit'),
-                'specific_energy_consumption' => $this->encode_data($request->input('specific_energy_consumption', [])),
-                'specific_energy_consumption_unit' => $request->input('specific_energy_consumption_unit'),
-                'energy_intensity_per_rupee_turnover' => $this->encode_data($request->input('energy_intensity_per_rupee_turnover', [])),
-                'energy_intensity_per_rupee_turnover_unit' => $request->input('energy_intensity_per_rupee_turnover_unit'),
-                'water_detail' => nl2br($request->input('water_detail')),
-                'water_replenishment_percentage' => $this->encode_data($request->input('water_replenishment_percentage', [])),
-                'water_replenishment_percentage_unit' => $request->input('water_replenishment_percentage_unit'),
-                'total_water_withdrawal' => $this->encode_data($request->input('total_water_withdrawal', [])),
-                'total_water_withdrawal_unit' => $request->input('total_water_withdrawal_unit'),
-                'total_water_withdrawal_by_source' => $this->encode_data($request->input('total_water_withdrawal_by_source', [])),
-                'total_water_withdrawal_by_source_unit' => $request->input('total_water_withdrawal_by_source_unit'),
-                'total_water_consumption' => $this->encode_data($request->input('total_water_consumption', [])),
-                'total_water_consumption_unit' => $request->input('total_water_consumption_unit'),
-                'total_water_discharged' => $this->encode_data($request->input('total_water_discharged', [])),
-                'total_water_discharged_unit' => $request->input('total_water_discharged_unit'),
-                'water_intensity_per_rupee_turnover' => $this->encode_data($request->input('water_intensity_per_rupee_turnover', [])),
-                'water_intensity_per_rupee_turnover_unit' => $request->input('water_intensity_per_rupee_turnover_unit'),
-                'specific_water_consumption' => $this->encode_data($request->input('specific_water_consumption', [])),
-                'specific_water_consumption_unit' => $request->input('specific_water_consumption_unit'),
-                'waste_detail' => nl2br($request->input('waste_detail')),
-                'hazardous_waste' => $this->encode_data($request->input('hazardous_waste', [])),
-                'hazardous_waste_unit' => $request->input('hazardous_waste_unit'),
-                'non_hazardous_waste' => $this->encode_data($request->input('non_hazardous_waste', [])),
-                'non_hazardous_waste_unit' => $request->input('non_hazardous_waste_unit'),
-                'waste_by_type' => $this->encode_data($request->input('waste_by_type', [])),
-                'waste_by_type_unit' => $request->input('waste_by_type_unit'),
-                'waste_by_disposal_method' => $this->encode_data($request->input('waste_by_disposal_method', [])),
-                'waste_by_disposal_method_unit' => $request->input('waste_by_disposal_method_unit'),
-                'waste_intensity_per_rupee_turnover' => $this->encode_data($request->input('waste_intensity_per_rupee_turnover', [])),
-                'waste_intensity_per_rupee_turnover_unit' => $request->input('waste_intensity_per_rupee_turnover_unit'),
-                'waste_intensity_physical_output' => $this->encode_data($request->input('waste_intensity_physical_output', [])),
-                'waste_intensity_physical_output_unit' => $request->input('waste_intensity_physical_output_unit'),
-                'product_stewardship' => nl2br($request->input('product_stewardship')),
-                'emission_detail' => nl2br($request->input('emission_detail')),
-                'scope_1_emissions' => $this->encode_data($request->input('scope_1_emissions', [])),
-                'scope_1_emissions_unit' => $request->input('scope_1_emissions_unit'),
-                'scope_2_emissions' => $this->encode_data($request->input('scope_2_emissions', [])),
-                'scope_2_emissions_unit' => $request->input('scope_2_emissions_unit'),
-                'scope_3_emissions' => $this->encode_data($request->input('scope_3_emissions', [])),
-                'scope_3_emissions_unit' => $request->input('scope_3_emissions_unit'),
-                'total_scope_1_2_emission_intensity' => $this->encode_data($request->input('total_scope_1_2_emission_intensity', [])),
-                'total_scope_1_2_emission_intensity_unit' => $request->input('total_scope_1_2_emission_intensity_unit'),
-                'specific_emissions_scope_1_2_per_rupee_turnover' => $this->encode_data($request->input('specific_emissions_scope_1_2_per_rupee_turnover', [])),
-                'specific_emissions_scope_1_2_per_rupee_turnover_unit' => $request->input('specific_emissions_scope_1_2_per_rupee_turnover_unit'),
-                'air_pollutants' => $this->encode_data($request->input('air_pollutants', [])),
-                'air_pollutants_unit' => $request->input('air_pollutants_unit'),
-                'hazardous_air_pollutants' => $this->encode_data($request->input('hazardous_air_pollutants', [])),
-                'hazardous_air_pollutants_unit' => $request->input('hazardous_air_pollutants_unit'),
-                'natural_capital' => $request->input('natural_capital'),
-                'csr_for_climate_action' => $request->input('csr_for_climate_action'),
-                'org_id' => 0,
-                'type' => 'free',
-                'approval' => 0,
-                'entered_by' => auth()->id()
-            ];
-
-            $factoryLocations = $request->input('factory_locations', []);
-            $factoryLocations = array_filter($factoryLocations, fn($value) => !empty(trim($value))); // Remove empty values
-            $data_l['factory_locations'] = json_encode($factoryLocations);
-
-            ResponsibleCorporates::create($data_l);
-
-            return redirect()->route('responsible-corp-list')->withFlashSuccess('Responsible Corporate created successfully!');
-        }
+        return view('responsible_corporates.add');
     }
 
-    public function listing(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
     {
-        $filter = $request->query('filter');
+        $data = $this->encodeArrays($request->all());
+        $data['slug'] = $data['short_name'];
+        $data['entered_by'] = Auth::id();
 
-        $resp = ResponsibleCorporates::with('enteredByUser')
-            ->where('type', 'free');
+        // Main record
+        $corporate = ResponsibleCorporates::create(Arr::only($data, [
+            'name','slug','short_name','keyword_for_search','industry',
+            'product_profile_sector','ho_location','factory_locations',
+            'net_zero_target','certifications_accreditations','reporting_formats',
+            'ratings','assessment_verification','policy_ems','org_id',
+            'type','approval','entered_by'
+        ]));
 
-        if (auth()->user()->is_admin != '1') {
-            $resp->where('entered_by', auth()->id());
-        }
+        // Related metrics
+        $corporate->energyMetrics()->create($data);
+        $corporate->waterMetrics()->create($data);
+        $corporate->wasteMetrics()->create($data);
+        $corporate->emissionMetrics()->create($data);
+        $corporate->csrMetrics()->create($data);
+        $corporate->productStewardship()->create($data);
 
-        if (!empty($filter)) {
-            if (strcasecmp($filter, 'Pending') === 0) {
-                $approval = 0;
-            } elseif (strcasecmp($filter, 'Approved') === 0) {
-                $approval = 1;
-            } elseif (strcasecmp($filter, 'Rejected') === 0) {
-                $approval = 2;
-            } elseif (strcasecmp($filter, 'Reviewed') === 0) {
-                $approval = 3;
-            } else {
-                $approval = '';
-            }
-
-            $resp->where(function($q) use($filter, $approval){
-                $q->orWhere('name', 'like', '%'.$filter.'%')
-                  ->orWhere('short_name', 'like', '%'.$filter.'%');
-
-                if ($approval !== '') {
-                    $q->orWhere('approval', $approval);
-                }
-            });
-        }
-
-        $resp = $resp->orderBy('id', 'desc')->paginate(10)->onEachSide(5);
-
-        return view('responsible_corporates.list', [
-            'response' => $resp,
-            'filter' => $filter
-        ]);
+        return redirect()->route('responsible-corp-list')->with('success', 'Corporate record created successfully.');
     }
 
-    public function updateresponsiblecorporate($id, Request $request)
+    /**
+     * Display the specified resource.
+     */
+    public function show(ResponsibleCorporates $responsibleCorporate)
     {
-        $corporate = ResponsibleCorporates::findOrFail($id);
-
-        if (auth()->user()->is_admin != '1' && $corporate->entered_by != auth()->id()) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $this->data['response'] = $corporate->toArray();
-        $this->data['industry'] = [];
-        $this->data['subsegment'] = [];
-        $this->data['industry_arr'] = [];
-        $this->data['segment_arr'] = [];
-        $this->data['fin_type_arr'] = [];
-
-        return view('responsible_corporates.add', $this->data);
+        $responsibleCorporate::with([
+            'energyMetrics',
+            'waterMetrics',
+            'wasteMetrics',
+            'emissionMetrics',
+            'csrMetrics',
+            'productStewardship'
+        ])->get();
+        return view('responsible_corporates.show', compact('responsibleCorporate'));
     }
 
-    public function updatingresponsiblecorporate(Request $request, $id)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
     {
-        $corporate = ResponsibleCorporates::findOrFail($id);
-
-        if (auth()->user()->is_admin != '1' && $corporate->entered_by != auth()->id()) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        
-
-        $data_l = [
-            'name' => $request->input('name'),
-            'slug' => str_replace(' ', '-', strtolower($request->input('name'))),
-            'short_name' => $request->input('short_name'),
-            'keyword_for_search' => $request->input('keyword_search'),
-            'industry' => json_encode($request->input('industry', [])),
-            'product_profile_sector' => $request->input('product_profile_sector'),
-            'ho_location' => $request->input('ho_location'),
-            // 'factory_locations' => $request->input('factory_locations'),
-            'net_zero_target' => $request->input('net_zero_target'),
-            'certifications_accreditations' => $request->input('certifications_accreditations'),
-            'reporting_formats' => $request->input('reporting_formats'),
-            'ratings' => $request->input('ratings'),
-            'assessment_verification' => $request->input('assessment_verification'),
-            'policy_ems' => $request->input('policy_ems'),
-            'energy_detail' => nl2br($request->input('energy_detail')),
-            'total_energy_consumption' => $this->encode_data($request->input('total_energy_consumption', [])),
-            'total_energy_consumption_unit' => $request->input('total_energy_consumption_unit'),
-            'total_renewable_energy_consumption' => $this->encode_data($request->input('total_renewable_energy_consumption', [])),
-            'total_renewable_energy_consumption_unit' => $request->input('total_renewable_energy_consumption_unit'),
-            'total_non_renewable_energy_consumption' => $this->encode_data($request->input('total_non_renewable_energy_consumption', [])),
-            'total_non_renewable_energy_consumption_unit' => $request->input('total_non_renewable_energy_consumption_unit'),
-            'renewable_power_percentage' => $this->encode_data($request->input('renewable_power_percentage', [])),
-            'renewable_power_percentage_unit' => $request->input('renewable_power_percentage_unit'),
-            'total_electricity_consumption' => $this->encode_data($request->input('total_electricity_consumption', [])),
-            'total_electricity_consumption_unit' => $request->input('total_electricity_consumption_unit'),
-            'total_fuel_consumption' => $this->encode_data($request->input('total_fuel_consumption', [])),
-            'total_fuel_consumption_unit' => $request->input('total_fuel_consumption_unit'),
-            'specific_energy_consumption' => $this->encode_data($request->input('specific_energy_consumption', [])),
-            'specific_energy_consumption_unit' => $request->input('specific_energy_consumption_unit'),
-            'energy_intensity_per_rupee_turnover' => $this->encode_data($request->input('energy_intensity_per_rupee_turnover', [])),
-            'energy_intensity_per_rupee_turnover_unit' => $request->input('energy_intensity_per_rupee_turnover_unit'),
-            'water_detail' => nl2br($request->input('water_detail')),
-            'water_replenishment_percentage' => $this->encode_data($request->input('water_replenishment_percentage', [])),
-            'water_replenishment_percentage_unit' => $request->input('water_replenishment_percentage_unit'),
-            'total_water_withdrawal' => $this->encode_data($request->input('total_water_withdrawal', [])),
-            'total_water_withdrawal_unit' => $request->input('total_water_withdrawal_unit'),
-            'total_water_withdrawal_by_source' => $this->encode_data($request->input('total_water_withdrawal_by_source', [])),
-            'total_water_withdrawal_by_source_unit' => $request->input('total_water_withdrawal_by_source_unit'),
-            'total_water_consumption' => $this->encode_data($request->input('total_water_consumption', [])),
-            'total_water_consumption_unit' => $request->input('total_water_consumption_unit'),
-            'total_water_discharged' => $this->encode_data($request->input('total_water_discharged', [])),
-            'total_water_discharged_unit' => $request->input('total_water_discharged_unit'),
-            'water_intensity_per_rupee_turnover' => $this->encode_data($request->input('water_intensity_per_rupee_turnover', [])),
-            'water_intensity_per_rupee_turnover_unit' => $request->input('water_intensity_per_rupee_turnover_unit'),
-            'specific_water_consumption' => $this->encode_data($request->input('specific_water_consumption', [])),
-            'specific_water_consumption_unit' => $request->input('specific_water_consumption_unit'),
-            'waste_detail' => nl2br($request->input('waste_detail')),
-            'hazardous_waste' => $this->encode_data($request->input('hazardous_waste', [])),
-            'hazardous_waste_unit' => $request->input('hazardous_waste_unit'),
-            'non_hazardous_waste' => $this->encode_data($request->input('non_hazardous_waste', [])),
-            'non_hazardous_waste_unit' => $request->input('non_hazardous_waste_unit'),
-            'waste_by_type' => $this->encode_data($request->input('waste_by_type', [])),
-            'waste_by_type_unit' => $request->input('waste_by_type_unit'),
-            'waste_by_disposal_method' => $this->encode_data($request->input('waste_by_disposal_method', [])),
-            'waste_by_disposal_method_unit' => $request->input('waste_by_disposal_method_unit'),
-            'waste_intensity_per_rupee_turnover' => $this->encode_data($request->input('waste_intensity_per_rupee_turnover', [])),
-            'waste_intensity_per_rupee_turnover_unit' => $request->input('waste_intensity_per_rupee_turnover_unit'),
-            'waste_intensity_physical_output' => $this->encode_data($request->input('waste_intensity_physical_output', [])),
-            'waste_intensity_physical_output_unit' => $request->input('waste_intensity_physical_output_unit'),
-            'product_stewardship' => nl2br($request->input('product_stewardship')),
-            'emission_detail' => nl2br($request->input('emission_detail')),
-            'scope_1_emissions' => $this->encode_data($request->input('scope_1_emissions', [])),
-            'scope_1_emissions_unit' => $request->input('scope_1_emissions_unit'),
-            'scope_2_emissions' => $this->encode_data($request->input('scope_2_emissions', [])),
-            'scope_2_emissions_unit' => $request->input('scope_2_emissions_unit'),
-            'scope_3_emissions' => $this->encode_data($request->input('scope_3_emissions', [])),
-            'scope_3_emissions_unit' => $request->input('scope_3_emissions_unit'),
-            'total_scope_1_2_emission_intensity' => $this->encode_data($request->input('total_scope_1_2_emission_intensity', [])),
-            'total_scope_1_2_emission_intensity_unit' => $request->input('total_scope_1_2_emission_intensity_unit'),
-            'specific_emissions_scope_1_2_per_rupee_turnover' => $this->encode_data($request->input('specific_emissions_scope_1_2_per_rupee_turnover', [])),
-            'specific_emissions_scope_1_2_per_rupee_turnover_unit' => $request->input('specific_emissions_scope_1_2_per_rupee_turnover_unit'),
-            'air_pollutants' => $this->encode_data($request->input('air_pollutants', [])),
-            'air_pollutants_unit' => $request->input('air_pollutants_unit'),
-            'hazardous_air_pollutants' => $this->encode_data($request->input('hazardous_air_pollutants', [])),
-            'hazardous_air_pollutants_unit' => $request->input('hazardous_air_pollutants_unit'),
-            'natural_capital' => $request->input('natural_capital'),
-            'csr_for_climate_action' => $request->input('csr_for_climate_action'),
-        ];
-
-        $factoryLocations = $request->input('factory_locations', []);
-        $factoryLocations = array_filter($factoryLocations, fn($value) => !empty(trim($value))); // Remove empty values
-        $data_l['factory_locations'] = json_encode($factoryLocations);
-
-        $corporate->update($data_l);
-
-        $page = $request->query('page');
-
-        return redirect()->route('responsible-corp-list', compact('page'))->withFlashSuccess('Responsible Corporate updated successfully!');
+        $response = ResponsibleCorporates::where('id',$id)->with([
+            'energyMetrics',
+            'waterMetrics',
+            'wasteMetrics',
+            'emissionMetrics',
+            'csrMetrics',
+            'productStewardship'
+        ])->first();
+        return view('responsible_corporates.add', compact('response'));
     }
 
-    public function deleteresponsiblecorporate($id, Request $request)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
     {
-        $corporate = ResponsibleCorporates::findOrFail($id);
+        $data = $this->encodeArrays($request->all());
+        $data['entered_by'] = Auth::id();
 
-        if (auth()->user()->is_admin != '1' && $corporate->entered_by != auth()->id()) {
-            abort(403, 'Unauthorized action.');
-        }
+        $corporate = ResponsibleCorporates::findOrFail($request->listing_id);
+        $corporate->update(Arr::only($data, [
+            'name','slug','short_name','keyword_for_search','industry',
+            'product_profile_sector','ho_location','factory_locations',
+            'net_zero_target','certifications_accreditations','reporting_formats',
+            'ratings','assessment_verification','policy_ems','org_id',
+            'type','approval','entered_by'
+        ]));
 
-        $corporate->delete();
+        // Update or create metrics
+        $corporate->energyMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->waterMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->wasteMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->emissionMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->csrMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->productStewardship()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
 
-        $page = $request->query('page');
-
-        return redirect()->route('responsible-corp-list', compact('page'))->withFlashSuccess('Responsible Corporate deleted successfully!');
+        return redirect()->route('responsible-corp-list')->with('success', 'Corporate record updated successfully.');
     }
 
-    public function listing_statusupdateRes($id, $status, Request $request)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(ResponsibleCorporates $responsibleCorporate)
     {
-        if (auth()->user()->is_admin != '1') {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $corporate = ResponsibleCorporates::findOrFail($id);
-        $corporate->approval = $status;
-        $corporate->save();
-
-        if ($status == '1') {
-            $response = Http::post('https://uat.envesya.com/api/store-responsible-corporate', [
-                'name' => $corporate->name,
-                'slug' => $corporate->slug,
-                'short_name' => $corporate->short_name,
-                'keyword_search' => $corporate->keyword_for_search, // match receiving API param name
-                'industry' => $corporate->industry,
-                'product_profile_sector' => $corporate->product_profile_sector,
-                'ho_location' => $corporate->ho_location,
-                'factory_locations' => $corporate->factory_locations,
-                'net_zero_target' => $corporate->net_zero_target,
-                'certifications_accreditations' => $corporate->certifications_accreditations,
-                'reporting_formats' => $corporate->reporting_formats,
-                'ratings' => $corporate->ratings,
-                'assessment_verification' => $corporate->assessment_verification,
-                'policy_ems' => $corporate->policy_ems,
-                'energy_detail' => $corporate->energy_detail,
-                'total_energy_consumption' => $corporate->total_energy_consumption,
-                'total_energy_consumption_unit' => $corporate->total_energy_consumption_unit,
-                'total_renewable_energy_consumption' => $corporate->total_renewable_energy_consumption,
-                'total_renewable_energy_consumption_unit' => $corporate->total_renewable_energy_consumption_unit,
-                'total_non_renewable_energy_consumption' => $corporate->total_non_renewable_energy_consumption,
-                'total_non_renewable_energy_consumption_unit' => $corporate->total_non_renewable_energy_consumption_unit,
-                'renewable_power_percentage' => $corporate->renewable_power_percentage,
-                'renewable_power_percentage_unit' => $corporate->renewable_power_percentage_unit,
-                'total_electricity_consumption' => $corporate->total_electricity_consumption,
-                'total_electricity_consumption_unit' => $corporate->total_electricity_consumption_unit,
-                'total_fuel_consumption' => $corporate->total_fuel_consumption,
-                'total_fuel_consumption_unit' => $corporate->total_fuel_consumption_unit,
-                'specific_energy_consumption' => $corporate->specific_energy_consumption,
-                'specific_energy_consumption_unit' => $corporate->specific_energy_consumption_unit,
-                'energy_intensity_per_rupee_turnover' => $corporate->energy_intensity_per_rupee_turnover,
-                'energy_intensity_per_rupee_turnover_unit' => $corporate->energy_intensity_per_rupee_turnover_unit,
-                'water_detail' => $corporate->water_detail,
-                'water_replenishment_percentage' => $corporate->water_replenishment_percentage,
-                'water_replenishment_percentage_unit' => $corporate->water_replenishment_percentage_unit,
-                'total_water_withdrawal' => $corporate->total_water_withdrawal,
-                'total_water_withdrawal_unit' => $corporate->total_water_withdrawal_unit,
-                'total_water_withdrawal_by_source' => $corporate->total_water_withdrawal_by_source,
-                'total_water_withdrawal_by_source_unit' => $corporate->total_water_withdrawal_by_source_unit,
-                'total_water_consumption' => $corporate->total_water_consumption,
-                'total_water_consumption_unit' => $corporate->total_water_consumption_unit,
-                'total_water_discharged' => $corporate->total_water_discharged,
-                'total_water_discharged_unit' => $corporate->total_water_discharged_unit,
-                'water_intensity_per_rupee_turnover' => $corporate->water_intensity_per_rupee_turnover,
-                'water_intensity_per_rupee_turnover_unit' => $corporate->water_intensity_per_rupee_turnover_unit,
-                'specific_water_consumption' => $corporate->specific_water_consumption,
-                'specific_water_consumption_unit' => $corporate->specific_water_consumption_unit,
-                'waste_detail' => $corporate->waste_detail,
-                'hazardous_waste' => $corporate->hazardous_waste,
-                'hazardous_waste_unit' => $corporate->hazardous_waste_unit,
-                'non_hazardous_waste' => $corporate->non_hazardous_waste,
-                'non_hazardous_waste_unit' => $corporate->non_hazardous_waste_unit,
-                'waste_by_type' => $corporate->waste_by_type,
-                'waste_by_type_unit' => $corporate->waste_by_type_unit,
-                'waste_by_disposal_method' => $corporate->waste_by_disposal_method,
-                'waste_by_disposal_method_unit' => $corporate->waste_by_disposal_method_unit,
-                'waste_intensity_per_rupee_turnover' => $corporate->waste_intensity_per_rupee_turnover,
-                'waste_intensity_per_rupee_turnover_unit' => $corporate->waste_intensity_per_rupee_turnover_unit,
-                'waste_intensity_physical_output' => $corporate->waste_intensity_physical_output,
-                'waste_intensity_physical_output_unit' => $corporate->waste_intensity_physical_output_unit,
-                'product_stewardship' => $corporate->product_stewardship,
-                'emission_detail' => $corporate->emission_detail,
-                'scope_1_emissions' => $corporate->scope_1_emissions,
-                'scope_1_emissions_unit' => $corporate->scope_1_emissions_unit,
-                'scope_2_emissions' => $corporate->scope_2_emissions,
-                'scope_2_emissions_unit' => $corporate->scope_2_emissions_unit,
-                'scope_3_emissions' => $corporate->scope_3_emissions,
-                'scope_3_emissions_unit' => $corporate->scope_3_emissions_unit,
-                'total_scope_1_2_emission_intensity' => $corporate->total_scope_1_2_emission_intensity,
-                'total_scope_1_2_emission_intensity_unit' => $corporate->total_scope_1_2_emission_intensity_unit,
-                'specific_emissions_scope_1_2_per_rupee_turnover' => $corporate->specific_emissions_scope_1_2_per_rupee_turnover,
-                'specific_emissions_scope_1_2_per_rupee_turnover_unit' => $corporate->specific_emissions_scope_1_2_per_rupee_turnover_unit,
-                'air_pollutants' => $corporate->air_pollutants,
-                'air_pollutants_unit' => $corporate->air_pollutants_unit,
-                'hazardous_air_pollutants' => $corporate->hazardous_air_pollutants,
-                'hazardous_air_pollutants_unit' => $corporate->hazardous_air_pollutants_unit,
-                'natural_capital' => $corporate->natural_capital,
-                'csr_for_climate_action' => $corporate->csr_for_climate_action,
-            ]);
-            \Log::info($response);
-
-            if (!$response->successful()) {
-                // handle error, maybe log it
-                \Log::error('Failed to send corporate to other DB', [
-                    'corporate_id' => $corporate->id,
-                    'response' => $response->body(),
-                ]);
-            }
-        }
-
-        $page = $request->query('page');
-
-        return redirect()->route('responsible-corp-list', compact('page'))->withFlashSuccess('Status updated successfully!');
+        $responsibleCorporate->delete(); // Cascades to related metrics tables due to ON DELETE CASCADE
+        return redirect()->route('responsible-corp-list')->with('success', 'Corporate record deleted successfully.');
     }
 
-    private function encode_data($data)
+    private function encodeArrays($data)
     {
-        $result = [];
-        if (!empty($data)) {
-            foreach ($data as $item) {
-                if (isset($item['year'], $item['value']) && !empty($item['year'])) {
-                    $result[$item['year']] = $item['value'];
+        foreach ($input as $key => $value) {
+            if (is_array($value)) {
+                // If it's an array of [year, value] pairs
+                if (isset($value[0]['year']) && isset($value[0]['value'])) {
+                    $mapped = [];
+                    foreach ($value as $row) {
+                        if (!empty($row['year']) && !empty($row['value'])) {
+                            $mapped[$row['year']] = $row['value'];
+                        }
+                    }
+                    $input[$key] = json_encode($mapped);
+                } else {
+                    // Otherwise, just encode the array normally
+                    $input[$key] = json_encode($value);
                 }
             }
         }
-        return json_encode($result);
+        return $input;
     }
 }

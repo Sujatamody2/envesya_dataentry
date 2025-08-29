@@ -49,6 +49,7 @@
          <?php if (isset($response)) { ?>
          <form action="<?php echo route('responsible-corp-updating', $response['id']); ?>" page="<?php echo (isset($response)) ? 'edit' : 'add'; ?>" method="post" class="form-horizontal">
             <input type="hidden" name="listing_id" value="<?php echo (isset($response['id']) && $response['id']) ? $response['id'] : ''; ?>">
+            <input type="hidden" name="slug" value="<?php echo (isset($response['slug']) && $response['slug']) ? $response['slug'] : ''; ?>">
             <input type="hidden" name="org_id" value="<?php echo (isset($response['org_id']) && $response['org_id']) ? $response['org_id'] : ''; ?>">
          <?php } else { ?>
             <form action="<?php echo route('responsible-corp-add'); ?>" method="post" class="form-horizontal">
@@ -357,6 +358,91 @@
                   <button type="button" class="btn add-row-btn" data-field="total_renewable_energy_consumption">+</button>
                </div>
 
+
+               <div class="incrementable-section" data-field="total_non_renewable_electricity_consumption">
+                  <label for="usr">Total electricity consumption (Non Renewable)</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_non_renewable_electricity_consumption_unit" placeholder="Unit" id="total_non_renewable_electricity_consumption_unit" value="{{ isset($response['total_non_renewable_electricity_consumption_unit']) ? $response['total_non_renewable_electricity_consumption_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['total_non_renewable_electricity_consumption']) ? json_decode($response['total_non_renewable_electricity_consumption'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_non_renewable_electricity_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_electricity_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_non_renewable_electricity_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_electricity_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="total_non_renewable_electricity_consumption">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="total_non_renewable_fuel_consumption">
+                  <label for="usr">Total fuel consumption (Non Renewable)</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_non_renewable_fuel_consumption_unit" placeholder="Unit" id="total_non_renewable_fuel_consumption_unit" value="{{ isset($response['total_non_renewable_fuel_consumption_unit']) ? $response['total_non_renewable_fuel_consumption_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['total_non_renewable_fuel_consumption']) ? json_decode($response['total_non_renewable_fuel_consumption'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_non_renewable_fuel_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_fuel_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_non_renewable_fuel_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_fuel_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="total_non_renewable_fuel_consumption">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="non_renewable_energy_cosuption_through_source">
+                  <label for="usr">Energy consumption through other sources (Non Renewable)</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source_unit" placeholder="Unit" id="non_renewable_energy_cosuption_through_source_unit" value="{{ isset($response['non_renewable_energy_cosuption_through_source_unit']) ? $response['non_renewable_energy_cosuption_through_source_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['non_renewable_energy_cosuption_through_source']) ? json_decode($response['non_renewable_energy_cosuption_through_source'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="non_renewable_energy_cosuption_through_source">+</button>
+               </div>
+
                <div class="incrementable-section" data-field="total_non_renewable_energy_consumption">
                   <label for="usr">Total Non Renewable Energy Consumption</label>
                   <div class="form-group col-md-5">
@@ -470,6 +556,34 @@
                   <button type="button" class="btn add-row-btn" data-field="total_fuel_consumption">+</button>
                </div>
 
+               <div class="incrementable-section" data-field="energy_cosuption_through_source">
+                  <label for="usr">Energy consumption through other sources</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="energy_cosuption_through_source_unit" placeholder="Unit" id="energy_cosuption_through_source_unit" value="{{ isset($response['energy_cosuption_through_source_unit']) ? $response['energy_cosuption_through_source_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['energy_cosuption_through_source']) ? json_decode($response['energy_cosuption_through_source'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="energy_cosuption_through_source">+</button>
+               </div>
+
                <div class="incrementable-section" data-field="specific_energy_consumption">
                   <label for="usr">Specific Energy Consumption</label>
                   <div class="form-group col-md-5">
@@ -525,6 +639,90 @@
                   echo "</ul>";?>
                   <button type="button" class="btn add-row-btn" data-field="energy_intensity_per_rupee_turnover">+</button>
                </div>
+
+               <div class="incrementable-section" data-field="energy_intensity_per_rupee_turnover_ppp">
+                  <label for="usr">Energy intensity per rupee of turnover (PPP adjusted)</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover_ppp_unit" placeholder="Unit" id="energy_intensity_per_rupee_turnover_ppp_unit" value="{{ isset($response['energy_intensity_per_rupee_turnover_ppp_unit']) ? $response['energy_intensity_per_rupee_turnover_ppp_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['energy_intensity_per_rupee_turnover_ppp']) ? json_decode($response['energy_intensity_per_rupee_turnover_ppp'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover_ppp[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_per_rupee_turnover_ppp_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover_ppp[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_per_rupee_turnover_ppp_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="energy_intensity_per_rupee_turnover_ppp">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="energy_intensity_physical_output">
+                  <label for="usr">Energy intensity in terms of physical output</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="energy_intensity_physical_output_unit" placeholder="Unit" id="energy_intensity_physical_output_unit" value="{{ isset($response['energy_intensity_physical_output_unit']) ? $response['energy_intensity_physical_output_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['energy_intensity_physical_output']) ? json_decode($response['energy_intensity_physical_output'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="energy_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="energy_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="energy_intensity_physical_output">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="energy_intensity">
+                  <label for="usr">Energy intensity</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="energy_intensity_unit" placeholder="Unit" id="energy_intensity_unit" value="{{ isset($response['energy_intensity_unit']) ? $response['energy_intensity_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['energy_intensity']) ? json_decode($response['energy_intensity'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="energy_intensity[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="energy_intensity[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="energy_intensity">+</button>
+               </div>
             </div>
 
             <!-- Water Tab -->
@@ -540,6 +738,151 @@
                   </ul>
                   @endif
                </div>
+               <div class="incrementable-section" data-field="water_withdrawal_source_surface">
+                  <label for="usr">Water Withdrawal Source - Surface</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_withdrawal_source_surface_unit" placeholder="Unit" id="water_withdrawal_source_surface_unit" value="{{ isset($response['water_withdrawal_source_surface_unit']) ? $response['water_withdrawal_source_surface_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_withdrawal_source_surface']) ? json_decode($response['water_withdrawal_source_surface'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_surface[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_surface_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_surface[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_surface_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_withdrawal_source_surface">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_withdrawal_source_ground">
+                  <label for="usr">Water Withdrawal Source - Ground</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_withdrawal_source_ground_unit" placeholder="Unit" id="water_withdrawal_source_ground_unit" value="{{ isset($response['water_withdrawal_source_ground_unit']) ? $response['water_withdrawal_source_ground_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_withdrawal_source_ground']) ? json_decode($response['water_withdrawal_source_ground'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_ground[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_ground_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_ground[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_ground_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_withdrawal_source_ground">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_withdrawal_source_thirdparty">
+                  <label for="usr">Water Withdrawal Source - Third Party</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_withdrawal_source_thirdparty_unit" placeholder="Unit" id="water_withdrawal_source_thirdparty_unit" value="{{ isset($response['water_withdrawal_source_thirdparty_unit']) ? $response['water_withdrawal_source_thirdparty_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_withdrawal_source_thirdparty']) ? json_decode($response['water_withdrawal_source_thirdparty'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_thirdparty[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_thirdparty_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_thirdparty[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_thirdparty_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_withdrawal_source_thirdparty">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_withdrawal_source_sea">
+                  <label for="usr">Water Withdrawal Source - Sea</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_withdrawal_source_sea_unit" placeholder="Unit" id="water_withdrawal_source_sea_unit" value="{{ isset($response['water_withdrawal_source_sea_unit']) ? $response['water_withdrawal_source_sea_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_withdrawal_source_sea']) ? json_decode($response['water_withdrawal_source_sea'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_sea[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_sea_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_sea[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_sea_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_withdrawal_source_sea">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_withdrawal_source_other">
+                  <label for="usr">Water Withdrawal Source - Other</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_withdrawal_source_other_unit" placeholder="Unit" id="water_withdrawal_source_other_unit" value="{{ isset($response['water_withdrawal_source_other_unit']) ? $response['water_withdrawal_source_other_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_withdrawal_source_other']) ? json_decode($response['water_withdrawal_source_other'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_other[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_other_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_withdrawal_source_other[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_other_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_withdrawal_source_other">+</button>
+               </div>
+
 
                <div class="incrementable-section" data-field="water_replenishment_percentage">
                   <label for="usr">Water Replenishment % of Consumption</label>
@@ -653,6 +996,296 @@
                   <button type="button" class="btn add-row-btn" data-field="total_water_consumption">+</button>
                </div>
 
+               <div class="incrementable-section" data-field="water_discharge_to_surface_water_no_treatment">
+                  <label for="usr">Water Discharge to Surface Water - No Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_surface_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_surface_water_no_treatment_unit']) ? $response['water_discharge_to_surface_water_no_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_surface_water_no_treatment']) ? json_decode($response['water_discharge_to_surface_water_no_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_surface_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_surface_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_surface_water_no_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_surface_water_with_treatment">
+                  <label for="usr">Water Discharge to Surface Water - With Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_surface_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_surface_water_with_treatment_unit']) ? $response['water_discharge_to_surface_water_with_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_surface_water_with_treatment']) ? json_decode($response['water_discharge_to_surface_water_with_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_surface_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_surface_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_surface_water_with_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_ground_water_no_treatment">
+                  <label for="usr">Water Discharge to Ground Water - No Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_ground_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_ground_water_no_treatment_unit']) ? $response['water_discharge_to_ground_water_no_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_ground_water_no_treatment']) ? json_decode($response['water_discharge_to_ground_water_no_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_ground_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_ground_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_ground_water_no_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_ground_water_with_treatment">
+                  <label for="usr">Water Discharge to Ground Water - With Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_ground_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_ground_water_with_treatment_unit']) ? $response['water_discharge_to_ground_water_with_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_ground_water_with_treatment']) ? json_decode($response['water_discharge_to_ground_water_with_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_ground_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_ground_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_ground_water_with_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_sea_water_no_treatment">
+                  <label for="usr">Water Discharge to Sea Water - No Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_sea_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_sea_water_no_treatment_unit']) ? $response['water_discharge_to_sea_water_no_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_sea_water_no_treatment']) ? json_decode($response['water_discharge_to_sea_water_no_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_sea_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_sea_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_sea_water_no_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_sea_water_with_treatment">
+                  <label for="usr">Water Discharge to Sea Water - With Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_sea_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_sea_water_with_treatment_unit']) ? $response['water_discharge_to_sea_water_with_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_sea_water_with_treatment']) ? json_decode($response['water_discharge_to_sea_water_with_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_sea_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_sea_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_sea_water_with_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_thirdparty_water_no_treatment">
+                  <label for="usr">Water Discharge to Third Party Water - No Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_thirdparty_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_thirdparty_water_no_treatment_unit']) ? $response['water_discharge_to_thirdparty_water_no_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_thirdparty_water_no_treatment']) ? json_decode($response['water_discharge_to_thirdparty_water_no_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_thirdparty_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_thirdparty_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_thirdparty_water_no_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_thirdparty_water_with_treatment">
+                  <label for="usr">Water Discharge to Third Party Water - With Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_thirdparty_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_thirdparty_water_with_treatment_unit']) ? $response['water_discharge_to_thirdparty_water_with_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_thirdparty_water_with_treatment']) ? json_decode($response['water_discharge_to_thirdparty_water_with_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_thirdparty_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_thirdparty_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_thirdparty_water_with_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_other_water_no_treatment">
+                  <label for="usr">Water Discharge to Other Water - No Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_other_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_other_water_no_treatment_unit']) ? $response['water_discharge_to_other_water_no_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_other_water_no_treatment']) ? json_decode($response['water_discharge_to_other_water_no_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_other_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_other_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_other_water_no_treatment">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_discharge_to_other_water_with_treatment">
+                  <label for="usr">Water Discharge to Other Water - With Treatment</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_other_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_other_water_with_treatment_unit']) ? $response['water_discharge_to_other_water_with_treatment_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_discharge_to_other_water_with_treatment']) ? json_decode($response['water_discharge_to_other_water_with_treatment'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_other_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_other_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_discharge_to_other_water_with_treatment">+</button>
+               </div>
+
                <div class="incrementable-section" data-field="total_water_discharged">
                   <label for="usr">Total Water Discharged</label>
                   <div class="form-group col-md-5">
@@ -709,6 +1342,93 @@
                   <button type="button" class="btn add-row-btn" data-field="water_intensity_per_rupee_turnover">+</button>
                </div>
 
+               <div class="incrementable-section" data-field="water_intensity_per_rupee_ppp_turnover">
+                  <label for="usr">Water Intensity per Rupee of Turnover (PPP Adjusted)</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_intensity_per_rupee_ppp_turnover_unit" placeholder="Unit" id="water_intensity_per_rupee_ppp_turnover_unit" value="{{ isset($response['water_intensity_per_rupee_ppp_turnover_unit']) ? $response['water_intensity_per_rupee_ppp_turnover_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_intensity_per_rupee_ppp_turnover']) ? json_decode($response['water_intensity_per_rupee_ppp_turnover'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_intensity_per_rupee_ppp_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_per_rupee_ppp_turnover_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_intensity_per_rupee_ppp_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_per_rupee_ppp_turnover_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_intensity_per_rupee_ppp_turnover">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_intensity_physical_output">
+                  <label for="usr">Water Intensity in Terms of Physical Output</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_intensity_physical_output_unit" placeholder="Unit" id="water_intensity_physical_output_unit" value="{{ isset($response['water_intensity_physical_output_unit']) ? $response['water_intensity_physical_output_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_intensity_physical_output']) ? json_decode($response['water_intensity_physical_output'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_intensity_physical_output">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="water_intensity">
+                  <label for="usr">Water Intensity</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="water_intensity_unit" placeholder="Unit" id="water_intensity_unit" value="{{ isset($response['water_intensity_unit']) ? $response['water_intensity_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $waterDetail = isset($response['water_intensity']) ? json_decode($response['water_intensity'], true) : [];
+                  echo "<ul>";
+                  foreach ($waterDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_intensity[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="water_intensity[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="water_intensity">+</button>
+               </div>
+
                <div class="incrementable-section" data-field="specific_water_consumption">
                   <label for="usr">Specific Water Consumption</label>
                   <div class="form-group col-md-5">
@@ -751,6 +1471,1601 @@
                   </ul>
                   @endif
                </div>
+
+               <div class="incrementable-section" data-field="plastic_waste">
+                  <label for="usr">Plastic Waste</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="plastic_waste_unit" placeholder="Unit" id="plastic_waste_unit" value="{{ isset($response['plastic_waste_unit']) ? $response['plastic_waste_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['plastic_waste']) ? json_decode($response['plastic_waste'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="plastic_waste[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="plastic_waste[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="plastic_waste">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="e_waste">
+                  <label for="usr">E-Waste</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="e_waste_unit" placeholder="Unit" id="e_waste_unit" value="{{ isset($response['e_waste_unit']) ? $response['e_waste_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['e_waste']) ? json_decode($response['e_waste'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="e_waste[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="e_waste[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="e_waste">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="biological_waste">
+                  <label for="usr">Biological Waste</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="biological_waste_unit" placeholder="Unit" id="biological_waste_unit" value="{{ isset($response['biological_waste_unit']) ? $response['biological_waste_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['biological_waste']) ? json_decode($response['biological_waste'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="biological_waste[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="biological_waste[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="biological_waste">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="construction_waste">
+                  <label for="usr">Construction Waste</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="construction_waste_unit" placeholder="Unit" id="construction_waste_unit" value="{{ isset($response['construction_waste_unit']) ? $response['construction_waste_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['construction_waste']) ? json_decode($response['construction_waste'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="construction_waste[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="construction_waste[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="construction_waste">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="battery_waste">
+                  <label for="usr">Battery Waste</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="battery_waste_unit" placeholder="Unit" id="battery_waste_unit" value="{{ isset($response['battery_waste_unit']) ? $response['battery_waste_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['battery_waste']) ? json_decode($response['battery_waste'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="battery_waste[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="battery_waste[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="battery_waste">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="radioactive_waste">
+                  <label for="usr">Radioactive Waste</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="radioactive_waste_unit" placeholder="Unit" id="radioactive_waste_unit" value="{{ isset($response['radioactive_waste_unit']) ? $response['radioactive_waste_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['radioactive_waste']) ? json_decode($response['radioactive_waste'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="radioactive_waste[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="radioactive_waste[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="radioactive_waste">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="waste_intensity_ppp">
+                  <label for="usr">Waste Intensity (PPP Adjusted)</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="waste_intensity_ppp_unit" placeholder="Unit" id="waste_intensity_ppp_unit" value="{{ isset($response['waste_intensity_ppp_unit']) ? $response['waste_intensity_ppp_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['waste_intensity_ppp']) ? json_decode($response['waste_intensity_ppp'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="waste_intensity_ppp[<?php echo $count; ?>][year]" placeholder="Year" id="waste_intensity_ppp_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="waste_intensity_ppp[<?php echo $count; ?>][value]" placeholder="Value" id="waste_intensity_ppp_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="waste_intensity_ppp">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="waste_intensity">
+                  <label for="usr">Waste Intensity</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="waste_intensity_unit" placeholder="Unit" id="waste_intensity_unit" value="{{ isset($response['waste_intensity_unit']) ? $response['waste_intensity_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['waste_intensity']) ? json_decode($response['waste_intensity'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="waste_intensity[<?php echo $count; ?>][year]" placeholder="Year" id="waste_intensity_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="waste_intensity[<?php echo $count; ?>][value]" placeholder="Value" id="waste_intensity_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="waste_intensity">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="plastic_waste_recycled">
+                  <label for="usr">Plastic Waste Recycled</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="plastic_waste_recycled_unit" placeholder="Unit" id="plastic_waste_recycled_unit" value="{{ isset($response['plastic_waste_recycled_unit']) ? $response['plastic_waste_recycled_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['plastic_waste_recycled']) ? json_decode($response['plastic_waste_recycled'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="plastic_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="plastic_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="plastic_waste_recycled">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="plastic_waste_reused">
+                  <label for="usr">Plastic Waste Reused</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="plastic_waste_reused_unit" placeholder="Unit" id="plastic_waste_reused_unit" value="{{ isset($response['plastic_waste_reused_unit']) ? $response['plastic_waste_reused_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['plastic_waste_reused']) ? json_decode($response['plastic_waste_reused'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="plastic_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="plastic_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="plastic_waste_reused">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="plastic_waste_other_recovery">
+                  <label for="usr">Plastic Waste Other Recovery</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="plastic_waste_other_recovery_unit" placeholder="Unit" id="plastic_waste_other_recovery_unit" value="{{ isset($response['plastic_waste_other_recovery_unit']) ? $response['plastic_waste_other_recovery_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['plastic_waste_other_recovery']) ? json_decode($response['plastic_waste_other_recovery'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="plastic_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="plastic_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="plastic_waste_other_recovery">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="e_waste_recycled">
+                  <label for="usr">E-Waste Recycled</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="e_waste_recycled_unit" placeholder="Unit" id="e_waste_recycled_unit" value="{{ isset($response['e_waste_recycled_unit']) ? $response['e_waste_recycled_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['e_waste_recycled']) ? json_decode($response['e_waste_recycled'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="e_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="e_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="e_waste_recycled">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="e_waste_reused">
+                  <label for="usr">E-Waste Reused</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="e_waste_reused_unit" placeholder="Unit" id="e_waste_reused_unit" value="{{ isset($response['e_waste_reused_unit']) ? $response['e_waste_reused_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['e_waste_reused']) ? json_decode($response['e_waste_reused'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="e_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="e_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="e_waste_reused">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="e_waste_other_recovery">
+                  <label for="usr">E-Waste Other Recovery</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="e_waste_other_recovery_unit" placeholder="Unit" id="e_waste_other_recovery_unit" value="{{ isset($response['e_waste_other_recovery_unit']) ? $response['e_waste_other_recovery_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['e_waste_other_recovery']) ? json_decode($response['e_waste_other_recovery'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="e_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="e_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="e_waste_other_recovery">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="biological_waste_recycled">
+                  <label for="usr">Biological Waste Recycled</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="biological_waste_recycled_unit" placeholder="Unit" id="biological_waste_recycled_unit" value="{{ isset($response['biological_waste_recycled_unit']) ? $response['biological_waste_recycled_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['biological_waste_recycled']) ? json_decode($response['biological_waste_recycled'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="biological_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="biological_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="biological_waste_recycled">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="biological_waste_reused">
+                  <label for="usr">Biological Waste Reused</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="biological_waste_reused_unit" placeholder="Unit" id="biological_waste_reused_unit" value="{{ isset($response['biological_waste_reused_unit']) ? $response['biological_waste_reused_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['biological_waste_reused']) ? json_decode($response['biological_waste_reused'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="biological_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="biological_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="biological_waste_reused">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="biological_waste_other_recovery">
+                  <label for="usr">Biological Waste Other Recovery</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="biological_waste_other_recovery_unit" placeholder="Unit" id="biological_waste_other_recovery_unit" value="{{ isset($response['biological_waste_other_recovery_unit']) ? $response['biological_waste_other_recovery_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['biological_waste_other_recovery']) ? json_decode($response['biological_waste_other_recovery'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="biological_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="biological_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="biological_waste_other_recovery">+</button>
+               </div>
+               <div class="incrementable-section" data-field="construction_waste_recycled">
+                  <label for="usr">Construction Waste Recycled</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="construction_waste_recycled_unit" placeholder="Unit" id="construction_waste_recycled_unit" value="{{ isset($response['construction_waste_recycled_unit']) ? $response['construction_waste_recycled_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['construction_waste_recycled']) ? json_decode($response['construction_waste_recycled'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="construction_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="construction_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="construction_waste_recycled">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="construction_waste_reused">
+                  <label for="usr">Construction Waste Reused</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="construction_waste_reused_unit" placeholder="Unit" id="construction_waste_reused_unit" value="{{ isset($response['construction_waste_reused_unit']) ? $response['construction_waste_reused_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['construction_waste_reused']) ? json_decode($response['construction_waste_reused'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="construction_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="construction_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="construction_waste_reused">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="construction_waste_other_recovery">
+                  <label for="usr">Construction Waste Other Recovery</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="construction_waste_other_recovery_unit" placeholder="Unit" id="construction_waste_other_recovery_unit" value="{{ isset($response['construction_waste_other_recovery_unit']) ? $response['construction_waste_other_recovery_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['construction_waste_other_recovery']) ? json_decode($response['construction_waste_other_recovery'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="construction_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="construction_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="construction_waste_other_recovery">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="battery_waste_recycled">
+                  <label for="usr">Battery Waste Recycled</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="battery_waste_recycled_unit" placeholder="Unit" id="battery_waste_recycled_unit" value="{{ isset($response['battery_waste_recycled_unit']) ? $response['battery_waste_recycled_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['battery_waste_recycled']) ? json_decode($response['battery_waste_recycled'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="battery_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="battery_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="battery_waste_recycled">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="battery_waste_reused">
+                  <label for="usr">Battery Waste Reused</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="battery_waste_reused_unit" placeholder="Unit" id="battery_waste_reused_unit" value="{{ isset($response['battery_waste_reused_unit']) ? $response['battery_waste_reused_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['battery_waste_reused']) ? json_decode($response['battery_waste_reused'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="battery_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="battery_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="battery_waste_reused">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="battery_waste_other_recovery">
+                  <label for="usr">Battery Waste Other Recovery</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="battery_waste_other_recovery_unit" placeholder="Unit" id="battery_waste_other_recovery_unit" value="{{ isset($response['battery_waste_other_recovery_unit']) ? $response['battery_waste_other_recovery_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['battery_waste_other_recovery']) ? json_decode($response['battery_waste_other_recovery'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="battery_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="battery_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="battery_waste_other_recovery">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="radioactive_waste_recycled">
+                  <label for="usr">Radioactive Waste Recycled</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="radioactive_waste_recycled_unit" placeholder="Unit" id="radioactive_waste_recycled_unit" value="{{ isset($response['radioactive_waste_recycled_unit']) ? $response['radioactive_waste_recycled_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['radioactive_waste_recycled']) ? json_decode($response['radioactive_waste_recycled'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="radioactive_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="radioactive_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="radioactive_waste_recycled">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="radioactive_waste_reused">
+                  <label for="usr">Radioactive Waste Reused</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="radioactive_waste_reused_unit" placeholder="Unit" id="radioactive_waste_reused_unit" value="{{ isset($response['radioactive_waste_reused_unit']) ? $response['radioactive_waste_reused_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['radioactive_waste_reused']) ? json_decode($response['radioactive_waste_reused'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="radioactive_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="radioactive_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="radioactive_waste_reused">+</button>
+               </div>
+               <div class="incrementable-section" data-field="radioactive_waste_other_recovery">
+                  <label for="usr">Radioactive Waste Other Recovery</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="radioactive_waste_other_recovery_unit" placeholder="Unit" id="radioactive_waste_other_recovery_unit" value="{{ isset($response['radioactive_waste_other_recovery_unit']) ? $response['radioactive_waste_other_recovery_unit'] : '' }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $wasteDetail = isset($response['radioactive_waste_other_recovery']) ? json_decode($response['radioactive_waste_other_recovery'], true) : [];
+                  echo "<ul>";
+                  foreach ($wasteDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="radioactive_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           </div>
+                           <div class="form-group col-md-5">
+                              <input type="text" class="form-control" name="radioactive_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";
+                  ?>
+                  <button type="button" class="btn add-row-btn" data-field="radioactive_waste_other_recovery">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="hazardous_waste_recycled">
+                  <label for="usr">Hazardous Waste Recycled</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="hazardous_waste_recycled_unit" placeholder="Unit" id="hazardous_waste_recycled_unit" value="{{ isset($response['hazardous_waste_recycled_unit']) ? $response['hazardous_waste_recycled_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['hazardous_waste_recycled']) ? json_decode($response['hazardous_waste_recycled'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="hazardous_waste_recycled">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="hazardous_waste_reused">
+                  <label for="usr">Hazardous Waste Reused</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="hazardous_waste_reused_unit" placeholder="Unit" id="hazardous_waste_reused_unit" value="{{ isset($response['hazardous_waste_reused_unit']) ? $response['hazardous_waste_reused_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['hazardous_waste_reused']) ? json_decode($response['hazardous_waste_reused'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="hazardous_waste_reused">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="hazardous_waste_other_recovery">
+                  <label for="usr">Hazardous Waste Other Recovery</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="hazardous_waste_other_recovery_unit" placeholder="Unit" id="hazardous_waste_other_recovery_unit" value="{{ isset($response['hazardous_waste_other_recovery_unit']) ? $response['hazardous_waste_other_recovery_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['hazardous_waste_other_recovery']) ? json_decode($response['hazardous_waste_other_recovery'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="hazardous_waste_other_recovery">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="non_hazardous_waste_recycled">
+                  <label for="usr">Non-Hazardous Waste Recycled</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="non_hazardous_waste_recycled_unit" placeholder="Unit" id="non_hazardous_waste_recycled_unit" value="{{ isset($response['non_hazardous_waste_recycled_unit']) ? $response['non_hazardous_waste_recycled_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['non_hazardous_waste_recycled']) ? json_decode($response['non_hazardous_waste_recycled'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="non_hazardous_waste_recycled">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="non_hazardous_waste_reused">
+                  <label for="usr">Non-Hazardous Waste Reused</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="non_hazardous_waste_reused_unit" placeholder="Unit" id="non_hazardous_waste_reused_unit" value="{{ isset($response['non_hazardous_waste_reused_unit']) ? $response['non_hazardous_waste_reused_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['non_hazardous_waste_reused']) ? json_decode($response['non_hazardous_waste_reused'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="non_hazardous_waste_reused">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="non_hazardous_waste_other_recovery">
+                  <label for="usr">Non-Hazardous Waste Other Recovery</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="non_hazardous_waste_other_recovery_unit" placeholder="Unit" id="non_hazardous_waste_other_recovery_unit" value="{{ isset($response['non_hazardous_waste_other_recovery_unit']) ? $response['non_hazardous_waste_other_recovery_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['non_hazardous_waste_other_recovery']) ? json_decode($response['non_hazardous_waste_other_recovery'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="non_hazardous_waste_other_recovery">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="plastic_waste_incineration">
+                  <label for="usr">Plastic Waste Incineration</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="plastic_waste_incineration_unit" placeholder="Unit" id="plastic_waste_incineration_unit" value="{{ isset($response['plastic_waste_incineration_unit']) ? $response['plastic_waste_incineration_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['plastic_waste_incineration']) ? json_decode($response['plastic_waste_incineration'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="plastic_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="plastic_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="plastic_waste_incineration">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="plastic_waste_landfilling">
+                  <label for="usr">Plastic Waste Landfilling</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="plastic_waste_landfilling_unit" placeholder="Unit" id="plastic_waste_landfilling_unit" value="{{ isset($response['plastic_waste_landfilling_unit']) ? $response['plastic_waste_landfilling_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['plastic_waste_landfilling']) ? json_decode($response['plastic_waste_landfilling'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="plastic_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="plastic_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="plastic_waste_landfilling">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="plastic_waste_other_disposal">
+                  <label for="usr">Plastic Waste Other Disposal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="plastic_waste_other_disposal_unit" placeholder="Unit" id="plastic_waste_other_disposal_unit" value="{{ isset($response['plastic_waste_other_disposal_unit']) ? $response['plastic_waste_other_disposal_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['plastic_waste_other_disposal']) ? json_decode($response['plastic_waste_other_disposal'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="plastic_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="plastic_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="plastic_waste_other_disposal">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="e_waste_incineration">
+                  <label for="usr">E-Waste Incineration</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="e_waste_incineration_unit" placeholder="Unit" id="e_waste_incineration_unit" value="{{ isset($response['e_waste_incineration_unit']) ? $response['e_waste_incineration_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['e_waste_incineration']) ? json_decode($response['e_waste_incineration'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="e_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="e_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="e_waste_incineration">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="e_waste_landfilling">
+                  <label for="usr">E-Waste Landfilling</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="e_waste_landfilling_unit" placeholder="Unit" id="e_waste_landfilling_unit" value="{{ isset($response['e_waste_landfilling_unit']) ? $response['e_waste_landfilling_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['e_waste_landfilling']) ? json_decode($response['e_waste_landfilling'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="e_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="e_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="e_waste_landfilling">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="e_waste_other_disposal">
+                  <label for="usr">E-Waste Other Disposal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="e_waste_other_disposal_unit" placeholder="Unit" id="e_waste_other_disposal_unit" value="{{ isset($response['e_waste_other_disposal_unit']) ? $response['e_waste_other_disposal_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['e_waste_other_disposal']) ? json_decode($response['e_waste_other_disposal'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="e_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="e_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="e_waste_other_disposal">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="biological_waste_incineration">
+                  <label for="usr">Biological Waste Incineration</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="biological_waste_incineration_unit" placeholder="Unit" id="biological_waste_incineration_unit" value="{{ isset($response['biological_waste_incineration_unit']) ? $response['biological_waste_incineration_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['biological_waste_incineration']) ? json_decode($response['biological_waste_incineration'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="biological_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="biological_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="biological_waste_incineration">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="biological_waste_landfilling">
+                  <label for="usr">Biological Waste Landfilling</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="biological_waste_landfilling_unit" placeholder="Unit" id="biological_waste_landfilling_unit" value="{{ isset($response['biological_waste_landfilling_unit']) ? $response['biological_waste_landfilling_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['biological_waste_landfilling']) ? json_decode($response['biological_waste_landfilling'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="biological_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="biological_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="biological_waste_landfilling">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="biological_waste_other_disposal">
+                  <label for="usr">Biological Waste Other Disposal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="biological_waste_other_disposal_unit" placeholder="Unit" id="biological_waste_other_disposal_unit" value="{{ isset($response['biological_waste_other_disposal_unit']) ? $response['biological_waste_other_disposal_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['biological_waste_other_disposal']) ? json_decode($response['biological_waste_other_disposal'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="biological_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="biological_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="biological_waste_other_disposal">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="construction_waste_incineration">
+                  <label for="usr">Construction Waste Incineration</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="construction_waste_incineration_unit" placeholder="Unit" id="construction_waste_incineration_unit" value="{{ isset($response['construction_waste_incineration_unit']) ? $response['construction_waste_incineration_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['construction_waste_incineration']) ? json_decode($response['construction_waste_incineration'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="construction_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="construction_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="construction_waste_incineration">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="construction_waste_landfilling">
+                  <label for="usr">Construction Waste Landfilling</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="construction_waste_landfilling_unit" placeholder="Unit" id="construction_waste_landfilling_unit" value="{{ isset($response['construction_waste_landfilling_unit']) ? $response['construction_waste_landfilling_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['construction_waste_landfilling']) ? json_decode($response['construction_waste_landfilling'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="construction_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="construction_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="construction_waste_landfilling">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="construction_waste_other_disposal">
+                  <label for="usr">Construction Waste Other Disposal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="construction_waste_other_disposal_unit" placeholder="Unit" id="construction_waste_other_disposal_unit" value="{{ isset($response['construction_waste_other_disposal_unit']) ? $response['construction_waste_other_disposal_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['construction_waste_other_disposal']) ? json_decode($response['construction_waste_other_disposal'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="construction_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="construction_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="construction_waste_other_disposal">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="battery_waste_incineration">
+                  <label for="usr">Battery Waste Incineration</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="battery_waste_incineration_unit" placeholder="Unit" id="battery_waste_incineration_unit" value="{{ isset($response['battery_waste_incineration_unit']) ? $response['battery_waste_incineration_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['battery_waste_incineration']) ? json_decode($response['battery_waste_incineration'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="battery_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="battery_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="battery_waste_incineration">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="battery_waste_landfilling">
+                  <label for="usr">Battery Waste Landfilling</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="battery_waste_landfilling_unit" placeholder="Unit" id="battery_waste_landfilling_unit" value="{{ isset($response['battery_waste_landfilling_unit']) ? $response['battery_waste_landfilling_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['battery_waste_landfilling']) ? json_decode($response['battery_waste_landfilling'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="battery_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="battery_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="battery_waste_landfilling">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="battery_waste_other_disposal">
+                  <label for="usr">Battery Waste Other Disposal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="battery_waste_other_disposal_unit" placeholder="Unit" id="battery_waste_other_disposal_unit" value="{{ isset($response['battery_waste_other_disposal_unit']) ? $response['battery_waste_other_disposal_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['battery_waste_other_disposal']) ? json_decode($response['battery_waste_other_disposal'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="battery_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="battery_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="battery_waste_other_disposal">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="radioactive_waste_incineration">
+                  <label for="usr">Radioactive Waste Incineration</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="radioactive_waste_incineration_unit" placeholder="Unit" id="radioactive_waste_incineration_unit" value="{{ isset($response['radioactive_waste_incineration_unit']) ? $response['radioactive_waste_incineration_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['radioactive_waste_incineration']) ? json_decode($response['radioactive_waste_incineration'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="radioactive_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="radioactive_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="radioactive_waste_incineration">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="radioactive_waste_landfilling">
+                  <label for="usr">Radioactive Waste Landfilling</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="radioactive_waste_landfilling_unit" placeholder="Unit" id="radioactive_waste_landfilling_unit" value="{{ isset($response['radioactive_waste_landfilling_unit']) ? $response['radioactive_waste_landfilling_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['radioactive_waste_landfilling']) ? json_decode($response['radioactive_waste_landfilling'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="radioactive_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="radioactive_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="radioactive_waste_landfilling">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="radioactive_waste_other_disposal">
+                  <label for="usr">Radioactive Waste Other Disposal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="radioactive_waste_other_disposal_unit" placeholder="Unit" id="radioactive_waste_other_disposal_unit" value="{{ isset($response['radioactive_waste_other_disposal_unit']) ? $response['radioactive_waste_other_disposal_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['radioactive_waste_other_disposal']) ? json_decode($response['radioactive_waste_other_disposal'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="radioactive_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="radioactive_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="radioactive_waste_other_disposal">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="hazardous_waste_incineration">
+                  <label for="usr">Hazardous Waste Incineration</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="hazardous_waste_incineration_unit" placeholder="Unit" id="hazardous_waste_incineration_unit" value="{{ isset($response['hazardous_waste_incineration_unit']) ? $response['hazardous_waste_incineration_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['hazardous_waste_incineration']) ? json_decode($response['hazardous_waste_incineration'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="hazardous_waste_incineration">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="hazardous_waste_landfilling">
+                  <label for="usr">Hazardous Waste Landfilling</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="hazardous_waste_landfilling_unit" placeholder="Unit" id="hazardous_waste_landfilling_unit" value="{{ isset($response['hazardous_waste_landfilling_unit']) ? $response['hazardous_waste_landfilling_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['hazardous_waste_landfilling']) ? json_decode($response['hazardous_waste_landfilling'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="hazardous_waste_landfilling">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="hazardous_waste_other_disposal">
+                  <label for="usr">Hazardous Waste Other Disposal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="hazardous_waste_other_disposal_unit" placeholder="Unit" id="hazardous_waste_other_disposal_unit" value="{{ isset($response['hazardous_waste_other_disposal_unit']) ? $response['hazardous_waste_other_disposal_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['hazardous_waste_other_disposal']) ? json_decode($response['hazardous_waste_other_disposal'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="hazardous_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="hazardous_waste_other_disposal">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="non_hazardous_waste_incineration">
+                  <label for="usr">Non-Hazardous Waste Incineration</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="non_hazardous_waste_incineration_unit" placeholder="Unit" id="non_hazardous_waste_incineration_unit" value="{{ isset($response['non_hazardous_waste_incineration_unit']) ? $response['non_hazardous_waste_incineration_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['non_hazardous_waste_incineration']) ? json_decode($response['non_hazardous_waste_incineration'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="non_hazardous_waste_incineration">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="non_hazardous_waste_landfilling">
+                  <label for="usr">Non-Hazardous Waste Landfilling</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="non_hazardous_waste_landfilling_unit" placeholder="Unit" id="non_hazardous_waste_landfilling_unit" value="{{ isset($response['non_hazardous_waste_landfilling_unit']) ? $response['non_hazardous_waste_landfilling_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['non_hazardous_waste_landfilling']) ? json_decode($response['non_hazardous_waste_landfilling'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="non_hazardous_waste_landfilling">+</button>
+               </div>
+
+               <div class="incrementable-section" data-field="non_hazardous_waste_other_disposal">
+                  <label for="usr">Non-Hazardous Waste Other Disposal</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="non_hazardous_waste_other_disposal_unit" placeholder="Unit" id="non_hazardous_waste_other_disposal_unit" value="{{ isset($response['non_hazardous_waste_other_disposal_unit']) ? $response['non_hazardous_waste_other_disposal_unit'] : '' }}">
+                  </div>
+                  <ul>
+                     <?php 
+                     $count = 0;
+                     $wasteDetail = isset($response['non_hazardous_waste_other_disposal']) ? json_decode($response['non_hazardous_waste_other_disposal'], true) : [];
+                     foreach ($wasteDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2">
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                              </div>
+                              <div class="form-group col-md-5">
+                                 <input type="text" class="form-control" name="non_hazardous_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="non_hazardous_waste_other_disposal">+</button>
+               </div>
+
+
+
 
                <div class="incrementable-section" data-field="hazardous_waste">
                   <label for="usr">Hazardous Waste</label>
@@ -991,6 +3306,267 @@
                   <button type="button" class="btn add-row-btn" data-field="scope_2_emissions">+</button>
                </div>
 
+               <div class="incrementable-section" data-field="specific_emissions_scope_1_2_intensity_ppp">
+                  <label for="usr">Specific Emissions-Scope 1 and 2 Intensity PPP</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_ppp_unit" placeholder="Unit" id="specific_emissions_scope_1_2_intensity_ppp_unit" value="{{ isset($response['specific_emissions_scope_1_2_intensity_ppp_unit']) ? $response['specific_emissions_scope_1_2_intensity_ppp_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['specific_emissions_scope_1_2_intensity_ppp']) ? json_decode($response['specific_emissions_scope_1_2_intensity_ppp'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_ppp[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_1_2_intensity_ppp_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_ppp[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_1_2_intensity_ppp_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="specific_emissions_scope_1_2_intensity_ppp">+</button>
+               </div>
+
+               <!-- Specific Emissions Scope 1 and 2 Intensity Physical Output -->
+               <div class="incrementable-section" data-field="specific_emissions_scope_1_2_intensity_physical_output">
+                  <label for="usr">Specific Emissions-Scope 1 and 2 Intensity Physical Output</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output_unit" placeholder="Unit" id="specific_emissions_scope_1_2_intensity_physical_output_unit" value="{{ isset($response['specific_emissions_scope_1_2_intensity_physical_output_unit']) ? $response['specific_emissions_scope_1_2_intensity_physical_output_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['specific_emissions_scope_1_2_intensity_physical_output']) ? json_decode($response['specific_emissions_scope_1_2_intensity_physical_output'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_1_2_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_1_2_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="specific_emissions_scope_1_2_intensity_physical_output">+</button>
+               </div>
+
+               <!-- Specific Emissions Scope 3 per Rupee Turnover -->
+               <div class="incrementable-section" data-field="specific_emissions_scope_3_per_rupee_turnover">
+                  <label for="usr">Specific Emissions-Scope 3 per Rs Turnover</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover_unit" placeholder="Unit" id="specific_emissions_scope_3_per_rupee_turnover_unit" value="{{ isset($response['specific_emissions_scope_3_per_rupee_turnover_unit']) ? $response['specific_emissions_scope_3_per_rupee_turnover_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['specific_emissions_scope_3_per_rupee_turnover']) ? json_decode($response['specific_emissions_scope_3_per_rupee_turnover'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_3_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_3_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="specific_emissions_scope_3_per_rupee_turnover">+</button>
+               </div>
+
+               <!-- Total Scope 3 Emission Intensity -->
+               <div class="incrementable-section" data-field="total_scope_3_emission_intensity">
+                  <label for="usr">Total Scope 3 Emission Intensity</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_scope_3_emission_intensity_unit" placeholder="Unit" id="total_scope_3_emission_intensity_unit" value="{{ isset($response['total_scope_3_emission_intensity_unit']) ? $response['total_scope_3_emission_intensity_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['total_scope_3_emission_intensity']) ? json_decode($response['total_scope_3_emission_intensity'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_scope_3_emission_intensity[<?php echo $count; ?>][year]" placeholder="Year" id="total_scope_3_emission_intensity_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_scope_3_emission_intensity[<?php echo $count; ?>][value]" placeholder="Value" id="total_scope_3_emission_intensity_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="total_scope_3_emission_intensity">+</button>
+               </div>
+
+               <!-- NOx Emissions -->
+               <div class="incrementable-section" data-field="no_x">
+                  <label for="usr">NOx Emissions</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="no_x_unit" placeholder="Unit" id="no_x_unit" value="{{ isset($response['no_x_unit']) ? $response['no_x_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['no_x']) ? json_decode($response['no_x'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="no_x[<?php echo $count; ?>][year]" placeholder="Year" id="no_x_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="no_x[<?php echo $count; ?>][value]" placeholder="Value" id="no_x_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="no_x">+</button>
+               </div>
+
+               <!-- SOx Emissions -->
+               <div class="incrementable-section" data-field="so_x">
+                  <label for="usr">SOx Emissions</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="so_x_unit" placeholder="Unit" id="so_x_unit" value="{{ isset($response['so_x_unit']) ? $response['so_x_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['so_x']) ? json_decode($response['so_x'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="so_x[<?php echo $count; ?>][year]" placeholder="Year" id="so_x_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="so_x[<?php echo $count; ?>][value]" placeholder="Value" id="so_x_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="so_x">+</button>
+               </div>
+
+               <!-- Particulate Matter -->
+               <div class="incrementable-section" data-field="particular_matter">
+                  <label for="usr">Particulate Matter</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="particular_matter_unit" placeholder="Unit" id="particular_matter_unit" value="{{ isset($response['particular_matter_unit']) ? $response['particular_matter_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['particular_matter']) ? json_decode($response['particular_matter'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][year]" placeholder="Year" id="particular_matter_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][value]" placeholder="Value" id="particular_matter_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="particular_matter">+</button>
+               </div>
+
+               <!-- POP (Persistent Organic Pollutants) -->
+               <div class="incrementable-section" data-field="pop">
+                  <label for="usr">Persistent Organic Pollutants (POP)</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="pop_unit" placeholder="Unit" id="pop_unit" value="{{ isset($response['pop_unit']) ? $response['pop_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['pop']) ? json_decode($response['pop'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="pop[<?php echo $count; ?>][year]" placeholder="Year" id="pop_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="pop[<?php echo $count; ?>][value]" placeholder="Value" id="pop_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="pop">+</button>
+               </div>
+
+               <!-- VOC (Volatile Organic Compounds) -->
+               <div class="incrementable-section" data-field="voc">
+                  <label for="usr">Volatile Organic Compounds (VOC)</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="voc_unit" placeholder="Unit" id="voc_unit" value="{{ isset($response['voc_unit']) ? $response['voc_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['voc']) ? json_decode($response['voc'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="voc[<?php echo $count; ?>][year]" placeholder="Year" id="voc_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="voc[<?php echo $count; ?>][value]" placeholder="Value" id="voc_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="voc">+</button>
+               </div>
+
+
                <div class="incrementable-section" data-field="scope_3_emissions">
                   <label for="usr">Scope 3 Emissions</label>
                   <div class="form-group col-md-5">
@@ -1160,6 +3736,35 @@
                   </ul>
                   @endif
                </div>
+
+               <div class="incrementable-section" data-field="csr_budget">
+                  <label for="usr">CSR Budget</label>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="csr_budget_unit" placeholder="Unit" id="csr_budget_unit" value="{{ isset($response['csr_budget_unit']) ? $response['csr_budget_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['csr_budget']) ? json_decode($response['csr_budget'], true) : [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="csr_budget[<?php echo $count; ?>][year]" placeholder="Year" id="csr_budget_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="csr_budget[<?php echo $count; ?>][value]" placeholder="Value" id="csr_budget_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>"; ?>
+                  <button type="button" class="btn add-row-btn" data-field="csr_budget">+</button>
+               </div>
+
             </div>
 
             <!-- Product Stewardship Tab -->

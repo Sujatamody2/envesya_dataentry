@@ -40,12 +40,12 @@ Route::middleware(['auth','is_admin'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/responsible-corp-add', [ResponsibleCorporatesController::class,'index'])->name('responsible-corp-add');
-    Route::post('/responsible-corp-add', [ResponsibleCorporatesController::class,'create_responsible_corporate'])->name('responsible-corp-add');
-    Route::get('/responsible-corp-list', [ResponsibleCorporatesController::class,'listing'])->name('responsible-corp-list');
-    Route::get('/responsible-corp-update/{id?}', [ResponsibleCorporatesController::class,'updateresponsiblecorporate'])->name('responsible-corp-update');
-    Route::post('/responsible-corp-updating/{id?}', [ResponsibleCorporatesController::class,'updatingresponsiblecorporate'])->name('responsible-corp-updating');
-    Route::get('/responsible-corp-delete/{id?}', [ResponsibleCorporatesController::class,'deleteresponsiblecorporate'])->name('responsible-corp-delete');
+    Route::get('/responsible-corp-add', [ResponsibleCorporatesController::class, 'create'])->name('responsible-corp-add');
+    Route::post('/responsible-corp-add', [ResponsibleCorporatesController::class, 'store'])->name('responsible-corp-add');
+    Route::get('/responsible-corp-list', [ResponsibleCorporatesController::class, 'index'])->name('responsible-corp-list');
+    Route::get('/responsible-corp-update/{id?}', [ResponsibleCorporatesController::class, 'edit'])->name('responsible-corp-update');
+    Route::post('/responsible-corp-updating/{id?}', [ResponsibleCorporatesController::class, 'update'])->name('responsible-corp-updating');
+    Route::get('/responsible-corp-delete/{id?}', [ResponsibleCorporatesController::class, 'destroy'])->name('responsible-corp-delete');
     Route::get('/listing_statusupdateres/{id}/{status}', [ResponsibleCorporatesController::class, 'listing_statusupdateRes'])->name('listing_statusupdateres');
 });
 

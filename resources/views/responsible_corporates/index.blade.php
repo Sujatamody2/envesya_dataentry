@@ -2,9 +2,6 @@
 @section('content')
 <!-- page content -->
 <!-- top tiles -->
-<?php //echo "<pre>"; print_r($category);die; ?>
-<!-- category form section -->
-
 <div class="container">
    <div class="card mt-4">
       <div class="card-header">All Responsible Corporates</div>
@@ -29,47 +26,48 @@
                         </tr>
                      </thead>
                      <tbody>
-                        @if ($response->count() == 0)
+                        @if ($corporates->count() == 0)
                            <tr>
                               <td colspan="8">No records to display.</td>
                            </tr>
                         @endif
-                        @if(isset($response))
-                           @foreach($response as $key=>$value)
-                              @php
-                                 $value_showcase = json_decode($value->showcase,true);
-                              @endphp
+                        @if(isset($corporates))
+                           @foreach($corporates as $key => $corporate)
                               <tr>
-                                 <td>{{ $key+1 }}</td>
-                                 <td>{{ isset($value->name) ? $value->name : '' }}</td>
-                                 <td>{{ isset($value->short_name) ? $value->short_name : '' }}</td>
-                                 <td>{{ $value->enteredByUser ? $value->enteredByUser->name : 'N/A' }}</td>
+                                 <td>{{ $key + 1 }}</td>
+                                 <td>{{ $corporate->name ?? '' }}</td>
+                                 <td>{{ $corporate->short_name ?? '' }}</td>
+                                 <td>{{ $corporate->enteredBy ? $corporate->enteredBy->name : 'N/A' }}</td>
                                  <td>
-                                    @if($value->approval==0)
-                                    <span>Pending</span>
-                                    @elseif($value->approval==1)
+                                    @if($corporate->approval == 0)
+                                       <span>Pending</span>
+                                    @elseif($corporate->approval == 1)
                                        Approved
-                                    @elseif($value->approval==2)
+                                    @elseif($corporate->approval == 2)
                                        <span>Rejected</span>
-                                    @elseif($value->approval==3)
+                                    @elseif($corporate->approval == 3)
                                        Reviewed
                                     @endif
                                  </td>
-                                 <td>{{isset($value->created_at) ? date('d M Y', strtotime($value->created_at)): '' }}</td>
-                                 <td>{{isset($value->updated_at) ? date('d M Y', strtotime($value->updated_at)): '' }}</td>
+                                 <td>{{ $corporate->created_at ? date('d M Y', strtotime($corporate->created_at)) : '' }}</td>
+                                 <td>{{ $corporate->updated_at ? date('d M Y', strtotime($corporate->updated_at)) : '' }}</td>
                                  <td>
-                                    <a href="{{ route('responsible-corp-update',[$value->id,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-success action-btn'>Edit</a>
-                                    <a href="{{ route('responsible-corp-delete',[$value->id,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-danger'>delete</a>
+                                    <a href="{{ route('responsible-corp-update', [$corporate->id, 'page' => request()->query('page', '')]) }}" class='btn btn-success action-btn'>Edit</a>
+                                    <form action="{{ route('responsible-corp-delete', [$corporate->id, 'page' => request()->query('page', '')]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this record?')">
+                                       @csrf
+                                       @method('DELETE')
+                                       <button type="submit" class='btn btn-danger'>Delete</button>
+                                    </form>
                                     @if(auth()->user()->is_admin == 1)
-                                       @if($value->approval==2 )
-                                       <a href="{{ route('listing_statusupdateres',[$value->id,1,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-success'>Approve</a>
-                                       @elseif($value->approval==3)
-                                       <a href="{{ route('listing_statusupdateres',[$value->id,1,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-success'>Approve</a>
-                                       <a href="{{ route('listing_statusupdateres',[$value->id,2,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-danger'>Reject</a>
-                                       @elseif($value->approval==0)
-                                       <a href="{{ route('listing_statusupdateres',[$value->id,3,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-success'>Review</a>
-                                       @elseif($value->approval==1)
-                                       {{-- <a href="{{ route('listing_statusupdateres',[$value->id,2,'page='.(isset($_GET['page']) && $_GET['page']!='' ? $_GET['page'] :'')]) }}" class='btn btn-danger'>Reject</a> --}}
+                                       @if($corporate->approval == 2)
+                                          <a href="{{ route('listing_statusupdateres', [$corporate->id, 1, 'page' => request()->query('page', '')]) }}" class='btn btn-success'>Approve</a>
+                                       @elseif($corporate->approval == 3)
+                                          <a href="{{ route('listing_statusupdateres', [$corporate->id, 1, 'page' => request()->query('page', '')]) }}" class='btn btn-success'>Approve</a>
+                                          <a href="{{ route('listing_statusupdateres', [$corporate->id, 2, 'page' => request()->query('page', '')]) }}" class='btn btn-danger'>Reject</a>
+                                       @elseif($corporate->approval == 0)
+                                          <a href="{{ route('listing_statusupdateres', [$corporate->id, 3, 'page' => request()->query('page', '')]) }}" class='btn btn-success'>Review</a>
+                                       @elseif($corporate->approval == 1)
+                                          {{-- <a href="{{ route('listing_statusupdateres', [$corporate->id, 2, 'page' => request()->query('page', '')]) }}" class='btn btn-danger'>Reject</a> --}}
                                        @endif
                                     @endif
                                  </td>
@@ -78,11 +76,10 @@
                         @endif
                      </tbody>
                   </table>
-                  {!! $response->appends(Request::except('page'))->render() !!}
-
-                  <p>
-                     Displaying {{$response->count()}} of {{ $response->total() }} listing(s).
-                  </p>
+                  {{-- {!! $corporates->appends(request()->except('page'))->links() !!} --}}
+                  {{-- <p>
+                     Displaying {{ $corporates->count() }} of {{ $corporates->total() }} listing(s).
+                  </p> --}}
                </div>
             </div>
          </div>
