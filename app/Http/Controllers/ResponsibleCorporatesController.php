@@ -388,6 +388,7 @@ class ResponsibleCorporatesController extends Controller
             'csrMetrics',
             'productStewardship'
         ])->first();
+        echo "<pre>";print_r($response);die;
         return view('responsible_corporates.add', compact('response'));
     }
 
