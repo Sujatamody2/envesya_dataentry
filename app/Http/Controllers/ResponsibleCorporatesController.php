@@ -421,6 +421,8 @@ class ResponsibleCorporatesController extends Controller
 
         // The $response array now has a flat structure with all keys at the top level,
         // which matches the expectations of your Blade view.
+        echo $id;
+        die;
         return view('responsible_corporates.add', compact('response','id'));
     }
 
