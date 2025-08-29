@@ -433,6 +433,7 @@ class ResponsibleCorporatesController extends Controller
 
     private function encodeArrays($data)
     {
+        $input = [];
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 // If it's an array of [year, value] pairs
@@ -450,6 +451,6 @@ class ResponsibleCorporatesController extends Controller
                 }
             }
         }
-        return $data;
+        return $input;
     }
 }
