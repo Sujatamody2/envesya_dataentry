@@ -55,8 +55,6 @@
             <form action="<?php echo route('responsible-corp-add'); ?>" method="post" class="form-horizontal">
          <?php } ?>
          @csrf
-         <input type="hidden" name="listing_id" value="{{(isset($response['id']) && $response['id'] != '') ? $response['id'] : ''}}">
-         <input type="hidden" name="org_id" value="{{(isset($response['org_id']) && $response['org_id'] != '') ? $response['org_id'] : ''}}">
 
          <!-- Bootstrap Tabs -->
          <ul class="nav nav-tabs" id="corporateTabs" role="tablist">
