@@ -380,7 +380,8 @@ class ResponsibleCorporatesController extends Controller
      */
     public function edit($id)
     {
-        $response = ResponsibleCorporates::where('id',$id)->with([
+        // Fetch the main model with all its relationships
+        $corporateData = ResponsibleCorporates::where('id', $id)->with([
             'energyMetrics',
             'waterMetrics',
             'wasteMetrics',
@@ -388,7 +389,38 @@ class ResponsibleCorporatesController extends Controller
             'csrMetrics',
             'productStewardship'
         ])->first();
-        echo "<pre>";print_r($response);die;
+
+        // Handle case where the record is not found
+        if (!$corporateData) {
+            abort(404, 'Responsible Corporate not found.');
+        }
+
+        // Convert the main model object to an array. This is the base for our response.
+        $response = $corporateData->toArray();
+
+        // Define the relationships that need to be merged into the main response array.
+        // When using toArray(), Laravel converts camelCase relationship names to snake_case keys.
+        $relationsToMerge = [
+            'energy_metrics',
+            'water_metrics',
+            'waste_metrics',
+            'emission_metrics',
+            'csr_metrics',
+            'product_stewardship'
+        ];
+
+        foreach ($relationsToMerge as $relationKey) {
+            // Check if the relationship data exists and is an array
+            if (isset($response[$relationKey]) && is_array($response[$relationKey])) {
+                // Merge the attributes of the related model into the main response array
+                $response = array_merge($response, $response[$relationKey]);
+                // Remove the original nested relationship array to keep the final structure clean
+                unset($response[$relationKey]);
+            }
+        }
+
+        // The $response array now has a flat structure with all keys at the top level,
+        // which matches the expectations of your Blade view.
         return view('responsible_corporates.add', compact('response'));
     }
 
