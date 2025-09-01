@@ -395,6 +395,8 @@ class ResponsibleCorporatesController extends Controller
             'csrMetrics',
             'productStewardship'
         ])->first();
+        $corporates_exist_names = ResponsibleCorporates::pluck('name')->toArray();
+        $corporates_exist_shortnames = ResponsibleCorporates::pluck('name')->toArray();
 
         // Handle case where the record is not found
         if (!$corporateData) {
@@ -427,7 +429,7 @@ class ResponsibleCorporatesController extends Controller
 
         // The $response array now has a flat structure with all keys at the top level,
         // which matches the expectations of your Blade view.
-        return view('responsible_corporates.add', compact('response','id'));
+        return view('responsible_corporates.add', compact('response','id','corporates_exist_names','corporates_exist_shortnames'));
     }
 
     /**
