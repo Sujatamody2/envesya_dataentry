@@ -321,6 +321,7 @@ class ResponsibleCorporatesController extends Controller
             'csrMetrics',
             'productStewardship'
         ])->get();
+        
         return view('responsible_corporates.index', compact('corporates'));
     }
 
@@ -329,7 +330,9 @@ class ResponsibleCorporatesController extends Controller
      */
     public function create()
     {
-        return view('responsible_corporates.add');
+        $corporates_exist_names = ResponsibleCorporates::pluck('name')->toArray();
+        $corporates_exist_shortnames = ResponsibleCorporates::pluck('name')->toArray();
+        return view('responsible_corporates.add', compact('corporates_exist_names','corporates_exist_shortnames'));
     }
 
     /**

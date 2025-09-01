@@ -40,6 +40,10 @@
       color: #007bff;
       font-weight: bold;
    }
+   .error {
+      font-size:12px;
+      color: red;
+   }
 </style>
 
 <div class="container">
@@ -92,8 +96,9 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <label for="usr">Legal Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Legal Name" value="{{(isset($response['name']) && $response['name'] != '') ? $response['name'] : ''}}" id="name" required>
                         <span id="listing_name_error"></span>
+                        <input type="text" class="form-control" name="name" placeholder="Legal Name" value="{{(isset($response['name']) && $response['name'] != '') ? $response['name'] : ''}}" id="name" required>
+                        
                         @if($errors->has('name'))
                         <ul class="parsley-errors-list filled">
                            @foreach($errors->get('name') as $error)
@@ -106,8 +111,9 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <label for="usr">Short Name</label>
-                        <input type="text" class="form-control" name="short_name" placeholder="Short Name" value="{{(isset($response['short_name']) && $response['short_name'] != '') ? $response['short_name'] : ''}}" id="short_name" required oninput="this.value=this.value.replace(/[/?@,]/g,'');">
                         <span id="listing_short_name_error"></span>
+                        <input type="text" class="form-control" name="short_name" placeholder="Short Name" value="{{(isset($response['short_name']) && $response['short_name'] != '') ? $response['short_name'] : ''}}" id="short_name" required oninput="this.value=this.value.replace(/[/?@,]/g,'');">
+                        
                         @if($errors->has('short_name'))
                         <ul class="parsley-errors-list filled">
                            @foreach($errors->get('short_name') as $error)
@@ -3062,9 +3068,6 @@
                   <button type="button" class="btn add-row-btn" data-field="non_hazardous_waste_other_disposal">+</button>
                </div>
 
-
-
-
                <div class="incrementable-section" data-field="hazardous_waste">
                   <label for="usr">Hazardous Waste</label>
                   <div class="form-group col-md-5">
@@ -3800,6 +3803,12 @@
 
 
 <script>
+   var exist_name = <?php echo json_encode($corporates_exist_names); ?>;
+   var exist_short_name = <?php echo json_encode($corporates_exist_shortnames); ?>;
+   var full_names_exist = (exist_name || []).map(name => name.toLowerCase());
+   var short_names_exist = (exist_short_name || []).map(name => name.toLowerCase());
+   console.log("Exist Name:", exist_name); // Debug
+   console.log("Exist Short Name:", exist_short_name);
    function fileValidation(id){
       var fileInput = document.getElementById(id);
       var filePath = fileInput.value;
@@ -3995,10 +4004,57 @@
                } else {
                   $("#ind_cls").trigger("chosen:updated");
                }
+
+               // var full_names = industrySegmentData.full_names || [];
+               // var short_names = industrySegmentData.short_names || [];
+               var full_names = (industrySegmentData.full_names || []).map(name => name.toLowerCase());
+               // console.log(full_names);
+               var short_names = (industrySegmentData.short_names || []).map(name => name.toLowerCase());
+
+               
+
+               // Determine if it's edit mode
+               var isEdit = <?php echo isset($response) ? 'true' : 'false'; ?>;
+               var currentName = $('#name').val().trim().toLowerCase();
+               var currentShortName = $('#short_name').val().trim().toLowerCase();
+
+               // Keyup validation for Legal Name
+               $(document).on('keyup','#name', function() {
+                  var value = $(this).val().trim().toLowerCase();
+                  console.log(value);
+                  var errorSpan = $('#listing_name_error');
+                  errorSpan.text('').removeClass('error'); // Clear previous error (add .error { color: red; } in CSS if needed)
+
+                  if (value && (full_names.includes(value) || full_names_exist.includes(value)) && (!isEdit || value !== currentName)) {
+                     errorSpan.text('Legal Name already exists').addClass('error');
+                  }
+               });
+
+               // Keyup validation for Short Name
+               $(document).on('keyup','#short_name', function() {
+                  var value = $(this).val().trim().toLowerCase();
+                  var errorSpan = $('#listing_short_name_error');
+                  errorSpan.text('').removeClass('error'); // Clear previous error
+
+                  if (value && (short_names.includes(value) || short_names_exist.includes(value)) && (!isEdit || value !== currentShortName)) {
+                     errorSpan.text('Short Name already exists').addClass('error');
+                  }
+               });
          },
          error: function(e) {
                console.error("AJAX Error:", e); // Debug: Log any AJAX errors
                alert("Error fetching industry and segment data");
+         }
+      });
+
+      $('form').on('submit', function(e) {
+         var nameError = $('#listing_name_error').text();
+         var shortNameError = $('#listing_short_name_error').text();
+
+         if (nameError || shortNameError) {
+            alert('Name or shortname already exist.');
+            e.preventDefault();
+            return false;
          }
       });
 
