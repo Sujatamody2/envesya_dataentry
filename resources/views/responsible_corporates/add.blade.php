@@ -4043,31 +4043,26 @@
          $(document).on('click', '.remove-row-btn', function() {
             var index = $(this).data('index');
             var field = $(this).closest('.incrementable-section').data('field');
+            var container = $(this).closest('ul');
             $(this).closest('li').remove();
 
-            // Reindex the remaining rows
-            var container = $(this).closest('ul');
+            // Reindex the remaining rows generically (handles any subfields)
             container.find('li').each(function(i) {
-                  if (field === 'factory_locations') {
-                     // Reindex for single input
-                     $(this).find('input[name="' + field + '[' + index + ']"]').attr({
-                        name: field + '[' + i + ']',
-                        id: field + '_' + i
-                     });
-                  } else {
-                     // Reindex for year/value pairs
-                     $(this).find('input[name="' + field + '[' + index + '][year]"]').attr({
-                        name: field + '[' + i + '][year]',
-                        id: field + '_' + i + '_year'
-                     });
-                     $(this).find('input[name="' + field + '[' + index + '][value]"]').attr({
-                        name: field + '[' + i + '][value]',
-                        id: field + '_' + i + '_value'
-                     });
-                  }
-                  $(this).find('.remove-row-btn').data('index', i).attr('data-index', i);
+                $(this).find('input, textarea').each(function() {
+                    var oldName = $(this).attr('name');
+                    if (oldName) {
+                        var newName = oldName.replace(/\[\d+\]/, '[' + i + ']');
+                        $(this).attr('name', newName);
+                    }
+                    var oldId = $(this).attr('id');
+                    if (oldId) {
+                        var newId = oldId.replace(/_\d+_/, '_' + i + '_');
+                        $(this).attr('id', newId);
+                    }
+                });
+                $(this).find('.remove-row-btn').data('index', i).attr('data-index', i);
             });
-         });
+        });
       });
 
       // Remove row functionality
