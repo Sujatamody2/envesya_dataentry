@@ -304,6 +304,45 @@
                   @endif
                </div>
 
+               <div class="incrementable-section mt-3" data-field="energy_initiative_detail">
+                  <label>Initiatives Undertaken for Energy</label>
+                  <ul>
+                     <?php
+                     $count = 0;
+                     $initiativeDetails = isset($response['energy_initiative_detail']) ? json_decode($response['energy_initiative_detail'], true) : [];
+                     foreach ($initiativeDetails as $item) { ?>
+                           <li class="d-flex flex-column">
+                              <div class="form-group">
+                                 <label>Initiative Undertaken</label>
+                                 <input type="text" class="form-control" name="energy_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="energy_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                              </div>
+                              <div class="form-group">
+                                 <label>Details of the Initiative</label>
+                                 <textarea class="form-control" name="energy_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="energy_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <label>Outcome of the Initiative</label>
+                                 <textarea class="form-control" name="energy_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="energy_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } 
+                     ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="energy_initiative_detail">+</button>
+                  @if($errors->has('energy_initiative_detail'))
+                  <ul class="parsley-errors-list filled">
+                     @foreach($errors->get('energy_initiative_detail') as $error)
+                     <li class="parsley-required">{{ $error }}</li>
+                     @endforeach
+                  </ul>
+                  @endif
+               </div>
+
                <h6>From Renewable Sources</h6>
                <ol>
                   <li>
@@ -670,6 +709,45 @@
                   @if($errors->has('water_detail'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('water_detail') as $error)
+                     <li class="parsley-required">{{ $error }}</li>
+                     @endforeach
+                  </ul>
+                  @endif
+               </div>
+
+               <div class="incrementable-section mt-3" data-field="water_initiative_detail">
+                  <label>Initiatives Undertaken for Water</label>
+                  <ul>
+                     <?php
+                     $count = 0;
+                     $initiativeDetails = isset($response['water_initiative_detail']) ? json_decode($response['water_initiative_detail'], true) : [];
+                     foreach ($initiativeDetails as $item) { ?>
+                           <li class="d-flex flex-column">
+                              <div class="form-group">
+                                 <label>Initiative Undertaken</label>
+                                 <input type="text" class="form-control" name="water_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="water_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                              </div>
+                              <div class="form-group">
+                                 <label>Details of the Initiative</label>
+                                 <textarea class="form-control" name="water_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="water_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <label>Outcome of the Initiative</label>
+                                 <textarea class="form-control" name="water_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="water_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } 
+                     ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="water_initiative_detail">+</button>
+                  @if($errors->has('water_initiative_detail'))
+                  <ul class="parsley-errors-list filled">
+                     @foreach($errors->get('water_initiative_detail') as $error)
                      <li class="parsley-required">{{ $error }}</li>
                      @endforeach
                   </ul>
@@ -1340,6 +1418,44 @@
                   @if($errors->has('waste_detail'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('waste_detail') as $error)
+                     <li class="parsley-required">{{ $error }}</li>
+                     @endforeach
+                  </ul>
+                  @endif
+               </div>
+               <div class="incrementable-section mt-3" data-field="waste_initiative_detail">
+                  <label>Initiatives Undertaken for Waste</label>
+                  <ul>
+                     <?php
+                     $count = 0;
+                     $initiativeDetails = isset($response['waste_initiative_detail']) ? json_decode($response['waste_initiative_detail'], true) : [];
+                     foreach ($initiativeDetails as $item) { ?>
+                           <li class="d-flex flex-column">
+                              <div class="form-group">
+                                 <label>Initiative Undertaken</label>
+                                 <input type="text" class="form-control" name="waste_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="waste_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                              </div>
+                              <div class="form-group">
+                                 <label>Details of the Initiative</label>
+                                 <textarea class="form-control" name="waste_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="waste_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <label>Outcome of the Initiative</label>
+                                 <textarea class="form-control" name="waste_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="waste_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } 
+                     ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="waste_initiative_detail">+</button>
+                  @if($errors->has('waste_initiative_detail'))
+                  <ul class="parsley-errors-list filled">
+                     @foreach($errors->get('waste_initiative_detail') as $error)
                      <li class="parsley-required">{{ $error }}</li>
                      @endforeach
                   </ul>
@@ -3239,6 +3355,44 @@
                   </ul>
                   @endif
                </div>
+               <div class="incrementable-section mt-3" data-field="emission_initiative_detail">
+                  <label>Initiatives Undertaken for Emission</label>
+                  <ul>
+                     <?php
+                     $count = 0;
+                     $initiativeDetails = isset($response['emission_initiative_detail']) ? json_decode($response['emission_initiative_detail'], true) : [];
+                     foreach ($initiativeDetails as $item) { ?>
+                           <li class="d-flex flex-column">
+                              <div class="form-group">
+                                 <label>Initiative Undertaken</label>
+                                 <input type="text" class="form-control" name="emission_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="emission_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                              </div>
+                              <div class="form-group">
+                                 <label>Details of the Initiative</label>
+                                 <textarea class="form-control" name="emission_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="emission_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <label>Outcome of the Initiative</label>
+                                 <textarea class="form-control" name="emission_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="emission_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } 
+                     ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="emission_initiative_detail">+</button>
+                  @if($errors->has('emission_initiative_detail'))
+                  <ul class="parsley-errors-list filled">
+                     @foreach($errors->get('emission_initiative_detail') as $error)
+                     <li class="parsley-required">{{ $error }}</li>
+                     @endforeach
+                  </ul>
+                  @endif
+               </div>
 
                <div class="incrementable-section" data-field="scope_1_emissions">
                   <h6>Total Scope 1 Emissions</h6>
@@ -3785,43 +3939,66 @@
       // Add row functionality
       $(document).ready(function() {
          // Add row functionality
+         var initiativeFields = ['waste_initiative_detail', 'energy_initiative_detail', 'emission_initiative_detail', 'water_initiative_detail'];
+         
+
          $('.add-row-btn').on('click', function() {
             var field = $(this).data('field');
             var container = $(this).prev('ul');
             var lastIndex = container.find('li').length > 0 ? parseInt(container.find('li:last .remove-row-btn').data('index')) : -1;
             var newIndex = lastIndex + 1;
-
             var newRow;
-            if (field === 'factory_locations') {
-                  // Single input for factory_locations
-                  newRow = `
-                     <li class="d-flex gap-2">
+
+            if (initiativeFields.includes(field)) {
+                newRow = `
+                    <li class="d-flex flex-column">
+                        <div class="form-group">
+                            <label>Initiative Undertaken</label>
+                            <input type="text" class="form-control" name="${field}[${newIndex}][undertaken]" placeholder="Initiative Undertaken" id="${field}_${newIndex}_undertaken">
+                        </div>
+                        <div class="form-group">
+                            <label>Details of the Initiative</label>
+                            <textarea class="form-control" name="${field}[${newIndex}][details]" rows="3" placeholder="Details of the Initiative" id="${field}_${newIndex}_details"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Outcome of the Initiative</label>
+                            <textarea class="form-control" name="${field}[${newIndex}][outcome]" rows="3" placeholder="Outcome of the Initiative" id="${field}_${newIndex}_outcome"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
+                        </div>
+                    </li>
+                `;
+            } else if (field === 'factory_locations') {
+                // Single input for factory_locations
+                newRow = `
+                    <li class="d-flex gap-2">
                         <div class="form-group col-md-10">
-                              <input type="text" class="form-control" name="${field}[${newIndex}]" placeholder="Location" id="${field}_${newIndex}">
+                            <input type="text" class="form-control" name="${field}[${newIndex}]" placeholder="Location" id="${field}_${newIndex}">
                         </div>
                         <div class="form-group col-md-2">
-                              <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
+                            <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
                         </div>
-                     </li>
-                  `;
+                    </li>
+                `;
             } else {
-                  // Existing year/value pair logic for other fields
-                  newRow = `
-                     <li class="d-flex gap-2">
+                // Default year/value pair for other fields
+                newRow = `
+                    <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                              <input type="text" class="form-control" name="${field}[${newIndex}][year]" placeholder="Year" id="${field}_${newIndex}_year">
+                            <input type="text" class="form-control" name="${field}[${newIndex}][year]" placeholder="Year" id="${field}_${newIndex}_year">
                         </div>
                         <div class="form-group col-md-5">
-                              <input type="text" class="form-control" name="${field}[${newIndex}][value]" placeholder="Value" id="${field}_${newIndex}_value">
+                            <input type="text" class="form-control" name="${field}[${newIndex}][value]" placeholder="Value" id="${field}_${newIndex}_value">
                         </div>
                         <div class="form-group col-md-2">
-                              <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
+                            <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
                         </div>
-                     </li>
-                  `;
+                    </li>
+                `;
             }
             container.append(newRow);
-         });
+        });
 
          // Remove row functionality
          $(document).on('click', '.remove-row-btn', function() {
