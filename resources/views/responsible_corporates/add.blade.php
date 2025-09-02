@@ -3804,6 +3804,45 @@
                   @endif
                </div>
 
+               <div class="incrementable-section mt-3" data-field="csr_initiative_detail">
+                  <label>Initiatives Undertaken for CSR</label>
+                  <ul>
+                     <?php
+                     $count = 0;
+                     $initiativeDetails = isset($response['csr_initiative_detail']) ? json_decode($response['csr_initiative_detail'], true) : [];
+                     foreach ($initiativeDetails as $item) { ?>
+                           <li class="d-flex flex-column">
+                              <div class="form-group">
+                                 <label>Initiative Undertaken</label>
+                                 <input type="text" class="form-control" name="csr_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="csr_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                              </div>
+                              <div class="form-group">
+                                 <label>Details of the Initiative</label>
+                                 <textarea class="form-control" name="csr_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="csr_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <label>Outcome of the Initiative</label>
+                                 <textarea class="form-control" name="csr_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="csr_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
+                              </div>
+                              <div class="form-group">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                     <?php 
+                           $count++; 
+                     } 
+                     ?>
+                  </ul>
+                  <button type="button" class="btn add-row-btn" data-field="csr_initiative_detail">+</button>
+                  @if($errors->has('csr_initiative_detail'))
+                  <ul class="parsley-errors-list filled">
+                     @foreach($errors->get('csr_initiative_detail') as $error)
+                     <li class="parsley-required">{{ $error }}</li>
+                     @endforeach
+                  </ul>
+                  @endif
+               </div>
+
                <div class="incrementable-section" data-field="csr_budget">
                   <h6>CSR Budget</h6>
                   <div class="form-group col-md-5">
@@ -3939,7 +3978,7 @@
       // Add row functionality
       $(document).ready(function() {
          // Add row functionality
-         var initiativeFields = ['waste_initiative_detail', 'energy_initiative_detail', 'emission_initiative_detail', 'water_initiative_detail'];
+         var initiativeFields = ['waste_initiative_detail','csr_initiative_detail', 'energy_initiative_detail', 'emission_initiative_detail', 'water_initiative_detail'];
          
 
          $('.add-row-btn').on('click', function() {
