@@ -749,6 +749,12 @@ class ResponsibleCorporatesController extends Controller
                     'waste_by_type_unit' => $corporate->wasteMetrics->waste_by_type_unit ?? null,
                     'waste_by_disposal_method' => $corporate->wasteMetrics->waste_by_disposal_method ?? null,
                     'waste_by_disposal_method_unit' => $corporate->wasteMetrics->waste_by_disposal_method_unit ?? null,
+                    'total_waste_generated' => $corporate->wasteMetrics->total_waste_generated ?? null,
+                    'total_waste_recovered' => $corporate->wasteMetrics->total_waste_recovered ?? null,
+                    'total_waste_disposed' => $corporate->wasteMetrics->total_waste_disposed ?? null,
+                    'total_waste_generated_unit' => $corporate->wasteMetrics->total_waste_generated_unit ?? null,
+                    'total_waste_recovered_unit' => $corporate->wasteMetrics->total_waste_recovered_unit ?? null,
+                    'total_waste_disposed_unit' => $corporate->wasteMetrics->total_waste_disposed_unit ?? null,
                     // Emission Metrics
                     'emission_detail' => $corporate->emissionMetrics->emission_detail ?? null,
                     'emission_initiative_detail' => $corporate->emissionMetrics->emission_initiative_detail ?? null,

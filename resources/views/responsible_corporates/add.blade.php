@@ -1586,22 +1586,22 @@
                      </div>
                   </li>
                </ol>
-               <div class="incrementable-section" data-field="waste_by_type">
+               <div class="incrementable-section" data-field="total_waste_generated">
                   <h6>Total waste generated</h6>
                   <div class="form-group col-md-5">
-                     <input type="text" class="form-control" name="waste_by_type_unit" placeholder="Unit" id="waste_by_type_unit" value="{{ isset($response['waste_by_type_unit']) ? $response['waste_by_type_unit'] : "" }}">
+                     <input type="text" class="form-control" name="total_waste_generated_unit" placeholder="Unit" id="total_waste_generated_unit" value="{{ isset($response['total_waste_generated_unit']) ? $response['total_waste_generated_unit'] : "" }}">
                   </div>
                   <?php 
                   $count = 0;
-                  $energyDetail = isset($response['waste_by_type']) ? json_decode($response['waste_by_type'], true): [];
+                  $energyDetail = isset($response['total_waste_generated']) ? json_decode($response['total_waste_generated'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="waste_by_type[<?php echo $count; ?>][year]" placeholder="Year" id="waste_by_type_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="total_waste_generated[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_generated_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="waste_by_type[<?php echo $count; ?>][value]" placeholder="Value" id="waste_by_type_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="total_waste_generated[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_generated_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1611,7 +1611,7 @@
                      $count++; 
                   } 
                   echo "</ul>";?>
-                  <button type="button" class="btn add-row-btn" data-field="waste_by_type">+</button>
+                  <button type="button" class="btn add-row-btn" data-field="total_waste_generated">+</button>
                </div>
                <h6>Waste Recovered</h6>
                <ol>
@@ -2370,6 +2370,33 @@
                      </ol>
                   </li>
                </ol>
+               <div class="incrementable-section" data-field="total_waste_recovered">
+                  <h6>Total waste recovered</h6>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_waste_recovered_unit" placeholder="Unit" id="total_waste_recovered_unit" value="{{ isset($response['total_waste_recovered_unit']) ? $response['total_waste_recovered_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['total_waste_recovered']) ? json_decode($response['total_waste_recovered'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_waste_recovered[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_recovered_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_waste_recovered[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_recovered_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="total_waste_recovered">+</button>
+               </div>
                <h6>Waste Disposed by Nature of Disposal Method </h6>
                <ol>
                   <li>
@@ -3109,6 +3136,33 @@
                      </ol>
                   </li>
                </ol>
+               <div class="incrementable-section" data-field="total_waste_disposed">
+                  <h6>Total waste disposed</h6>
+                  <div class="form-group col-md-5">
+                     <input type="text" class="form-control" name="total_waste_disposed_unit" placeholder="Unit" id="total_waste_disposed_unit" value="{{ isset($response['total_waste_disposed_unit']) ? $response['total_waste_disposed_unit'] : "" }}">
+                  </div>
+                  <?php 
+                  $count = 0;
+                  $energyDetail = isset($response['total_waste_disposed']) ? json_decode($response['total_waste_disposed'], true): [];
+                  echo "<ul>";
+                  foreach ($energyDetail as $year => $value) { ?>
+                     <li class="d-flex gap-2">
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_disposed_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                        </div>
+                        <div class="form-group col-md-5">
+                           <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_disposed_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                        </div>
+                        <div class="form-group col-md-2">
+                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                        </div>
+                     </li>
+                  <?php 
+                     $count++; 
+                  } 
+                  echo "</ul>";?>
+                  <button type="button" class="btn add-row-btn" data-field="total_waste_disposed">+</button>
+               </div>
                <h6>Waste Intensity Metrics</h6>
                <ol>
                   <li>

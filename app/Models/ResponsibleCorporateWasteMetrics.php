@@ -136,6 +136,12 @@ class ResponsibleCorporateWasteMetrics extends Model
         'waste_by_type_unit',
         'waste_by_disposal_method',
         'waste_by_disposal_method_unit',
+        'total_waste_generated',
+        'total_waste_recovered',
+        'total_waste_disposed',
+        'total_waste_generated_unit',
+        'total_waste_recovered_unit',
+        'total_waste_disposed_unit'
     ];
 
     /**
