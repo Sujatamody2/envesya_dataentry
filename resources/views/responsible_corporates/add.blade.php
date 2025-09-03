@@ -358,10 +358,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_electricity_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_electricity_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="total_electricity_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_electricity_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_electricity_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_electricity_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="total_electricity_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_electricity_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -387,10 +387,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_fuel_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_fuel_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="total_fuel_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_fuel_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_fuel_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_fuel_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="total_fuel_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_fuel_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -416,10 +416,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -445,10 +445,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_renewable_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_renewable_energy_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="total_renewable_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_renewable_energy_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_renewable_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_renewable_energy_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="total_renewable_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_renewable_energy_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -478,10 +478,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_non_renewable_electricity_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_electricity_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="total_non_renewable_electricity_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_electricity_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_non_renewable_electricity_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_electricity_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="total_non_renewable_electricity_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_electricity_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -507,10 +507,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_non_renewable_fuel_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_fuel_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="total_non_renewable_fuel_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_fuel_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_non_renewable_fuel_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_fuel_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="total_non_renewable_fuel_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_fuel_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -536,10 +536,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -565,10 +565,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_non_renewable_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_energy_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="total_non_renewable_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_energy_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_non_renewable_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_energy_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="total_non_renewable_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_energy_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -595,10 +595,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_energy_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="total_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_energy_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_energy_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="total_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_energy_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -623,10 +623,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="renewable_power_percentage[<?php echo $count; ?>][year]" placeholder="Year" id="renewable_power_percentage_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="renewable_power_percentage[<?php echo $count; ?>][year]" placeholder="Year" id="renewable_power_percentage_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="renewable_power_percentage[<?php echo $count; ?>][value]" placeholder="Value" id="renewable_power_percentage_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="renewable_power_percentage[<?php echo $count; ?>][value]" placeholder="Value" id="renewable_power_percentage_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -653,10 +653,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -682,10 +682,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="energy_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="energy_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="energy_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="energy_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -768,10 +768,10 @@
                         foreach ($waterDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_surface[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_surface_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_surface[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_surface_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_surface[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_surface_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_surface[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_surface_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -798,10 +798,10 @@
                         foreach ($waterDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_ground[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_ground_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_ground[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_ground_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_ground[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_ground_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_ground[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_ground_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -828,10 +828,10 @@
                         foreach ($waterDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_thirdparty[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_thirdparty_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_thirdparty[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_thirdparty_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_thirdparty[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_thirdparty_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_thirdparty[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_thirdparty_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -858,10 +858,10 @@
                         foreach ($waterDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_sea[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_sea_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_sea[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_sea_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_sea[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_sea_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_sea[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_sea_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -888,10 +888,10 @@
                         foreach ($waterDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_other[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_other_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_other[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_other_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_withdrawal_source_other[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_other_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="water_withdrawal_source_other[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_other_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -918,10 +918,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_water_withdrawal[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_withdrawal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="total_water_withdrawal[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_withdrawal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_water_withdrawal[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_withdrawal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="total_water_withdrawal[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_withdrawal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -946,10 +946,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_water_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_consumption_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="total_water_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_water_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_consumption_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="total_water_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -979,10 +979,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_surface_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_surface_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_surface_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_surface_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1009,10 +1009,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_surface_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_surface_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_surface_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_surface_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1044,10 +1044,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_ground_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_ground_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_ground_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_ground_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1074,10 +1074,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_ground_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_ground_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_ground_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_ground_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1109,10 +1109,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_sea_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_sea_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_sea_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_sea_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1139,10 +1139,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_sea_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_sea_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_sea_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_sea_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1174,10 +1174,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_thirdparty_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_thirdparty_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_thirdparty_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_thirdparty_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1204,10 +1204,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_thirdparty_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_thirdparty_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_thirdparty_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_thirdparty_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1239,10 +1239,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_other_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_other_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_other_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_other_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1269,10 +1269,10 @@
                               foreach ($waterDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_other_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_other_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_other_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_other_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1301,10 +1301,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_water_discharged[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_discharged_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="total_water_discharged[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_discharged_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_water_discharged[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_discharged_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="total_water_discharged[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_discharged_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1331,10 +1331,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="water_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="water_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="water_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="water_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1360,10 +1360,10 @@
                         foreach ($waterDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="water_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="water_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="water_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1390,10 +1390,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="water_replenishment_percentage[<?php echo $count; ?>][year]" placeholder="Year" id="water_replenishment_percentage_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="water_replenishment_percentage[<?php echo $count; ?>][year]" placeholder="Year" id="water_replenishment_percentage_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="water_replenishment_percentage[<?php echo $count; ?>][value]" placeholder="Value" id="water_replenishment_percentage_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="water_replenishment_percentage[<?php echo $count; ?>][value]" placeholder="Value" id="water_replenishment_percentage_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1476,10 +1476,10 @@
                         foreach ($wasteDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="plastic_waste[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="plastic_waste[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="plastic_waste[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="plastic_waste[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1506,10 +1506,10 @@
                         foreach ($wasteDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="e_waste[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="e_waste[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="e_waste[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="e_waste[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1536,10 +1536,10 @@
                         foreach ($wasteDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="biological_waste[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="biological_waste[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="biological_waste[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="biological_waste[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1566,10 +1566,10 @@
                         foreach ($wasteDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="construction_waste[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="construction_waste[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="construction_waste[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="construction_waste[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1596,10 +1596,10 @@
                         foreach ($wasteDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="battery_waste[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="battery_waste[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="battery_waste[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="battery_waste[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1626,10 +1626,10 @@
                         foreach ($wasteDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="radioactive_waste[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                    <input type="text" class="form-control" name="radioactive_waste[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
                                  <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" name="radioactive_waste[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                    <input type="text" class="form-control" name="radioactive_waste[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
                                     <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1656,10 +1656,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="hazardous_waste[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="hazardous_waste[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="hazardous_waste[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="hazardous_waste[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1685,10 +1685,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="non_hazardous_waste[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="non_hazardous_waste[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="non_hazardous_waste[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="non_hazardous_waste[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1714,10 +1714,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_waste_generated[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_generated_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="total_waste_generated[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_generated_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_waste_generated[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_generated_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="total_waste_generated[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_generated_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1747,10 +1747,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="plastic_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="plastic_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="plastic_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="plastic_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1777,10 +1777,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="plastic_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="plastic_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="plastic_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="plastic_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1807,10 +1807,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="plastic_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="plastic_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="plastic_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="plastic_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1842,10 +1842,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="e_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="e_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="e_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="e_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1872,10 +1872,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="e_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="e_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="e_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="e_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1902,10 +1902,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="e_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="e_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="e_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="e_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1937,10 +1937,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="biological_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="biological_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="biological_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="biological_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1967,10 +1967,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="biological_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="biological_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="biological_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="biological_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -1997,10 +1997,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="biological_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="biological_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="biological_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="biological_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2032,10 +2032,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="construction_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="construction_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="construction_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="construction_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2062,10 +2062,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="construction_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="construction_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="construction_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="construction_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2092,10 +2092,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="construction_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="construction_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="construction_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="construction_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2127,10 +2127,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="battery_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="battery_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="battery_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="battery_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2157,10 +2157,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="battery_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="battery_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="battery_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="battery_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2187,10 +2187,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="battery_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="battery_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="battery_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="battery_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2222,10 +2222,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="radioactive_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="radioactive_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="radioactive_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="radioactive_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2252,10 +2252,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="radioactive_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="radioactive_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="radioactive_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="radioactive_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2282,10 +2282,10 @@
                               foreach ($wasteDetail as $year => $value) { ?>
                                  <li class="d-flex gap-2">
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="radioactive_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                          <input type="text" class="form-control" name="radioactive_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
                                        <div class="form-group col-md-5">
-                                          <input type="text" class="form-control" name="radioactive_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                          <input type="text" class="form-control" name="radioactive_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
                                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2317,10 +2317,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2346,10 +2346,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2375,10 +2375,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2409,10 +2409,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_recycled_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_recycled_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2438,10 +2438,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_reused_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_reused_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2467,10 +2467,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2498,10 +2498,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_waste_recovered[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_recovered_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="total_waste_recovered[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_recovered_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_waste_recovered[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_recovered_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="total_waste_recovered[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_recovered_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2531,10 +2531,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="plastic_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="plastic_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="plastic_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="plastic_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2560,10 +2560,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="plastic_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="plastic_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="plastic_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="plastic_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2589,10 +2589,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="plastic_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="plastic_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="plastic_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="plastic_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2623,10 +2623,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="e_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="e_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="e_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="e_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2652,10 +2652,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="e_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="e_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="e_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="e_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2681,10 +2681,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="e_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="e_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="e_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="e_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2715,10 +2715,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="biological_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="biological_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="biological_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="biological_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2744,10 +2744,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="biological_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="biological_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="biological_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="biological_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2773,10 +2773,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="biological_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="biological_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="biological_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="biological_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2807,10 +2807,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="construction_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="construction_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="construction_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="construction_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2836,10 +2836,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="construction_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="construction_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="construction_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="construction_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2865,10 +2865,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="construction_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="construction_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="construction_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="construction_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2899,10 +2899,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="battery_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="battery_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="battery_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="battery_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2928,10 +2928,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="battery_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="battery_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="battery_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="battery_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2957,10 +2957,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="battery_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="battery_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="battery_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="battery_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -2991,10 +2991,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="radioactive_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="radioactive_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="radioactive_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="radioactive_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3020,10 +3020,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="radioactive_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="radioactive_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="radioactive_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="radioactive_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3049,10 +3049,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="radioactive_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="radioactive_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="radioactive_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="radioactive_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3083,10 +3083,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3112,10 +3112,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3141,10 +3141,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="hazardous_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="hazardous_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3175,10 +3175,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_incineration_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_incineration_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3204,10 +3204,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3233,10 +3233,10 @@
                                  foreach ($wasteDetail as $year => $value) { ?>
                                        <li class="d-flex gap-2">
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
                                           <div class="form-group col-md-5">
-                                             <input type="text" class="form-control" name="non_hazardous_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                             <input type="text" class="form-control" name="non_hazardous_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
                                              <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3264,10 +3264,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_disposed_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_disposed_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_disposed_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_disposed_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3294,10 +3294,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="waste_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="waste_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="waste_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="waste_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="waste_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="waste_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="waste_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="waste_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3323,10 +3323,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="waste_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="waste_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="waste_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="waste_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="waste_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="waste_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="waste_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="waste_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3406,10 +3406,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="scope_1_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_1_emissions_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="scope_1_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_1_emissions_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="scope_1_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_1_emissions_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="scope_1_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_1_emissions_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3434,10 +3434,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="scope_2_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_2_emissions_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="scope_2_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_2_emissions_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="scope_2_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_2_emissions_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="scope_2_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_2_emissions_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3462,10 +3462,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="scope_3_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_3_emissions_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="scope_3_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_3_emissions_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="scope_3_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_3_emissions_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="scope_3_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_3_emissions_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3492,10 +3492,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="specific_emissions_scope_1_2_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_1_2_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="specific_emissions_scope_1_2_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_1_2_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="specific_emissions_scope_1_2_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_1_2_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="specific_emissions_scope_1_2_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_1_2_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3521,10 +3521,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_1_2_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_1_2_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_1_2_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_1_2_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3550,10 +3550,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_3_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_3_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_3_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_3_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3579,10 +3579,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_scope_3_emission_intensity[<?php echo $count; ?>][year]" placeholder="Year" id="total_scope_3_emission_intensity_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="total_scope_3_emission_intensity[<?php echo $count; ?>][year]" placeholder="Year" id="total_scope_3_emission_intensity_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_scope_3_emission_intensity[<?php echo $count; ?>][value]" placeholder="Value" id="total_scope_3_emission_intensity_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="total_scope_3_emission_intensity[<?php echo $count; ?>][value]" placeholder="Value" id="total_scope_3_emission_intensity_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3611,10 +3611,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="no_x[<?php echo $count; ?>][year]" placeholder="Year" id="no_x_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="no_x[<?php echo $count; ?>][year]" placeholder="Year" id="no_x_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="no_x[<?php echo $count; ?>][value]" placeholder="Value" id="no_x_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="no_x[<?php echo $count; ?>][value]" placeholder="Value" id="no_x_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3640,10 +3640,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="so_x[<?php echo $count; ?>][year]" placeholder="Year" id="so_x_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="so_x[<?php echo $count; ?>][year]" placeholder="Year" id="so_x_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="so_x[<?php echo $count; ?>][value]" placeholder="Value" id="so_x_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="so_x[<?php echo $count; ?>][value]" placeholder="Value" id="so_x_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3669,10 +3669,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][year]" placeholder="Year" id="particular_matter_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][year]" placeholder="Year" id="particular_matter_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][value]" placeholder="Value" id="particular_matter_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][value]" placeholder="Value" id="particular_matter_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3698,10 +3698,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="pop[<?php echo $count; ?>][year]" placeholder="Year" id="pop_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="pop[<?php echo $count; ?>][year]" placeholder="Year" id="pop_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="pop[<?php echo $count; ?>][value]" placeholder="Value" id="pop_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="pop[<?php echo $count; ?>][value]" placeholder="Value" id="pop_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3727,10 +3727,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="voc[<?php echo $count; ?>][year]" placeholder="Year" id="voc_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="voc[<?php echo $count; ?>][year]" placeholder="Year" id="voc_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="voc[<?php echo $count; ?>][value]" placeholder="Value" id="voc_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input type="text" class="form-control" name="voc[<?php echo $count; ?>][value]" placeholder="Value" id="voc_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3756,10 +3756,10 @@
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2">
                               <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="hazardous_air_pollutants[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_air_pollutants_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                                 <input type="text" class="form-control" name="hazardous_air_pollutants[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_air_pollutants_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group col-md-5">
-                                 <input   type="text" class="form-control" name="hazardous_air_pollutants[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_air_pollutants_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                                 <input   type="text" class="form-control" name="hazardous_air_pollutants[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_air_pollutants_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3855,10 +3855,10 @@
                   foreach ($energyDetail as $year => $value) { ?>
                      <li class="d-flex gap-2">
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="csr_budget[<?php echo $count; ?>][year]" placeholder="Year" id="csr_budget_<?php echo $count; ?>_year" value="<?php echo htmlspecialchars(trim($year, '[]')); ?>">
+                           <input type="text" class="form-control" name="csr_budget[<?php echo $count; ?>][year]" placeholder="Year" id="csr_budget_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
                         <div class="form-group col-md-5">
-                           <input type="text" class="form-control" name="csr_budget[<?php echo $count; ?>][value]" placeholder="Value" id="csr_budget_<?php echo $count; ?>_value" value="<?php echo htmlspecialchars($value); ?>">
+                           <input type="text" class="form-control" name="csr_budget[<?php echo $count; ?>][value]" placeholder="Value" id="csr_budget_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
                            <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>

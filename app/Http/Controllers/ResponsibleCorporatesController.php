@@ -474,19 +474,10 @@ class ResponsibleCorporatesController extends Controller
 
         foreach ($data as $key => $value) {
             if (is_array($value)) {
-                // Case: array of [year, value] pairs
-                if (isset($value[0]['year']) && isset($value[0]['value'])) {
-                    $mapped = [];
-                    foreach ($value as $row) {
-                        if (!empty($row['year']) && !empty($row['value'])) {
-                            $mapped[$row['year']] = $row['value'];
-                        }
-                    }
-                    $input[$key] = json_encode($mapped);
-                } else {
+                
                     // Generic array (e.g. multi-select checkboxes)
                     $input[$key] = json_encode($value);
-                }
+                
             } else {
                 // Keep scalar values as-is
                 $input[$key] = $value;
