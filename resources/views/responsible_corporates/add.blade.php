@@ -2,6 +2,9 @@
 
 @section('content')
 <style>
+   .w-fit {
+      width: fit-content;
+   }
    .add-row-btn, .remove-row-btn {
       padding: 5px 10px;
       margin-left: 10px;
@@ -194,7 +197,7 @@
                      $count = 0;
                      $factoryLocations = isset($response['factory_locations']) ? json_decode($response['factory_locations'], true) : [];
                      foreach ($factoryLocations as $location) { ?>
-                           <li class="d-flex gap-2">
+                           <li class="d-flex gap-2 w-100">
                               <div class="form-group col-md-10">
                                  <input type="text" class="form-control" name="factory_locations[<?php echo $count; ?>]" placeholder="Location" id="factory_locations_<?php echo $count; ?>" value="<?php echo htmlspecialchars($location); ?>">
                               </div>
@@ -311,21 +314,21 @@
                      $count = 0;
                      $initiativeDetails = isset($response['energy_initiative_detail']) ? json_decode($response['energy_initiative_detail'], true) : [];
                      foreach ($initiativeDetails as $item) { ?>
-                           <li class="d-flex flex-column">
-                              <div class="form-group">
+                           <li class="d-flex" style="gap:10px;">
+                              <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
                                  <input type="text" class="form-control" name="energy_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="energy_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
                                  <textarea class="form-control" name="energy_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="energy_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Outcome of the Initiative</label>
                                  <textarea class="form-control" name="energy_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="energy_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
-                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              <div class="form-group" style="flex:0 0 fit-content">
+                                 <button type="button" class="btn remove-row-btn mt-4" data-index="<?php echo $count; ?>">-</button>
                               </div>
                            </li>
                      <?php 
@@ -348,7 +351,7 @@
                   <li>
                      <div class="incrementable-section" data-field="total_electricity_consumption">
                         <label for="usr">Total Electricity Consumption</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_electricity_consumption_unit" placeholder="Unit" id="total_electricity_consumption_unit" value="{{ isset($response['total_electricity_consumption_unit']) ? $response['total_electricity_consumption_unit'] : "" }}">
                         </div>
                         <?php 
@@ -356,15 +359,17 @@
                         $energyDetail = isset($response['total_electricity_consumption']) ? json_decode($response['total_electricity_consumption'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_electricity_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_electricity_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
-                              </div>
-                              <div class="form-group col-md-5">
-                                 <input type="text" class="form-control" name="total_electricity_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_electricity_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
-                              </div>
-                              <div class="form-group col-md-2">
-                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                           <li class="d-flex gap-2 w-100">
+                              <div class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
+                                    <input type="text" class="form-control" name="total_electricity_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_electricity_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
+                                 </div>
+                                 <div class="form-group w-fit">
+                                    <input type="text" class="form-control" name="total_electricity_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_electricity_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
+                                 </div>
+                                 <div class="form-group col-md-2">
+                                    <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                                 </div>
                               </div>
                            </li>
                         <?php 
@@ -377,7 +382,7 @@
                   <li>
                      <div class="incrementable-section" data-field="total_fuel_consumption">
                         <label for="usr">Total Fuel Consumption</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_fuel_consumption_unit" placeholder="Unit" id="total_fuel_consumption_unit" value="{{ isset($response['total_fuel_consumption_unit']) ? $response['total_fuel_consumption_unit'] : "" }}">
                         </div>
                         <?php 
@@ -385,11 +390,11 @@
                         $energyDetail = isset($response['total_fuel_consumption']) ? json_decode($response['total_fuel_consumption'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_fuel_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_fuel_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_fuel_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_fuel_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -406,7 +411,7 @@
                   <li>
                      <div class="incrementable-section" data-field="energy_cosuption_through_source">
                         <label for="usr">Energy consumption through other sources</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="energy_cosuption_through_source_unit" placeholder="Unit" id="energy_cosuption_through_source_unit" value="{{ isset($response['energy_cosuption_through_source_unit']) ? $response['energy_cosuption_through_source_unit'] : "" }}">
                         </div>
                         <?php 
@@ -414,11 +419,11 @@
                         $energyDetail = isset($response['energy_cosuption_through_source']) ? json_decode($response['energy_cosuption_through_source'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -435,7 +440,7 @@
                   <li>
                      <div class="incrementable-section" data-field="total_renewable_energy_consumption">
                         <label for="usr">Total Renewable Energy Consumption</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_renewable_energy_consumption_unit" placeholder="Unit" id="total_renewable_energy_consumption_unit" value="{{ isset($response['total_renewable_energy_consumption_unit']) ? $response['total_renewable_energy_consumption_unit'] : "" }}">
                         </div>
                         <?php 
@@ -443,11 +448,11 @@
                         $energyDetail = isset($response['total_renewable_energy_consumption']) ? json_decode($response['total_renewable_energy_consumption'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_renewable_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_renewable_energy_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_renewable_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_renewable_energy_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -468,7 +473,7 @@
                   <li>
                      <div class="incrementable-section" data-field="total_non_renewable_electricity_consumption">
                         <label for="usr">Total electricity consumption</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_non_renewable_electricity_consumption_unit" placeholder="Unit" id="total_non_renewable_electricity_consumption_unit" value="{{ isset($response['total_non_renewable_electricity_consumption_unit']) ? $response['total_non_renewable_electricity_consumption_unit'] : "" }}">
                         </div>
                         <?php 
@@ -476,11 +481,11 @@
                         $energyDetail = isset($response['total_non_renewable_electricity_consumption']) ? json_decode($response['total_non_renewable_electricity_consumption'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_non_renewable_electricity_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_electricity_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_non_renewable_electricity_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_electricity_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -497,7 +502,7 @@
                   <li>
                      <div class="incrementable-section" data-field="total_non_renewable_fuel_consumption">
                         <label for="usr">Total fuel consumption</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_non_renewable_fuel_consumption_unit" placeholder="Unit" id="total_non_renewable_fuel_consumption_unit" value="{{ isset($response['total_non_renewable_fuel_consumption_unit']) ? $response['total_non_renewable_fuel_consumption_unit'] : "" }}">
                         </div>
                         <?php 
@@ -505,11 +510,11 @@
                         $energyDetail = isset($response['total_non_renewable_fuel_consumption']) ? json_decode($response['total_non_renewable_fuel_consumption'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_non_renewable_fuel_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_fuel_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_non_renewable_fuel_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_fuel_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -526,7 +531,7 @@
                   <li>
                      <div class="incrementable-section" data-field="non_renewable_energy_cosuption_through_source">
                         <label for="usr">Energy consumption through other sources</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source_unit" placeholder="Unit" id="non_renewable_energy_cosuption_through_source_unit" value="{{ isset($response['non_renewable_energy_cosuption_through_source_unit']) ? $response['non_renewable_energy_cosuption_through_source_unit'] : "" }}">
                         </div>
                         <?php 
@@ -534,11 +539,11 @@
                         $energyDetail = isset($response['non_renewable_energy_cosuption_through_source']) ? json_decode($response['non_renewable_energy_cosuption_through_source'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -555,7 +560,7 @@
                   <li>
                      <div class="incrementable-section" data-field="total_non_renewable_energy_consumption">
                         <label for="usr">Total Non Renewable Energy Consumption</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_non_renewable_energy_consumption_unit" placeholder="Unit" id="total_non_renewable_energy_consumption_unit" value="{{ isset($response['total_non_renewable_energy_consumption_unit']) ? $response['total_non_renewable_energy_consumption_unit'] : "" }}">
                         </div>
                         <?php 
@@ -563,11 +568,11 @@
                         $energyDetail = isset($response['total_non_renewable_energy_consumption']) ? json_decode($response['total_non_renewable_energy_consumption'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_non_renewable_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_non_renewable_energy_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_non_renewable_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_non_renewable_energy_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -585,7 +590,7 @@
                </ol>
                <div class="incrementable-section" data-field="total_energy_consumption">
                   <h6>Total Energy Consumption</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_energy_consumption_unit" placeholder="Unit" id="total_energy_consumption_unit" value="{{ isset($response['total_energy_consumption_unit']) ? $response['total_energy_consumption_unit'] : "" }}">
                   </div>
                   <?php 
@@ -593,11 +598,11 @@
                   $energyDetail = isset($response['total_energy_consumption']) ? json_decode($response['total_energy_consumption'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_energy_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_energy_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_energy_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_energy_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -613,7 +618,7 @@
                </div>
                <div class="incrementable-section" data-field="renewable_power_percentage">
                   <h6>Renewable Power % of Total</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="renewable_power_percentage_unit" placeholder="Unit" id="renewable_power_percentage_unit" value="{{ isset($response['renewable_power_percentage_unit']) ? $response['renewable_power_percentage_unit'] : "" }}">
                   </div>
                   <?php 
@@ -621,11 +626,11 @@
                   $energyDetail = isset($response['renewable_power_percentage']) ? json_decode($response['renewable_power_percentage'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="renewable_power_percentage[<?php echo $count; ?>][year]" placeholder="Year" id="renewable_power_percentage_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="renewable_power_percentage[<?php echo $count; ?>][value]" placeholder="Value" id="renewable_power_percentage_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -643,7 +648,7 @@
                   <li>
                      <div class="incrementable-section" data-field="energy_intensity_per_rupee_turnover">
                         <label for="usr">Energy Intensity per Rupee of Turnover</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover_unit" placeholder="Unit" id="energy_intensity_per_rupee_turnover_unit" value="{{ isset($response['energy_intensity_per_rupee_turnover_unit']) ? $response['energy_intensity_per_rupee_turnover_unit'] : "" }}">
                         </div>
                         <?php 
@@ -651,11 +656,11 @@
                         $energyDetail = isset($response['energy_intensity_per_rupee_turnover']) ? json_decode($response['energy_intensity_per_rupee_turnover'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="energy_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -672,7 +677,7 @@
                   <li>
                      <div class="incrementable-section" data-field="energy_intensity_physical_output">
                         <label for="usr">Energy intensity in terms of physical output</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="energy_intensity_physical_output_unit" placeholder="Unit" id="energy_intensity_physical_output_unit" value="{{ isset($response['energy_intensity_physical_output_unit']) ? $response['energy_intensity_physical_output_unit'] : "" }}">
                         </div>
                         <?php 
@@ -680,11 +685,11 @@
                         $energyDetail = isset($response['energy_intensity_physical_output']) ? json_decode($response['energy_intensity_physical_output'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="energy_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="energy_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="energy_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="energy_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -716,27 +721,27 @@
                </div>
 
                <div class="incrementable-section mt-3" data-field="water_initiative_detail">
-                  <label>Initiatives Undertaken for Water</label>
+                  <h6>Initiatives Undertaken for Water</h6>
                   <ul>
                      <?php
                      $count = 0;
                      $initiativeDetails = isset($response['water_initiative_detail']) ? json_decode($response['water_initiative_detail'], true) : [];
                      foreach ($initiativeDetails as $item) { ?>
-                           <li class="d-flex flex-column">
-                              <div class="form-group">
+                           <li class="d-flex" style="gap:10px;">
+                              <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
                                  <input type="text" class="form-control" name="water_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="water_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
                                  <textarea class="form-control" name="water_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="water_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Outcome of the Initiative</label>
                                  <textarea class="form-control" name="water_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="water_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
-                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              <div class="form-group" style="flex:0 0 fit-content">
+                                 <button type="button" class="btn remove-row-btn mt-4" data-index="<?php echo $count; ?>">-</button>
                               </div>
                            </li>
                      <?php 
@@ -758,7 +763,7 @@
                   <li>
                      <div class="incrementable-section" data-field="water_withdrawal_source_surface">
                         <label for="usr">Surface Water</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_withdrawal_source_surface_unit" placeholder="Unit" id="water_withdrawal_source_surface_unit" value="{{ isset($response['water_withdrawal_source_surface_unit']) ? $response['water_withdrawal_source_surface_unit'] : "" }}">
                         </div>
                         <?php 
@@ -766,11 +771,11 @@
                         $waterDetail = isset($response['water_withdrawal_source_surface']) ? json_decode($response['water_withdrawal_source_surface'], true) : [];
                         echo "<ul>";
                         foreach ($waterDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_surface[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_surface_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_surface[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_surface_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -788,7 +793,7 @@
                   <li>
                      <div class="incrementable-section" data-field="water_withdrawal_source_ground">
                         <label for="usr">Groundwater</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_withdrawal_source_ground_unit" placeholder="Unit" id="water_withdrawal_source_ground_unit" value="{{ isset($response['water_withdrawal_source_ground_unit']) ? $response['water_withdrawal_source_ground_unit'] : "" }}">
                         </div>
                         <?php 
@@ -796,11 +801,11 @@
                         $waterDetail = isset($response['water_withdrawal_source_ground']) ? json_decode($response['water_withdrawal_source_ground'], true) : [];
                         echo "<ul>";
                         foreach ($waterDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_ground[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_ground_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_ground[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_ground_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -818,7 +823,7 @@
                   <li>
                      <div class="incrementable-section" data-field="water_withdrawal_source_thirdparty">
                         <label for="usr">Third-party water</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_withdrawal_source_thirdparty_unit" placeholder="Unit" id="water_withdrawal_source_thirdparty_unit" value="{{ isset($response['water_withdrawal_source_thirdparty_unit']) ? $response['water_withdrawal_source_thirdparty_unit'] : "" }}">
                         </div>
                         <?php 
@@ -826,11 +831,11 @@
                         $waterDetail = isset($response['water_withdrawal_source_thirdparty']) ? json_decode($response['water_withdrawal_source_thirdparty'], true) : [];
                         echo "<ul>";
                         foreach ($waterDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_thirdparty[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_thirdparty_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_thirdparty[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_thirdparty_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -848,7 +853,7 @@
                   <li>
                      <div class="incrementable-section" data-field="water_withdrawal_source_sea">
                         <label for="usr">Seawater / desalinated water</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_withdrawal_source_sea_unit" placeholder="Unit" id="water_withdrawal_source_sea_unit" value="{{ isset($response['water_withdrawal_source_sea_unit']) ? $response['water_withdrawal_source_sea_unit'] : "" }}">
                         </div>
                         <?php 
@@ -856,11 +861,11 @@
                         $waterDetail = isset($response['water_withdrawal_source_sea']) ? json_decode($response['water_withdrawal_source_sea'], true) : [];
                         echo "<ul>";
                         foreach ($waterDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_sea[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_sea_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_sea[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_sea_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -878,7 +883,7 @@
                   <li>
                      <div class="incrementable-section" data-field="water_withdrawal_source_other">
                         <label for="usr">Other</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_withdrawal_source_other_unit" placeholder="Unit" id="water_withdrawal_source_other_unit" value="{{ isset($response['water_withdrawal_source_other_unit']) ? $response['water_withdrawal_source_other_unit'] : "" }}">
                         </div>
                         <?php 
@@ -886,11 +891,11 @@
                         $waterDetail = isset($response['water_withdrawal_source_other']) ? json_decode($response['water_withdrawal_source_other'], true) : [];
                         echo "<ul>";
                         foreach ($waterDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_other[<?php echo $count; ?>][year]" placeholder="Year" id="water_withdrawal_source_other_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_withdrawal_source_other[<?php echo $count; ?>][value]" placeholder="Value" id="water_withdrawal_source_other_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -908,7 +913,7 @@
                </ol>
                <div class="incrementable-section" data-field="total_water_withdrawal">
                   <h6>Total Volume of Water Withdrawal</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_water_withdrawal_unit" placeholder="Unit" id="total_water_withdrawal_unit" value="{{ isset($response['total_water_withdrawal_unit']) ? $response['total_water_withdrawal_unit'] : "" }}">
                   </div>
                   <?php 
@@ -916,11 +921,11 @@
                   $energyDetail = isset($response['total_water_withdrawal']) ? json_decode($response['total_water_withdrawal'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_water_withdrawal[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_withdrawal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_water_withdrawal[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_withdrawal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -936,7 +941,7 @@
 
                <div class="incrementable-section" data-field="total_water_consumption">
                   <h6>Total Volume of Water Consumption</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_water_consumption_unit" placeholder="Unit" id="total_water_consumption_unit" value="{{ isset($response['total_water_consumption_unit']) ? $response['total_water_consumption_unit'] : "" }}">
                   </div>
                   <?php 
@@ -944,11 +949,11 @@
                   $energyDetail = isset($response['total_water_consumption']) ? json_decode($response['total_water_consumption'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_water_consumption[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_consumption_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_water_consumption[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_consumption_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -969,7 +974,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_surface_water_no_treatment">
                               <label for="usr">No Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_surface_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_surface_water_no_treatment_unit']) ? $response['water_discharge_to_surface_water_no_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -977,11 +982,11 @@
                               $waterDetail = isset($response['water_discharge_to_surface_water_no_treatment']) ? json_decode($response['water_discharge_to_surface_water_no_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_surface_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_surface_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_surface_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -999,7 +1004,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_surface_water_with_treatment">
                               <label for="usr">With Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_surface_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_surface_water_with_treatment_unit']) ? $response['water_discharge_to_surface_water_with_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1007,11 +1012,11 @@
                               $waterDetail = isset($response['water_discharge_to_surface_water_with_treatment']) ? json_decode($response['water_discharge_to_surface_water_with_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_surface_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_surface_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_surface_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1034,7 +1039,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_ground_water_no_treatment">
                               <label for="usr">No Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_ground_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_ground_water_no_treatment_unit']) ? $response['water_discharge_to_ground_water_no_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1042,11 +1047,11 @@
                               $waterDetail = isset($response['water_discharge_to_ground_water_no_treatment']) ? json_decode($response['water_discharge_to_ground_water_no_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_ground_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_ground_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_ground_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1064,7 +1069,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_ground_water_with_treatment">
                               <label for="usr">With Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_ground_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_ground_water_with_treatment_unit']) ? $response['water_discharge_to_ground_water_with_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1072,11 +1077,11 @@
                               $waterDetail = isset($response['water_discharge_to_ground_water_with_treatment']) ? json_decode($response['water_discharge_to_ground_water_with_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_ground_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_ground_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_ground_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1099,7 +1104,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_sea_water_no_treatment">
                               <label for="usr">No Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_sea_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_sea_water_no_treatment_unit']) ? $response['water_discharge_to_sea_water_no_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1107,11 +1112,11 @@
                               $waterDetail = isset($response['water_discharge_to_sea_water_no_treatment']) ? json_decode($response['water_discharge_to_sea_water_no_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_sea_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_sea_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_sea_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1129,7 +1134,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_sea_water_with_treatment">
                               <label for="usr">With Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_sea_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_sea_water_with_treatment_unit']) ? $response['water_discharge_to_sea_water_with_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1137,11 +1142,11 @@
                               $waterDetail = isset($response['water_discharge_to_sea_water_with_treatment']) ? json_decode($response['water_discharge_to_sea_water_with_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_sea_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_sea_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_sea_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1164,7 +1169,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_thirdparty_water_no_treatment">
                               <label for="usr">No Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_thirdparty_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_thirdparty_water_no_treatment_unit']) ? $response['water_discharge_to_thirdparty_water_no_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1172,11 +1177,11 @@
                               $waterDetail = isset($response['water_discharge_to_thirdparty_water_no_treatment']) ? json_decode($response['water_discharge_to_thirdparty_water_no_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_thirdparty_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_thirdparty_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1194,7 +1199,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_thirdparty_water_with_treatment">
                               <label for="usr">With Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_thirdparty_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_thirdparty_water_with_treatment_unit']) ? $response['water_discharge_to_thirdparty_water_with_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1202,11 +1207,11 @@
                               $waterDetail = isset($response['water_discharge_to_thirdparty_water_with_treatment']) ? json_decode($response['water_discharge_to_thirdparty_water_with_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_thirdparty_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_thirdparty_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_thirdparty_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1229,7 +1234,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_other_water_no_treatment">
                               <label for="usr">No Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment_unit" placeholder="Unit" id="water_discharge_to_other_water_no_treatment_unit" value="{{ isset($response['water_discharge_to_other_water_no_treatment_unit']) ? $response['water_discharge_to_other_water_no_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1237,11 +1242,11 @@
                               $waterDetail = isset($response['water_discharge_to_other_water_no_treatment']) ? json_decode($response['water_discharge_to_other_water_no_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_other_water_no_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_other_water_no_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_other_water_no_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1259,7 +1264,7 @@
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_other_water_with_treatment">
                               <label for="usr">With Treatment</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment_unit" placeholder="Unit" id="water_discharge_to_other_water_with_treatment_unit" value="{{ isset($response['water_discharge_to_other_water_with_treatment_unit']) ? $response['water_discharge_to_other_water_with_treatment_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1267,11 +1272,11 @@
                               $waterDetail = isset($response['water_discharge_to_other_water_with_treatment']) ? json_decode($response['water_discharge_to_other_water_with_treatment'], true) : [];
                               echo "<ul>";
                               foreach ($waterDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment[<?php echo $count; ?>][year]" placeholder="Year" id="water_discharge_to_other_water_with_treatment_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="water_discharge_to_other_water_with_treatment[<?php echo $count; ?>][value]" placeholder="Value" id="water_discharge_to_other_water_with_treatment_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1291,7 +1296,7 @@
                </ol>
                <div class="incrementable-section" data-field="total_water_discharged">
                   <h6>Total Water Discharged</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_water_discharged_unit" placeholder="Unit" id="total_water_discharged_unit" value="{{ isset($response['total_water_discharged_unit']) ? $response['total_water_discharged_unit'] : "" }}">
                   </div>
                   <?php 
@@ -1299,11 +1304,11 @@
                   $energyDetail = isset($response['total_water_discharged']) ? json_decode($response['total_water_discharged'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_water_discharged[<?php echo $count; ?>][year]" placeholder="Year" id="total_water_discharged_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_water_discharged[<?php echo $count; ?>][value]" placeholder="Value" id="total_water_discharged_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -1321,7 +1326,7 @@
                   <li>
                      <div class="incrementable-section" data-field="water_intensity_per_rupee_turnover">
                         <label for="usr">Water Intensity per Rupee of Turnover</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_intensity_per_rupee_turnover_unit" placeholder="Unit" id="water_intensity_per_rupee_turnover_unit" value="{{ isset($response['water_intensity_per_rupee_turnover_unit']) ? $response['water_intensity_per_rupee_turnover_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1329,11 +1334,11 @@
                         $energyDetail = isset($response['water_intensity_per_rupee_turnover']) ? json_decode($response['water_intensity_per_rupee_turnover'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -1350,7 +1355,7 @@
                   <li>
                      <div class="incrementable-section" data-field="water_intensity_physical_output">
                         <label for="usr">Water Intensity in Terms of Physical Output</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_intensity_physical_output_unit" placeholder="Unit" id="water_intensity_physical_output_unit" value="{{ isset($response['water_intensity_physical_output_unit']) ? $response['water_intensity_physical_output_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1358,11 +1363,11 @@
                         $waterDetail = isset($response['water_intensity_physical_output']) ? json_decode($response['water_intensity_physical_output'], true) : [];
                         echo "<ul>";
                         foreach ($waterDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="water_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="water_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="water_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -1380,7 +1385,7 @@
                   <li>
                      <div class="incrementable-section" data-field="water_replenishment_percentage">
                         <label for="usr">Water Replenishment % of Consumption</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_replenishment_percentage_unit" placeholder="Unit" id="water_replenishment_percentage_unit" value="{{ isset($response['water_replenishment_percentage_unit']) ? $response['water_replenishment_percentage_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1388,11 +1393,11 @@
                         $energyDetail = isset($response['water_replenishment_percentage']) ? json_decode($response['water_replenishment_percentage'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_replenishment_percentage[<?php echo $count; ?>][year]" placeholder="Year" id="water_replenishment_percentage_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="water_replenishment_percentage[<?php echo $count; ?>][value]" placeholder="Value" id="water_replenishment_percentage_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -1424,27 +1429,27 @@
                   @endif
                </div>
                <div class="incrementable-section mt-3" data-field="waste_initiative_detail">
-                  <label>Initiatives Undertaken for Waste</label>
+                  <h6>Initiatives Undertaken for Waste</h6>
                   <ul>
                      <?php
                      $count = 0;
                      $initiativeDetails = isset($response['waste_initiative_detail']) ? json_decode($response['waste_initiative_detail'], true) : [];
                      foreach ($initiativeDetails as $item) { ?>
-                           <li class="d-flex flex-column">
-                              <div class="form-group">
+                           <li class="d-flex" style="gap:10px">
+                              <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
                                  <input type="text" class="form-control" name="waste_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="waste_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
                                  <textarea class="form-control" name="waste_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="waste_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Outcome of the Initiative</label>
                                  <textarea class="form-control" name="waste_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="waste_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
-                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              <div class="form-group" style="flex:0 0 fit-content">
+                                 <button type="button" class="btn remove-row-btn mt-4" data-index="<?php echo $count; ?>">-</button>
                               </div>
                            </li>
                      <?php 
@@ -1466,7 +1471,7 @@
                   <li>
                      <div class="incrementable-section" data-field="plastic_waste">
                         <label for="usr">Plastic Waste</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="plastic_waste_unit" placeholder="Unit" id="plastic_waste_unit" value="{{ isset($response['plastic_waste_unit']) ? $response['plastic_waste_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1474,11 +1479,11 @@
                         $wasteDetail = isset($response['plastic_waste']) ? json_decode($response['plastic_waste'], true) : [];
                         echo "<ul>";
                         foreach ($wasteDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="plastic_waste[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="plastic_waste[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -1496,7 +1501,7 @@
                   <li>
                      <div class="incrementable-section" data-field="e_waste">
                         <label for="usr">E-Waste</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="e_waste_unit" placeholder="Unit" id="e_waste_unit" value="{{ isset($response['e_waste_unit']) ? $response['e_waste_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1504,11 +1509,11 @@
                         $wasteDetail = isset($response['e_waste']) ? json_decode($response['e_waste'], true) : [];
                         echo "<ul>";
                         foreach ($wasteDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="e_waste[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="e_waste[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -1526,7 +1531,7 @@
                   <li>
                      <div class="incrementable-section" data-field="biological_waste">
                         <label for="usr">Biological Waste</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="biological_waste_unit" placeholder="Unit" id="biological_waste_unit" value="{{ isset($response['biological_waste_unit']) ? $response['biological_waste_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1534,11 +1539,11 @@
                         $wasteDetail = isset($response['biological_waste']) ? json_decode($response['biological_waste'], true) : [];
                         echo "<ul>";
                         foreach ($wasteDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="biological_waste[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="biological_waste[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -1556,7 +1561,7 @@
                   <li>
                      <div class="incrementable-section" data-field="construction_waste">
                         <label for="usr">Construction Waste</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="construction_waste_unit" placeholder="Unit" id="construction_waste_unit" value="{{ isset($response['construction_waste_unit']) ? $response['construction_waste_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1564,11 +1569,11 @@
                         $wasteDetail = isset($response['construction_waste']) ? json_decode($response['construction_waste'], true) : [];
                         echo "<ul>";
                         foreach ($wasteDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="construction_waste[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="construction_waste[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -1586,7 +1591,7 @@
                   <li>
                      <div class="incrementable-section" data-field="battery_waste">
                         <label for="usr">Battery Waste</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="battery_waste_unit" placeholder="Unit" id="battery_waste_unit" value="{{ isset($response['battery_waste_unit']) ? $response['battery_waste_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1594,11 +1599,11 @@
                         $wasteDetail = isset($response['battery_waste']) ? json_decode($response['battery_waste'], true) : [];
                         echo "<ul>";
                         foreach ($wasteDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="battery_waste[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="battery_waste[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -1616,7 +1621,7 @@
                   <li>
                      <div class="incrementable-section" data-field="radioactive_waste">
                         <label for="usr">Radioactive Waste</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="radioactive_waste_unit" placeholder="Unit" id="radioactive_waste_unit" value="{{ isset($response['radioactive_waste_unit']) ? $response['radioactive_waste_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1624,11 +1629,11 @@
                         $wasteDetail = isset($response['radioactive_waste']) ? json_decode($response['radioactive_waste'], true) : [];
                         echo "<ul>";
                         foreach ($wasteDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                                 <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="radioactive_waste[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group w-fit">
                                     <input type="text" class="form-control" name="radioactive_waste[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                  </div>
                                  <div class="form-group col-md-2">
@@ -1646,7 +1651,7 @@
                   <li>
                      <div class="incrementable-section" data-field="hazardous_waste">
                         <label for="usr">Hazardous Waste</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="hazardous_waste_unit" placeholder="Unit" id="hazardous_waste_unit" value="{{ isset($response['hazardous_waste_unit']) ? $response['hazardous_waste_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1654,11 +1659,11 @@
                         $energyDetail = isset($response['hazardous_waste']) ? json_decode($response['hazardous_waste'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -1675,7 +1680,7 @@
                   <li>
                      <div class="incrementable-section" data-field="non_hazardous_waste">
                         <label for="usr">Non-Hazardous Waste</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="non_hazardous_waste_unit" placeholder="Unit" id="non_hazardous_waste_unit" value="{{ isset($response['non_hazardous_waste_unit']) ? $response['non_hazardous_waste_unit'] : "" }}">
                         </div>
                         <?php 
@@ -1683,11 +1688,11 @@
                         $energyDetail = isset($response['non_hazardous_waste']) ? json_decode($response['non_hazardous_waste'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -1704,7 +1709,7 @@
                </ol>
                <div class="incrementable-section" data-field="total_waste_generated">
                   <h6>Total waste generated</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_waste_generated_unit" placeholder="Unit" id="total_waste_generated_unit" value="{{ isset($response['total_waste_generated_unit']) ? $response['total_waste_generated_unit'] : "" }}">
                   </div>
                   <?php 
@@ -1712,11 +1717,11 @@
                   $energyDetail = isset($response['total_waste_generated']) ? json_decode($response['total_waste_generated'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_generated[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_generated_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_generated[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_generated_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -1737,7 +1742,7 @@
                         <li>
                            <div class="incrementable-section" data-field="plastic_waste_recycled">
                               <label for="usr">Recycled</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="plastic_waste_recycled_unit" placeholder="Unit" id="plastic_waste_recycled_unit" value="{{ isset($response['plastic_waste_recycled_unit']) ? $response['plastic_waste_recycled_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1745,11 +1750,11 @@
                               $wasteDetail = isset($response['plastic_waste_recycled']) ? json_decode($response['plastic_waste_recycled'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="plastic_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="plastic_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1767,7 +1772,7 @@
                         <li>
                            <div class="incrementable-section" data-field="plastic_waste_reused">
                               <label for="usr">Re-used</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="plastic_waste_reused_unit" placeholder="Unit" id="plastic_waste_reused_unit" value="{{ isset($response['plastic_waste_reused_unit']) ? $response['plastic_waste_reused_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1775,11 +1780,11 @@
                               $wasteDetail = isset($response['plastic_waste_reused']) ? json_decode($response['plastic_waste_reused'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="plastic_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="plastic_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1797,7 +1802,7 @@
                         <li>
                            <div class="incrementable-section" data-field="plastic_waste_other_recovery">
                               <label for="usr">Other recovery operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="plastic_waste_other_recovery_unit" placeholder="Unit" id="plastic_waste_other_recovery_unit" value="{{ isset($response['plastic_waste_other_recovery_unit']) ? $response['plastic_waste_other_recovery_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1805,11 +1810,11 @@
                               $wasteDetail = isset($response['plastic_waste_other_recovery']) ? json_decode($response['plastic_waste_other_recovery'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="plastic_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="plastic_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1832,7 +1837,7 @@
                         <li>
                            <div class="incrementable-section" data-field="e_waste_recycled">
                               <label for="usr">Recycled</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="e_waste_recycled_unit" placeholder="Unit" id="e_waste_recycled_unit" value="{{ isset($response['e_waste_recycled_unit']) ? $response['e_waste_recycled_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1840,11 +1845,11 @@
                               $wasteDetail = isset($response['e_waste_recycled']) ? json_decode($response['e_waste_recycled'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="e_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="e_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1862,7 +1867,7 @@
                         <li>
                            <div class="incrementable-section" data-field="e_waste_reused">
                               <label for="usr">Re-used</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="e_waste_reused_unit" placeholder="Unit" id="e_waste_reused_unit" value="{{ isset($response['e_waste_reused_unit']) ? $response['e_waste_reused_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1870,11 +1875,11 @@
                               $wasteDetail = isset($response['e_waste_reused']) ? json_decode($response['e_waste_reused'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="e_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="e_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1892,7 +1897,7 @@
                         <li>
                            <div class="incrementable-section" data-field="e_waste_other_recovery">
                               <label for="usr">Other Recovery Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="e_waste_other_recovery_unit" placeholder="Unit" id="e_waste_other_recovery_unit" value="{{ isset($response['e_waste_other_recovery_unit']) ? $response['e_waste_other_recovery_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1900,11 +1905,11 @@
                               $wasteDetail = isset($response['e_waste_other_recovery']) ? json_decode($response['e_waste_other_recovery'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="e_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="e_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1927,7 +1932,7 @@
                         <li>
                            <div class="incrementable-section" data-field="biological_waste_recycled">
                               <label for="usr">Recycled</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="biological_waste_recycled_unit" placeholder="Unit" id="biological_waste_recycled_unit" value="{{ isset($response['biological_waste_recycled_unit']) ? $response['biological_waste_recycled_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1935,11 +1940,11 @@
                               $wasteDetail = isset($response['biological_waste_recycled']) ? json_decode($response['biological_waste_recycled'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="biological_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="biological_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1957,7 +1962,7 @@
                         <li>
                            <div class="incrementable-section" data-field="biological_waste_reused">
                               <label for="usr">Re-used</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="biological_waste_reused_unit" placeholder="Unit" id="biological_waste_reused_unit" value="{{ isset($response['biological_waste_reused_unit']) ? $response['biological_waste_reused_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1965,11 +1970,11 @@
                               $wasteDetail = isset($response['biological_waste_reused']) ? json_decode($response['biological_waste_reused'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="biological_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="biological_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -1987,7 +1992,7 @@
                         <li>
                            <div class="incrementable-section" data-field="biological_waste_other_recovery">
                               <label for="usr">Other Recovery Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="biological_waste_other_recovery_unit" placeholder="Unit" id="biological_waste_other_recovery_unit" value="{{ isset($response['biological_waste_other_recovery_unit']) ? $response['biological_waste_other_recovery_unit'] : "" }}">
                               </div>
                               <?php 
@@ -1995,11 +2000,11 @@
                               $wasteDetail = isset($response['biological_waste_other_recovery']) ? json_decode($response['biological_waste_other_recovery'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="biological_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="biological_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2022,7 +2027,7 @@
                         <li>
                            <div class="incrementable-section" data-field="construction_waste_recycled">
                               <label for="usr">Recycled</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="construction_waste_recycled_unit" placeholder="Unit" id="construction_waste_recycled_unit" value="{{ isset($response['construction_waste_recycled_unit']) ? $response['construction_waste_recycled_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2030,11 +2035,11 @@
                               $wasteDetail = isset($response['construction_waste_recycled']) ? json_decode($response['construction_waste_recycled'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="construction_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="construction_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2052,7 +2057,7 @@
                         <li>
                            <div class="incrementable-section" data-field="construction_waste_reused">
                               <label for="usr">Re-used</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="construction_waste_reused_unit" placeholder="Unit" id="construction_waste_reused_unit" value="{{ isset($response['construction_waste_reused_unit']) ? $response['construction_waste_reused_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2060,11 +2065,11 @@
                               $wasteDetail = isset($response['construction_waste_reused']) ? json_decode($response['construction_waste_reused'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="construction_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="construction_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2082,7 +2087,7 @@
                         <li>
                            <div class="incrementable-section" data-field="construction_waste_other_recovery">
                               <label for="usr">Other Recovery Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="construction_waste_other_recovery_unit" placeholder="Unit" id="construction_waste_other_recovery_unit" value="{{ isset($response['construction_waste_other_recovery_unit']) ? $response['construction_waste_other_recovery_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2090,11 +2095,11 @@
                               $wasteDetail = isset($response['construction_waste_other_recovery']) ? json_decode($response['construction_waste_other_recovery'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="construction_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="construction_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2117,7 +2122,7 @@
                         <li>
                            <div class="incrementable-section" data-field="battery_waste_recycled">
                               <label for="usr">Recycled</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="battery_waste_recycled_unit" placeholder="Unit" id="battery_waste_recycled_unit" value="{{ isset($response['battery_waste_recycled_unit']) ? $response['battery_waste_recycled_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2125,11 +2130,11 @@
                               $wasteDetail = isset($response['battery_waste_recycled']) ? json_decode($response['battery_waste_recycled'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="battery_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="battery_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2147,7 +2152,7 @@
                         <li>
                            <div class="incrementable-section" data-field="battery_waste_reused">
                               <label for="usr">Re-used</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="battery_waste_reused_unit" placeholder="Unit" id="battery_waste_reused_unit" value="{{ isset($response['battery_waste_reused_unit']) ? $response['battery_waste_reused_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2155,11 +2160,11 @@
                               $wasteDetail = isset($response['battery_waste_reused']) ? json_decode($response['battery_waste_reused'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="battery_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="battery_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2177,7 +2182,7 @@
                         <li>
                            <div class="incrementable-section" data-field="battery_waste_other_recovery">
                               <label for="usr">Other Recovery Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="battery_waste_other_recovery_unit" placeholder="Unit" id="battery_waste_other_recovery_unit" value="{{ isset($response['battery_waste_other_recovery_unit']) ? $response['battery_waste_other_recovery_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2185,11 +2190,11 @@
                               $wasteDetail = isset($response['battery_waste_other_recovery']) ? json_decode($response['battery_waste_other_recovery'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="battery_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="battery_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2212,7 +2217,7 @@
                         <li>
                            <div class="incrementable-section" data-field="radioactive_waste_recycled">
                               <label for="usr">Recycled</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="radioactive_waste_recycled_unit" placeholder="Unit" id="radioactive_waste_recycled_unit" value="{{ isset($response['radioactive_waste_recycled_unit']) ? $response['radioactive_waste_recycled_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2220,11 +2225,11 @@
                               $wasteDetail = isset($response['radioactive_waste_recycled']) ? json_decode($response['radioactive_waste_recycled'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="radioactive_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="radioactive_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2242,7 +2247,7 @@
                         <li>
                            <div class="incrementable-section" data-field="radioactive_waste_reused">
                               <label for="usr">Re-used</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="radioactive_waste_reused_unit" placeholder="Unit" id="radioactive_waste_reused_unit" value="{{ isset($response['radioactive_waste_reused_unit']) ? $response['radioactive_waste_reused_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2250,11 +2255,11 @@
                               $wasteDetail = isset($response['radioactive_waste_reused']) ? json_decode($response['radioactive_waste_reused'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="radioactive_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="radioactive_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2272,7 +2277,7 @@
                         <li>
                            <div class="incrementable-section" data-field="radioactive_waste_other_recovery">
                               <label for="usr">Other Recovery Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="radioactive_waste_other_recovery_unit" placeholder="Unit" id="radioactive_waste_other_recovery_unit" value="{{ isset($response['radioactive_waste_other_recovery_unit']) ? $response['radioactive_waste_other_recovery_unit'] : '' }}">
                               </div>
                               <?php 
@@ -2280,11 +2285,11 @@
                               $wasteDetail = isset($response['radioactive_waste_other_recovery']) ? json_decode($response['radioactive_waste_other_recovery'], true) : [];
                               echo "<ul>";
                               foreach ($wasteDetail as $year => $value) { ?>
-                                 <li class="d-flex gap-2">
-                                       <div class="form-group col-md-5">
+                                 <li class="d-flex gap-2 w-100">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="radioactive_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                        </div>
-                                       <div class="form-group col-md-5">
+                                       <div class="form-group w-fit">
                                           <input type="text" class="form-control" name="radioactive_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                        </div>
                                        <div class="form-group col-md-2">
@@ -2307,7 +2312,7 @@
                         <li>
                            <div class="incrementable-section" data-field="hazardous_waste_recycled">
                               <label for="usr">Recycled</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste_recycled_unit" placeholder="Unit" id="hazardous_waste_recycled_unit" value="{{ isset($response['hazardous_waste_recycled_unit']) ? $response['hazardous_waste_recycled_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2315,11 +2320,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['hazardous_waste_recycled']) ? json_decode($response['hazardous_waste_recycled'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2336,7 +2341,7 @@
                         <li>
                            <div class="incrementable-section" data-field="hazardous_waste_reused">
                               <label for="usr">Re-used</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste_reused_unit" placeholder="Unit" id="hazardous_waste_reused_unit" value="{{ isset($response['hazardous_waste_reused_unit']) ? $response['hazardous_waste_reused_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2344,11 +2349,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['hazardous_waste_reused']) ? json_decode($response['hazardous_waste_reused'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2365,7 +2370,7 @@
                         <li>
                            <div class="incrementable-section" data-field="hazardous_waste_other_recovery">
                               <label for="usr">Other Recovery Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste_other_recovery_unit" placeholder="Unit" id="hazardous_waste_other_recovery_unit" value="{{ isset($response['hazardous_waste_other_recovery_unit']) ? $response['hazardous_waste_other_recovery_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2373,11 +2378,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['hazardous_waste_other_recovery']) ? json_decode($response['hazardous_waste_other_recovery'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2399,7 +2404,7 @@
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_recycled">
                               <label for="usr">Recycled</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste_recycled_unit" placeholder="Unit" id="non_hazardous_waste_recycled_unit" value="{{ isset($response['non_hazardous_waste_recycled_unit']) ? $response['non_hazardous_waste_recycled_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2407,11 +2412,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['non_hazardous_waste_recycled']) ? json_decode($response['non_hazardous_waste_recycled'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_recycled[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_recycled_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_recycled[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_recycled_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2428,7 +2433,7 @@
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_reused">
                               <label for="usr">Re-used</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste_reused_unit" placeholder="Unit" id="non_hazardous_waste_reused_unit" value="{{ isset($response['non_hazardous_waste_reused_unit']) ? $response['non_hazardous_waste_reused_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2436,11 +2441,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['non_hazardous_waste_reused']) ? json_decode($response['non_hazardous_waste_reused'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_reused[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_reused_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_reused[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_reused_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2457,7 +2462,7 @@
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_other_recovery">
                               <label for="usr">Other Recovery Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste_other_recovery_unit" placeholder="Unit" id="non_hazardous_waste_other_recovery_unit" value="{{ isset($response['non_hazardous_waste_other_recovery_unit']) ? $response['non_hazardous_waste_other_recovery_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2465,11 +2470,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['non_hazardous_waste_other_recovery']) ? json_decode($response['non_hazardous_waste_other_recovery'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_other_recovery[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_other_recovery_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_other_recovery[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_other_recovery_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2488,7 +2493,7 @@
                </ol>
                <div class="incrementable-section" data-field="total_waste_recovered">
                   <h6>Total waste recovered</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_waste_recovered_unit" placeholder="Unit" id="total_waste_recovered_unit" value="{{ isset($response['total_waste_recovered_unit']) ? $response['total_waste_recovered_unit'] : "" }}">
                   </div>
                   <?php 
@@ -2496,11 +2501,11 @@
                   $energyDetail = isset($response['total_waste_recovered']) ? json_decode($response['total_waste_recovered'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_recovered[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_recovered_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_recovered[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_recovered_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -2521,7 +2526,7 @@
                         <li>
                            <div class="incrementable-section" data-field="plastic_waste_incineration">
                               <label for="usr">Incineration</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="plastic_waste_incineration_unit" placeholder="Unit" id="plastic_waste_incineration_unit" value="{{ isset($response['plastic_waste_incineration_unit']) ? $response['plastic_waste_incineration_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2529,11 +2534,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['plastic_waste_incineration']) ? json_decode($response['plastic_waste_incineration'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="plastic_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="plastic_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2550,7 +2555,7 @@
                         <li>
                            <div class="incrementable-section" data-field="plastic_waste_landfilling">
                               <label for="usr">Landfilling</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="plastic_waste_landfilling_unit" placeholder="Unit" id="plastic_waste_landfilling_unit" value="{{ isset($response['plastic_waste_landfilling_unit']) ? $response['plastic_waste_landfilling_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2558,11 +2563,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['plastic_waste_landfilling']) ? json_decode($response['plastic_waste_landfilling'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="plastic_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="plastic_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2579,7 +2584,7 @@
                         <li>
                            <div class="incrementable-section" data-field="plastic_waste_other_disposal">
                               <label for="usr">Other Disposal Operation</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="plastic_waste_other_disposal_unit" placeholder="Unit" id="plastic_waste_other_disposal_unit" value="{{ isset($response['plastic_waste_other_disposal_unit']) ? $response['plastic_waste_other_disposal_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2587,11 +2592,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['plastic_waste_other_disposal']) ? json_decode($response['plastic_waste_other_disposal'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="plastic_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="plastic_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="plastic_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="plastic_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2613,7 +2618,7 @@
                         <li>
                            <div class="incrementable-section" data-field="e_waste_incineration">
                               <label for="usr">Incineration</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="e_waste_incineration_unit" placeholder="Unit" id="e_waste_incineration_unit" value="{{ isset($response['e_waste_incineration_unit']) ? $response['e_waste_incineration_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2621,11 +2626,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['e_waste_incineration']) ? json_decode($response['e_waste_incineration'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="e_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="e_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2642,7 +2647,7 @@
                         <li>
                            <div class="incrementable-section" data-field="e_waste_landfilling">
                               <label for="usr">Landfilling</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="e_waste_landfilling_unit" placeholder="Unit" id="e_waste_landfilling_unit" value="{{ isset($response['e_waste_landfilling_unit']) ? $response['e_waste_landfilling_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2650,11 +2655,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['e_waste_landfilling']) ? json_decode($response['e_waste_landfilling'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="e_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="e_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2671,7 +2676,7 @@
                         <li>
                            <div class="incrementable-section" data-field="e_waste_other_disposal">
                               <label for="usr">Other Disposal Operation</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="e_waste_other_disposal_unit" placeholder="Unit" id="e_waste_other_disposal_unit" value="{{ isset($response['e_waste_other_disposal_unit']) ? $response['e_waste_other_disposal_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2679,11 +2684,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['e_waste_other_disposal']) ? json_decode($response['e_waste_other_disposal'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="e_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="e_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="e_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="e_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2705,7 +2710,7 @@
                         <li>
                            <div class="incrementable-section" data-field="biological_waste_incineration">
                               <label for="usr">Incineration</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="biological_waste_incineration_unit" placeholder="Unit" id="biological_waste_incineration_unit" value="{{ isset($response['biological_waste_incineration_unit']) ? $response['biological_waste_incineration_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2713,11 +2718,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['biological_waste_incineration']) ? json_decode($response['biological_waste_incineration'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="biological_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="biological_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2734,7 +2739,7 @@
                         <li>
                            <div class="incrementable-section" data-field="biological_waste_landfilling">
                               <label for="usr">Landfilling</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="biological_waste_landfilling_unit" placeholder="Unit" id="biological_waste_landfilling_unit" value="{{ isset($response['biological_waste_landfilling_unit']) ? $response['biological_waste_landfilling_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2742,11 +2747,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['biological_waste_landfilling']) ? json_decode($response['biological_waste_landfilling'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="biological_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="biological_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2763,7 +2768,7 @@
                         <li>
                            <div class="incrementable-section" data-field="biological_waste_other_disposal">
                               <label for="usr">Other Disposal Operation</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="biological_waste_other_disposal_unit" placeholder="Unit" id="biological_waste_other_disposal_unit" value="{{ isset($response['biological_waste_other_disposal_unit']) ? $response['biological_waste_other_disposal_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2771,11 +2776,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['biological_waste_other_disposal']) ? json_decode($response['biological_waste_other_disposal'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="biological_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="biological_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="biological_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="biological_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2797,7 +2802,7 @@
                         <li>
                            <div class="incrementable-section" data-field="construction_waste_incineration">
                               <label for="usr">Incineration</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="construction_waste_incineration_unit" placeholder="Unit" id="construction_waste_incineration_unit" value="{{ isset($response['construction_waste_incineration_unit']) ? $response['construction_waste_incineration_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2805,11 +2810,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['construction_waste_incineration']) ? json_decode($response['construction_waste_incineration'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="construction_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="construction_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2826,7 +2831,7 @@
                         <li>
                            <div class="incrementable-section" data-field="construction_waste_landfilling">
                               <label for="usr">Landfilling</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="construction_waste_landfilling_unit" placeholder="Unit" id="construction_waste_landfilling_unit" value="{{ isset($response['construction_waste_landfilling_unit']) ? $response['construction_waste_landfilling_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2834,11 +2839,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['construction_waste_landfilling']) ? json_decode($response['construction_waste_landfilling'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="construction_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="construction_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2855,7 +2860,7 @@
                         <li>
                            <div class="incrementable-section" data-field="construction_waste_other_disposal">
                               <label for="usr">Other Disposal Operation</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="construction_waste_other_disposal_unit" placeholder="Unit" id="construction_waste_other_disposal_unit" value="{{ isset($response['construction_waste_other_disposal_unit']) ? $response['construction_waste_other_disposal_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2863,11 +2868,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['construction_waste_other_disposal']) ? json_decode($response['construction_waste_other_disposal'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="construction_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="construction_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="construction_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="construction_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2889,7 +2894,7 @@
                         <li>
                            <div class="incrementable-section" data-field="battery_waste_incineration">
                               <label for="usr">Incineration</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="battery_waste_incineration_unit" placeholder="Unit" id="battery_waste_incineration_unit" value="{{ isset($response['battery_waste_incineration_unit']) ? $response['battery_waste_incineration_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2897,11 +2902,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['battery_waste_incineration']) ? json_decode($response['battery_waste_incineration'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="battery_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="battery_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2918,7 +2923,7 @@
                         <li>
                            <div class="incrementable-section" data-field="battery_waste_landfilling">
                               <label for="usr">Landfilling</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="battery_waste_landfilling_unit" placeholder="Unit" id="battery_waste_landfilling_unit" value="{{ isset($response['battery_waste_landfilling_unit']) ? $response['battery_waste_landfilling_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2926,11 +2931,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['battery_waste_landfilling']) ? json_decode($response['battery_waste_landfilling'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="battery_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="battery_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2947,7 +2952,7 @@
                         <li>
                            <div class="incrementable-section" data-field="battery_waste_other_disposal">
                               <label for="usr">Other Disposal Operation</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="battery_waste_other_disposal_unit" placeholder="Unit" id="battery_waste_other_disposal_unit" value="{{ isset($response['battery_waste_other_disposal_unit']) ? $response['battery_waste_other_disposal_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2955,11 +2960,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['battery_waste_other_disposal']) ? json_decode($response['battery_waste_other_disposal'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="battery_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="battery_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="battery_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="battery_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -2981,7 +2986,7 @@
                         <li>
                            <div class="incrementable-section" data-field="radioactive_waste_incineration">
                               <label for="usr">Incineration</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="radioactive_waste_incineration_unit" placeholder="Unit" id="radioactive_waste_incineration_unit" value="{{ isset($response['radioactive_waste_incineration_unit']) ? $response['radioactive_waste_incineration_unit'] : '' }}">
                               </div>
                               <ul>
@@ -2989,11 +2994,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['radioactive_waste_incineration']) ? json_decode($response['radioactive_waste_incineration'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="radioactive_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="radioactive_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3010,7 +3015,7 @@
                         <li>
                            <div class="incrementable-section" data-field="radioactive_waste_landfilling">
                               <label for="usr">Landfilling</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="radioactive_waste_landfilling_unit" placeholder="Unit" id="radioactive_waste_landfilling_unit" value="{{ isset($response['radioactive_waste_landfilling_unit']) ? $response['radioactive_waste_landfilling_unit'] : '' }}">
                               </div>
                               <ul>
@@ -3018,11 +3023,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['radioactive_waste_landfilling']) ? json_decode($response['radioactive_waste_landfilling'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="radioactive_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="radioactive_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3039,7 +3044,7 @@
                         <li>
                            <div class="incrementable-section" data-field="radioactive_waste_other_disposal">
                               <label for="usr">Other Disposal Operation</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="radioactive_waste_other_disposal_unit" placeholder="Unit" id="radioactive_waste_other_disposal_unit" value="{{ isset($response['radioactive_waste_other_disposal_unit']) ? $response['radioactive_waste_other_disposal_unit'] : '' }}">
                               </div>
                               <ul>
@@ -3047,11 +3052,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['radioactive_waste_other_disposal']) ? json_decode($response['radioactive_waste_other_disposal'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="radioactive_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="radioactive_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="radioactive_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="radioactive_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3073,7 +3078,7 @@
                         <li>
                            <div class="incrementable-section" data-field="hazardous_waste_incineration">
                               <label for="usr">Incineration</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste_incineration_unit" placeholder="Unit" id="hazardous_waste_incineration_unit" value="{{ isset($response['hazardous_waste_incineration_unit']) ? $response['hazardous_waste_incineration_unit'] : '' }}">
                               </div>
                               <ul>
@@ -3081,11 +3086,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['hazardous_waste_incineration']) ? json_decode($response['hazardous_waste_incineration'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3102,7 +3107,7 @@
                         <li>
                            <div class="incrementable-section" data-field="hazardous_waste_landfilling">
                               <label for="usr">Landfilling</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste_landfilling_unit" placeholder="Unit" id="hazardous_waste_landfilling_unit" value="{{ isset($response['hazardous_waste_landfilling_unit']) ? $response['hazardous_waste_landfilling_unit'] : '' }}">
                               </div>
                               <ul>
@@ -3110,11 +3115,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['hazardous_waste_landfilling']) ? json_decode($response['hazardous_waste_landfilling'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3131,7 +3136,7 @@
                         <li>
                            <div class="incrementable-section" data-field="hazardous_waste_other_disposal">
                               <label for="usr">Other Disposal Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste_other_disposal_unit" placeholder="Unit" id="hazardous_waste_other_disposal_unit" value="{{ isset($response['hazardous_waste_other_disposal_unit']) ? $response['hazardous_waste_other_disposal_unit'] : '' }}">
                               </div>
                               <ul>
@@ -3139,11 +3144,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['hazardous_waste_other_disposal']) ? json_decode($response['hazardous_waste_other_disposal'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="hazardous_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3165,7 +3170,7 @@
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_incineration">
                               <label for="usr">Incineration</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste_incineration_unit" placeholder="Unit" id="non_hazardous_waste_incineration_unit" value="{{ isset($response['non_hazardous_waste_incineration_unit']) ? $response['non_hazardous_waste_incineration_unit'] : '' }}">
                               </div>
                               <ul>
@@ -3173,11 +3178,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['non_hazardous_waste_incineration']) ? json_decode($response['non_hazardous_waste_incineration'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_incineration[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_incineration_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_incineration[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_incineration_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3194,7 +3199,7 @@
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_landfilling">
                               <label for="usr">Landfilling</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste_landfilling_unit" placeholder="Unit" id="non_hazardous_waste_landfilling_unit" value="{{ isset($response['non_hazardous_waste_landfilling_unit']) ? $response['non_hazardous_waste_landfilling_unit'] : '' }}">
                               </div>
                               <ul>
@@ -3202,11 +3207,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['non_hazardous_waste_landfilling']) ? json_decode($response['non_hazardous_waste_landfilling'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_landfilling[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_landfilling_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_landfilling[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_landfilling_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3223,7 +3228,7 @@
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_other_disposal">
                               <label for="usr">Other Disposal Operations</label>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste_other_disposal_unit" placeholder="Unit" id="non_hazardous_waste_other_disposal_unit" value="{{ isset($response['non_hazardous_waste_other_disposal_unit']) ? $response['non_hazardous_waste_other_disposal_unit'] : '' }}">
                               </div>
                               <ul>
@@ -3231,11 +3236,11 @@
                                  $count = 0;
                                  $wasteDetail = isset($response['non_hazardous_waste_other_disposal']) ? json_decode($response['non_hazardous_waste_other_disposal'], true) : [];
                                  foreach ($wasteDetail as $year => $value) { ?>
-                                       <li class="d-flex gap-2">
-                                          <div class="form-group col-md-5">
+                                       <li class="d-flex gap-2 w-100">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_other_disposal[<?php echo $count; ?>][year]" placeholder="Year" id="non_hazardous_waste_other_disposal_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                                           </div>
-                                          <div class="form-group col-md-5">
+                                          <div class="form-group w-fit">
                                              <input type="text" class="form-control" name="non_hazardous_waste_other_disposal[<?php echo $count; ?>][value]" placeholder="Value" id="non_hazardous_waste_other_disposal_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                                           </div>
                                           <div class="form-group col-md-2">
@@ -3254,7 +3259,7 @@
                </ol>
                <div class="incrementable-section" data-field="total_waste_disposed">
                   <h6>Total waste disposed</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_waste_disposed_unit" placeholder="Unit" id="total_waste_disposed_unit" value="{{ isset($response['total_waste_disposed_unit']) ? $response['total_waste_disposed_unit'] : "" }}">
                   </div>
                   <?php 
@@ -3262,11 +3267,11 @@
                   $energyDetail = isset($response['total_waste_disposed']) ? json_decode($response['total_waste_disposed'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">  
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_disposed_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_disposed_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -3284,7 +3289,7 @@
                   <li>
                      <div class="incrementable-section" data-field="waste_intensity_per_rupee_turnover">
                         <label for="usr">Waste Intensity per Rupee of Turnover</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="waste_intensity_per_rupee_turnover_unit" placeholder="Unit" id="waste_intensity_per_rupee_turnover_unit" value="{{ isset($response['waste_intensity_per_rupee_turnover_unit']) ? $response['waste_intensity_per_rupee_turnover_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3292,11 +3297,11 @@
                         $energyDetail = isset($response['waste_intensity_per_rupee_turnover']) ? json_decode($response['waste_intensity_per_rupee_turnover'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="waste_intensity_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="waste_intensity_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="waste_intensity_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="waste_intensity_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3313,7 +3318,7 @@
                   <li>
                      <div class="incrementable-section" data-field="waste_intensity_physical_output">
                         <label for="usr">Waste Intensity in Terms of Physical Output</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="waste_intensity_physical_output_unit" placeholder="Unit" id="waste_intensity_physical_output_unit" value="{{ isset($response['waste_intensity_physical_output_unit']) ? $response['waste_intensity_physical_output_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3321,11 +3326,11 @@
                         $energyDetail = isset($response['waste_intensity_physical_output']) ? json_decode($response['waste_intensity_physical_output'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="waste_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="waste_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="waste_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="waste_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3356,27 +3361,27 @@
                   @endif
                </div>
                <div class="incrementable-section mt-3" data-field="emission_initiative_detail">
-                  <label>Initiatives Undertaken for Emission</label>
+                  <h6>Initiatives Undertaken for Emission</h6>
                   <ul>
                      <?php
                      $count = 0;
                      $initiativeDetails = isset($response['emission_initiative_detail']) ? json_decode($response['emission_initiative_detail'], true) : [];
                      foreach ($initiativeDetails as $item) { ?>
-                           <li class="d-flex flex-column">
-                              <div class="form-group">
+                           <li class="d-flex" style="gap:10px">
+                              <div class="form-group" style="1">
                                  <label>Initiative Undertaken</label>
                                  <input type="text" class="form-control" name="emission_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="emission_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
                                  <textarea class="form-control" name="emission_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="emission_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Outcome of the Initiative</label>
                                  <textarea class="form-control" name="emission_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="emission_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
-                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              <div class="form-group" style="flex:0 0 fit-content">
+                                 <button type="button" class="btn remove-row-btn mt-4" data-index="<?php echo $count; ?>">-</button>
                               </div>
                            </li>
                      <?php 
@@ -3396,7 +3401,7 @@
 
                <div class="incrementable-section" data-field="scope_1_emissions">
                   <h6>Total Scope 1 Emissions</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="scope_1_emissions_unit" placeholder="Unit" id="scope_1_emissions_unit" value="{{ isset($response['scope_1_emissions_unit']) ? $response['scope_1_emissions_unit'] : "" }}">
                   </div>
                   <?php 
@@ -3404,11 +3409,11 @@
                   $energyDetail = isset($response['scope_1_emissions']) ? json_decode($response['scope_1_emissions'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="scope_1_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_1_emissions_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="scope_1_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_1_emissions_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -3424,7 +3429,7 @@
 
                <div class="incrementable-section" data-field="scope_2_emissions">
                   <h6>Total Scope 2 Emissions</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="scope_2_emissions_unit" placeholder="Unit" id="scope_2_emissions_unit" value="{{ isset($response['scope_2_emissions_unit']) ? $response['scope_2_emissions_unit'] : "" }}">
                   </div>
                   <?php 
@@ -3432,11 +3437,11 @@
                   $energyDetail = isset($response['scope_2_emissions']) ? json_decode($response['scope_2_emissions'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="scope_2_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_2_emissions_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="scope_2_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_2_emissions_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -3452,7 +3457,7 @@
 
                <div class="incrementable-section" data-field="scope_3_emissions">
                   <h6>Total Scope 3 Emissions</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="scope_3_emissions_unit" placeholder="Unit" id="scope_3_emissions_unit" value="{{ isset($response['scope_3_emissions_unit']) ? $response['scope_3_emissions_unit'] : "" }}">
                   </div>
                   <?php 
@@ -3460,11 +3465,11 @@
                   $energyDetail = isset($response['scope_3_emissions']) ? json_decode($response['scope_3_emissions'], true): [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="scope_3_emissions[<?php echo $count; ?>][year]" placeholder="Year" id="scope_3_emissions_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="scope_3_emissions[<?php echo $count; ?>][value]" placeholder="Value" id="scope_3_emissions_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -3482,7 +3487,7 @@
                   <li>
                      <div class="incrementable-section" data-field="specific_emissions_scope_1_2_per_rupee_turnover">
                         <label for="usr">Scope 1 + 2 Emission Intensity per Rupee of Turnover</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="specific_emissions_scope_1_2_per_rupee_turnover_unit" placeholder="Unit" id="specific_emissions_scope_1_2_per_rupee_turnover_unit" value="{{ isset($response['specific_emissions_scope_1_2_per_rupee_turnover_unit']) ? $response['specific_emissions_scope_1_2_per_rupee_turnover_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3490,11 +3495,11 @@
                         $energyDetail = isset($response['specific_emissions_scope_1_2_per_rupee_turnover']) ? json_decode($response['specific_emissions_scope_1_2_per_rupee_turnover'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="specific_emissions_scope_1_2_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_1_2_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="specific_emissions_scope_1_2_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_1_2_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3511,7 +3516,7 @@
                   <li>
                      <div class="incrementable-section" data-field="specific_emissions_scope_1_2_intensity_physical_output">
                         <label for="usr">Scope 1 + 2 Emission Intensity per Unit of Physical Output</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output_unit" placeholder="Unit" id="specific_emissions_scope_1_2_intensity_physical_output_unit" value="{{ isset($response['specific_emissions_scope_1_2_intensity_physical_output_unit']) ? $response['specific_emissions_scope_1_2_intensity_physical_output_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3519,11 +3524,11 @@
                         $energyDetail = isset($response['specific_emissions_scope_1_2_intensity_physical_output']) ? json_decode($response['specific_emissions_scope_1_2_intensity_physical_output'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_1_2_intensity_physical_output_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="specific_emissions_scope_1_2_intensity_physical_output[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_1_2_intensity_physical_output_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3540,7 +3545,7 @@
                   <li>
                      <div class="incrementable-section" data-field="specific_emissions_scope_3_per_rupee_turnover">
                         <label for="usr">Scope 3 Emission Intensity per Rupee of Turnover</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover_unit" placeholder="Unit" id="specific_emissions_scope_3_per_rupee_turnover_unit" value="{{ isset($response['specific_emissions_scope_3_per_rupee_turnover_unit']) ? $response['specific_emissions_scope_3_per_rupee_turnover_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3548,11 +3553,11 @@
                         $energyDetail = isset($response['specific_emissions_scope_3_per_rupee_turnover']) ? json_decode($response['specific_emissions_scope_3_per_rupee_turnover'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover[<?php echo $count; ?>][year]" placeholder="Year" id="specific_emissions_scope_3_per_rupee_turnover_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="specific_emissions_scope_3_per_rupee_turnover[<?php echo $count; ?>][value]" placeholder="Value" id="specific_emissions_scope_3_per_rupee_turnover_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3569,7 +3574,7 @@
                   <li>
                      <div class="incrementable-section" data-field="total_scope_3_emission_intensity">
                         <label for="usr">Scope 3 Emission Intensity per Unit of Physical Output</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_scope_3_emission_intensity_unit" placeholder="Unit" id="total_scope_3_emission_intensity_unit" value="{{ isset($response['total_scope_3_emission_intensity_unit']) ? $response['total_scope_3_emission_intensity_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3577,11 +3582,11 @@
                         $energyDetail = isset($response['total_scope_3_emission_intensity']) ? json_decode($response['total_scope_3_emission_intensity'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_scope_3_emission_intensity[<?php echo $count; ?>][year]" placeholder="Year" id="total_scope_3_emission_intensity_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="total_scope_3_emission_intensity[<?php echo $count; ?>][value]" placeholder="Value" id="total_scope_3_emission_intensity_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3601,7 +3606,7 @@
                   <li>
                      <div class="incrementable-section" data-field="no_x">
                         <label for="usr">NOx Emissions</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="no_x_unit" placeholder="Unit" id="no_x_unit" value="{{ isset($response['no_x_unit']) ? $response['no_x_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3609,11 +3614,11 @@
                         $energyDetail = isset($response['no_x']) ? json_decode($response['no_x'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="no_x[<?php echo $count; ?>][year]" placeholder="Year" id="no_x_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="no_x[<?php echo $count; ?>][value]" placeholder="Value" id="no_x_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3630,7 +3635,7 @@
                   <li>
                      <div class="incrementable-section" data-field="so_x">
                         <label for="usr">SOx Emissions</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="so_x_unit" placeholder="Unit" id="so_x_unit" value="{{ isset($response['so_x_unit']) ? $response['so_x_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3638,11 +3643,11 @@
                         $energyDetail = isset($response['so_x']) ? json_decode($response['so_x'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="so_x[<?php echo $count; ?>][year]" placeholder="Year" id="so_x_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="so_x[<?php echo $count; ?>][value]" placeholder="Value" id="so_x_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3659,7 +3664,7 @@
                   <li>
                      <div class="incrementable-section" data-field="particular_matter">
                         <label for="usr">Particulate Matter</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="particular_matter_unit" placeholder="Unit" id="particular_matter_unit" value="{{ isset($response['particular_matter_unit']) ? $response['particular_matter_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3667,11 +3672,11 @@
                         $energyDetail = isset($response['particular_matter']) ? json_decode($response['particular_matter'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][year]" placeholder="Year" id="particular_matter_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][value]" placeholder="Value" id="particular_matter_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3688,7 +3693,7 @@
                   <li>
                      <div class="incrementable-section" data-field="pop">
                         <label for="usr">Persistent Organic Pollutants (POP)</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="pop_unit" placeholder="Unit" id="pop_unit" value="{{ isset($response['pop_unit']) ? $response['pop_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3696,11 +3701,11 @@
                         $energyDetail = isset($response['pop']) ? json_decode($response['pop'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="pop[<?php echo $count; ?>][year]" placeholder="Year" id="pop_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="pop[<?php echo $count; ?>][value]" placeholder="Value" id="pop_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3717,7 +3722,7 @@
                   <li>
                      <div class="incrementable-section" data-field="voc">
                         <label for="usr">Volatile Organic Compounds (VOC)</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="voc_unit" placeholder="Unit" id="voc_unit" value="{{ isset($response['voc_unit']) ? $response['voc_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3725,11 +3730,11 @@
                         $energyDetail = isset($response['voc']) ? json_decode($response['voc'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="voc[<?php echo $count; ?>][year]" placeholder="Year" id="voc_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="voc[<?php echo $count; ?>][value]" placeholder="Value" id="voc_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3746,7 +3751,7 @@
                   <li>
                      <div class="incrementable-section" data-field="hazardous_air_pollutants">
                         <label for="usr">Hazardous Air Pollutants</label>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="hazardous_air_pollutants_unit" placeholder="Unit" id="hazardous_air_pollutants_unit" value="{{ isset($response['hazardous_air_pollutants_unit']) ? $response['hazardous_air_pollutants_unit'] : "" }}">
                         </div>
                         <?php 
@@ -3754,11 +3759,11 @@
                         $energyDetail = isset($response['hazardous_air_pollutants']) ? json_decode($response['hazardous_air_pollutants'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
-                           <li class="d-flex gap-2">
-                              <div class="form-group col-md-5">
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_air_pollutants[<?php echo $count; ?>][year]" placeholder="Year" id="hazardous_air_pollutants_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
-                              <div class="form-group col-md-5">
+                              <div class="form-group w-fit">
                                  <input   type="text" class="form-control" name="hazardous_air_pollutants[<?php echo $count; ?>][value]" placeholder="Value" id="hazardous_air_pollutants_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
@@ -3805,27 +3810,27 @@
                </div>
 
                <div class="incrementable-section mt-3" data-field="csr_initiative_detail">
-                  <label>Initiatives Undertaken for CSR</label>
+                  <h6>Initiatives Undertaken for CSR</h6>
                   <ul>
                      <?php
                      $count = 0;
                      $initiativeDetails = isset($response['csr_initiative_detail']) ? json_decode($response['csr_initiative_detail'], true) : [];
                      foreach ($initiativeDetails as $item) { ?>
-                           <li class="d-flex flex-column">
-                              <div class="form-group">
+                           <li class="d-flex" style="gap:10px;">
+                              <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
                                  <input type="text" class="form-control" name="csr_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="csr_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
                                  <textarea class="form-control" name="csr_initiative_detail[<?php echo $count; ?>][details]" rows="3" placeholder="Details of the Initiative" id="csr_initiative_detail_<?php echo $count; ?>_details"><?php echo htmlspecialchars($item['details'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
+                              <div class="form-group" style="flex:1">
                                  <label>Outcome of the Initiative</label>
                                  <textarea class="form-control" name="csr_initiative_detail[<?php echo $count; ?>][outcome]" rows="3" placeholder="Outcome of the Initiative" id="csr_initiative_detail_<?php echo $count; ?>_outcome"><?php echo htmlspecialchars($item['outcome'] ?? ''); ?></textarea>
                               </div>
-                              <div class="form-group">
-                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              <div class="form-group" style="flex:0 0 fit-content">
+                                 <button type="button" class="btn remove-row-btn mt-4" data-index="<?php echo $count; ?>">-</button>
                               </div>
                            </li>
                      <?php 
@@ -3845,7 +3850,7 @@
 
                <div class="incrementable-section" data-field="csr_budget">
                   <h6>CSR Budget</h6>
-                  <div class="form-group col-md-5">
+                  <div class="form-group w-fit">
                      <input type="text" class="form-control" name="csr_budget_unit" placeholder="Unit" id="csr_budget_unit" value="{{ isset($response['csr_budget_unit']) ? $response['csr_budget_unit'] : "" }}">
                   </div>
                   <?php 
@@ -3853,11 +3858,11 @@
                   $energyDetail = isset($response['csr_budget']) ? json_decode($response['csr_budget'], true) : [];
                   echo "<ul>";
                   foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
+                     <li class="d-flex gap-2 w-100">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="csr_budget[<?php echo $count; ?>][year]" placeholder="Year" id="csr_budget_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group w-fit">
                            <input type="text" class="form-control" name="csr_budget[<?php echo $count; ?>][value]" placeholder="Value" id="csr_budget_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                         </div>
                         <div class="form-group col-md-2">
@@ -3977,6 +3982,65 @@
 
       // Add row functionality
       $(document).ready(function() {
+
+      $('.incrementable-section').each(function() {
+        var $section = $(this);
+        var fieldName = $section.data('field');
+        
+        // Skip non-year/value sections (factory_locations, initiative details)
+        if (fieldName === 'factory_locations') {
+            return;
+        }
+        if(fieldName.includes('initiative_detail')) {
+            var $ul = $section.find('ul');
+            // Check if the <ul> is empty
+            if ($ul.children('li').length === 0) {
+               var newIndex = 0;
+               var newRow = `
+                     <li class="d-flex" style="gap:10px">
+                           <div class="form-group" style="flex:1">
+                              <label>Initiative Undertaken</label>
+                              <input type="text" class="form-control" name="${fieldName}[${newIndex}][undertaken]" placeholder="Initiative Undertaken" id="${fieldName}_${newIndex}_undertaken">
+                           </div>
+                           <div class="form-group" style="flex:1">
+                              <label>Details of the Initiative</label>
+                              <textarea class="form-control" name="${fieldName}[${newIndex}][details]" rows="3" placeholder="Details of the Initiative" id="${fieldName}_${newIndex}_details"></textarea>
+                           </div>
+                           <div class="form-group" style="flex:1">
+                              <label>Outcome of the Initiative</label>
+                              <textarea class="form-control" name="${fieldName}[${newIndex}][outcome]" rows="3" placeholder="Outcome of the Initiative" id="${fieldName}_${newIndex}_outcome"></textarea>
+                           </div>
+                           <div class="form-group" style="flex:0 0 fit-content">
+                              <button type="button" class="mt-4 btn remove-row-btn" data-index="${newIndex}">-</button>
+                           </div>
+                     </li>
+                  `;
+                  $ul.append(newRow);
+            }
+        } else {
+         var $ul = $section.find('ul');
+         // Check if the <ul> is empty
+         if ($ul.children('li').length === 0) {
+               // Add one empty year/value row
+               var newIndex = 0;
+               var newRow = `
+                  <li class="d-flex gap-2 w-100 w-100">
+                           <div class="form-group w-fit">
+                              <input type="text" class="form-control" name="${fieldName}[${newIndex}][year]" placeholder="Year" id="${fieldName}_${newIndex}_year" value="">
+                           </div>
+                           <div class="form-group w-fit">
+                              <input type="text" class="form-control" name="${fieldName}[${newIndex}][value]" placeholder="Value" id="${fieldName}_${newIndex}_value" value="">
+                           </div>
+                           <div class="form-group col-md-2">
+                              <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
+                           </div>
+                  </li>
+               `;
+               $ul.append(newRow);
+         }
+        }
+        
+    });
          // Add row functionality
          var initiativeFields = ['waste_initiative_detail','csr_initiative_detail', 'energy_initiative_detail', 'emission_initiative_detail', 'water_initiative_detail'];
          
@@ -3990,28 +4054,28 @@
 
             if (initiativeFields.includes(field)) {
                 newRow = `
-                    <li class="d-flex flex-column">
-                        <div class="form-group">
-                            <label>Initiative Undertaken</label>
-                            <input type="text" class="form-control" name="${field}[${newIndex}][undertaken]" placeholder="Initiative Undertaken" id="${field}_${newIndex}_undertaken">
-                        </div>
-                        <div class="form-group">
-                            <label>Details of the Initiative</label>
-                            <textarea class="form-control" name="${field}[${newIndex}][details]" rows="3" placeholder="Details of the Initiative" id="${field}_${newIndex}_details"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Outcome of the Initiative</label>
-                            <textarea class="form-control" name="${field}[${newIndex}][outcome]" rows="3" placeholder="Outcome of the Initiative" id="${field}_${newIndex}_outcome"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
-                        </div>
-                    </li>
+                    <li class="d-flex" style="gap:10px">
+                           <div class="form-group" style="flex:1">
+                              <label>Initiative Undertaken</label>
+                              <input type="text" class="form-control" name="${field}[${newIndex}][undertaken]" placeholder="Initiative Undertaken" id="${field}_${newIndex}_undertaken">
+                           </div>
+                           <div class="form-group" style="flex:1">
+                              <label>Details of the Initiative</label>
+                              <textarea class="form-control" name="${field}[${newIndex}][details]" rows="3" placeholder="Details of the Initiative" id="${field}_${newIndex}_details"></textarea>
+                           </div>
+                           <div class="form-group" style="flex:1">
+                              <label>Outcome of the Initiative</label>
+                              <textarea class="form-control" name="${field}[${newIndex}][outcome]" rows="3" placeholder="Outcome of the Initiative" id="${field}_${newIndex}_outcome"></textarea>
+                           </div>
+                           <div class="form-group" style="flex:0 0 fit-content">
+                              <button type="button" class="mt-4 btn remove-row-btn" data-index="${newIndex}">-</button>
+                           </div>
+                     </li>
                 `;
             } else if (field === 'factory_locations') {
                 // Single input for factory_locations
                 newRow = `
-                    <li class="d-flex gap-2">
+                    <li class="d-flex gap-2 w-100">
                         <div class="form-group col-md-10">
                             <input type="text" class="form-control" name="${field}[${newIndex}]" placeholder="Location" id="${field}_${newIndex}">
                         </div>
@@ -4023,17 +4087,17 @@
             } else {
                 // Default year/value pair for other fields
                 newRow = `
-                    <li class="d-flex gap-2">
-                        <div class="form-group col-md-5">
-                            <input type="text" class="form-control" name="${field}[${newIndex}][year]" placeholder="Year" id="${field}_${newIndex}_year">
-                        </div>
-                        <div class="form-group col-md-5">
-                            <input type="text" class="form-control" name="${field}[${newIndex}][value]" placeholder="Value" id="${field}_${newIndex}_value">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <button type="button" class="btn remove-row-btn" data-index="${newIndex}">-</button>
-                        </div>
-                    </li>
+                    <li class="d-flex gap-2 w-100 w-100">
+                              <div class="form-group w-fit">
+                                 <input type="text" class="form-control" name="${field}[${newIndex}][year]" placeholder="Year" id="${field}_${newIndex}_year" value="">
+                              </div>
+                              <div class="form-group w-fit">
+                                 <input type="text" class="form-control" name="${field}[${newIndex}][value]" placeholder="Value" id="${field}_${newIndex}_value" value="">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn " data-index="${newIndex}">-</button>
+                              </div>
+                     </li>
                 `;
             }
             container.append(newRow);
