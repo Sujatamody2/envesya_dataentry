@@ -336,7 +336,7 @@
                      } 
                      ?>
                   </ul>
-                  <button type="button" class="btn add-row-btn" data-field="energy_initiative_detail">+</button>
+                  <button type="button" class="btn add-row-btn" data-field="energy_initiative_detail">+ Add Initiative</button>
                   @if($errors->has('energy_initiative_detail'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('energy_initiative_detail') as $error)
@@ -749,7 +749,7 @@
                      } 
                      ?>
                   </ul>
-                  <button type="button" class="btn add-row-btn" data-field="water_initiative_detail">+</button>
+                  <button type="button" class="btn add-row-btn" data-field="water_initiative_detail">+ Add Initiative</button>
                   @if($errors->has('water_initiative_detail'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('water_initiative_detail') as $error)
@@ -1457,7 +1457,7 @@
                      } 
                      ?>
                   </ul>
-                  <button type="button" class="btn add-row-btn" data-field="waste_initiative_detail">+</button>
+                  <button type="button" class="btn add-row-btn" data-field="waste_initiative_detail">+ Add Initiative</button>
                   @if($errors->has('waste_initiative_detail'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('waste_initiative_detail') as $error)
@@ -1555,7 +1555,7 @@
                         } 
                         echo "</ul>";
                         ?>
-                        <button type="button" class="btn add-row-btn" data-field="biological_waste">+</button>
+                        <button type="button" class="btn add-row-btn" data-field="biological_waste">+ </button>
                      </div>
                   </li>
                   <li>
@@ -3389,7 +3389,7 @@
                      } 
                      ?>
                   </ul>
-                  <button type="button" class="btn add-row-btn" data-field="emission_initiative_detail">+</button>
+                  <button type="button" class="btn add-row-btn" data-field="emission_initiative_detail">+ Add Initiative</button>
                   @if($errors->has('emission_initiative_detail'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('emission_initiative_detail') as $error)
@@ -3838,7 +3838,7 @@
                      } 
                      ?>
                   </ul>
-                  <button type="button" class="btn add-row-btn" data-field="csr_initiative_detail">+</button>
+                  <button type="button" class="btn add-row-btn" data-field="csr_initiative_detail">+ Add Initiative</button>
                   @if($errors->has('csr_initiative_detail'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('csr_initiative_detail') as $error)
