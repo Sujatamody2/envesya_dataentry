@@ -4234,6 +4234,26 @@
          }
       });
 
+      function debounce(func, wait) {
+         let timeout;
+         return function executedFunction(...args) {
+            const later = () => {
+               clearTimeout(timeout);
+               func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+         };
+      }
+
+      const form = document.querySelector('form');
+      form.addEventListener('submit', debounce(function (event) {
+         alert();
+      event.preventDefault();
+      // Your form submission logic here
+      console.log('Form submitted');
+      }, 1000)); // 1-second delay
+
       $('form').on('submit', function(e) {
          var nameError = $('#listing_name_error').text();
          var shortNameError = $('#listing_short_name_error').text();

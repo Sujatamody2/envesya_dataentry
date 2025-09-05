@@ -340,29 +340,43 @@ class ResponsibleCorporatesController extends Controller
      */
     public function store(Request $request)
     {
+        $formToken = $request->input('_token');
+        if ($formToken !== session('_token')) {
+            return redirect()->route('responsible-corp-list')->with('error', 'Duplicate form submission detected.');
+        }
+        session()->forget('_token');
+
         $data = $this->encodeArrays($request->all());
         $data['slug'] = $data['short_name'];
         $data['entered_by'] = Auth::id();
+        // echo "<pre>";
+        // print_r($data);
+        // die;
+        try {
+            // Main record
+            $corporate = ResponsibleCorporates::create(Arr::only($data, [
+                'name','slug','short_name','keyword_for_search','industry',
+                'product_profile_sector','ho_location','factory_locations',
+                'net_zero_target','certifications_accreditations','reporting_formats',
+                'ratings','assessment_verification','policy_ems','org_id',
+                'type','approval','entered_by'
+            ]));
 
-        // Main record
-        $corporate = ResponsibleCorporates::create(Arr::only($data, [
-            'name','slug','short_name','keyword_for_search','industry',
-            'product_profile_sector','ho_location','factory_locations',
-            'net_zero_target','certifications_accreditations','reporting_formats',
-            'ratings','assessment_verification','policy_ems','org_id',
-            'type','approval','entered_by'
-        ]));
+            // Related metrics
 
-        // Related metrics
+            $corporate->energyMetrics()->create($data);
+            $corporate->waterMetrics()->create($data);
+            $corporate->wasteMetrics()->create($data);
+            $corporate->emissionMetrics()->create($data);
+            $corporate->csrMetrics()->create($data);
+            $corporate->productStewardship()->create($data);
+            return redirect()->route('responsible-corp-list')->with('success', 'Corporate record created successfully.');
+        } catch (ExceptionType $e) {
+            \Log::error('Error creating corporate record: ' . $e->getMessage());
+            return redirect()->route('responsible-corp-list')->with('success', 'Corporate record created successfully.');
+        }
 
-        $corporate->energyMetrics()->create($data);
-        $corporate->waterMetrics()->create($data);
-        $corporate->wasteMetrics()->create($data);
-        $corporate->emissionMetrics()->create($data);
-        $corporate->csrMetrics()->create($data);
-        $corporate->productStewardship()->create($data);
-
-        return redirect()->route('responsible-corp-list')->with('success', 'Corporate record created successfully.');
+        
     }
 
     /**
@@ -396,7 +410,7 @@ class ResponsibleCorporatesController extends Controller
             'productStewardship'
         ])->first();
         $corporates_exist_names = ResponsibleCorporates::pluck('name')->toArray();
-        $corporates_exist_shortnames = ResponsibleCorporates::pluck('name')->toArray();
+        $corporates_exist_shortnames = ResponsibleCorporates::pluck('short_name')->toArray();
 
         // Handle case where the record is not found
         if (!$corporateData) {
