@@ -4207,23 +4207,39 @@
 
                // Keyup validation for Legal Name
                $(document).on('keyup','#name', function() {
-                  var value = $(this).val().trim().toLowerCase();
-                  console.log(value);
-                  var errorSpan = $('#listing_name_error');
-                  errorSpan.text('').removeClass('error'); // Clear previous error (add .error { color: red; } in CSS if needed)
+                  var value = $(this).val().trim();
+                  var normalizedValue = normalizeName(value);
+                  console.log("Input:", value, "Normalized:", normalizedValue);
 
-                  if (value && (full_names.includes(value) || full_names_exist.includes(value)) && (!isEdit || value !== currentName)) {
+                  var errorSpan = $('#listing_name_error');
+                  errorSpan.text('').removeClass('error'); 
+
+                  let normalizedFullNames = full_names.map(normalizeName);
+                  let normalizedFullNamesExist = full_names_exist.map(normalizeName);
+
+                  if (normalizedValue && 
+                     (normalizedFullNames.includes(normalizedValue) || normalizedFullNamesExist.includes(normalizedValue)) && 
+                     (!isEdit || normalizedValue !== normalizeName(currentName))) {
+                     
                      errorSpan.text('Legal Name already exists').addClass('error');
                   }
                });
 
-               // Keyup validation for Short Name
+               // Short Name validation
                $(document).on('keyup','#short_name', function() {
-                  var value = $(this).val().trim().toLowerCase();
-                  var errorSpan = $('#listing_short_name_error');
-                  errorSpan.text('').removeClass('error'); // Clear previous error
+                  var value = $(this).val().trim();
+                  var normalizedValue = normalizeName(value);
 
-                  if (value && (short_names.includes(value) || short_names_exist.includes(value)) && (!isEdit || value !== currentShortName)) {
+                  var errorSpan = $('#listing_short_name_error');
+                  errorSpan.text('').removeClass('error'); 
+
+                  let normalizedShortNames = short_names.map(normalizeName);
+                  let normalizedShortNamesExist = short_names_exist.map(normalizeName);
+
+                  if (normalizedValue && 
+                     (normalizedShortNames.includes(normalizedValue) || normalizedShortNamesExist.includes(normalizedValue)) && 
+                     (!isEdit || normalizedValue !== normalizeName(currentShortName))) {
+                     
                      errorSpan.text('Short Name already exists').addClass('error');
                   }
                });
@@ -4233,6 +4249,17 @@
                alert("Error fetching industry and segment data");
          }
       });
+
+      function normalizeName(name) {
+         return name
+            .toLowerCase()
+            .replace(/\bpvt\b/g, 'private')
+            .replace(/\bprivate\b/g, 'private')
+            .replace(/\bltd\b/g, 'limited')
+            .replace(/\blimited\b/g, 'limited')
+            .replace(/\s+/g, ' ') // collapse multiple spaces
+            .trim();
+      }
 
       function debounce(func, wait) {
          let timeout;
