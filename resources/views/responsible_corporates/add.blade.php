@@ -1530,7 +1530,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="biological_waste">
-                        <label for="usr">Biological Waste</label>
+                        <label for="usr">Biomedical Waste</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="biological_waste_unit" placeholder="Unit" id="biological_waste_unit" value="{{ isset($response['biological_waste_unit']) ? $response['biological_waste_unit'] : "" }}">
                         </div>
@@ -3322,38 +3322,11 @@
                      </ol>
                   </li>
                </ol>
-               <!-- <div class="incrementable-section" data-field="total_waste_disposed">
-                  <h6>Total waste disposed</h6>
-                  <div class="form-group w-fit">
-                     <input type="text" class="form-control" name="total_waste_disposed_unit" placeholder="Unit" id="total_waste_disposed_unit" value="{{ isset($response['total_waste_disposed_unit']) ? $response['total_waste_disposed_unit'] : "" }}">
-                  </div>
-                  <?php 
-                  $count = 0;
-                  $energyDetail = isset($response['total_waste_disposed']) ? json_decode($response['total_waste_disposed'], true): [];
-                  echo "<ul>";
-                  foreach ($energyDetail as $year => $value) { ?>
-                     <li class="d-flex gap-2 w-100">  
-                        <div class="form-group w-fit">
-                           <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_disposed_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
-                        </div>
-                        <div class="form-group w-fit">
-                           <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_disposed_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
-                        </div>
-                        <div class="form-group col-md-2">
-                           <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
-                        </div>
-                     </li>
-                  <?php 
-                     $count++; 
-                  } 
-                  echo "</ul>";?>
-                  <button type="button" class="btn add-row-btn" data-field="total_waste_disposed">+</button>
-               </div> -->
                <h6>Total Waste Disposed by Nature of Disposal Method </h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="total_waste_disposed_recycled">
-                        <label for="usr">Recycled</label>
+                        <label for="usr">Incineration</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_disposed_recycled_unit" placeholder="Unit" id="total_waste_disposed_recycled_unit" value="{{ isset($response['total_waste_disposed_recycled_unit']) ? $response['total_waste_disposed_recycled_unit'] : "" }}">
                         </div>
@@ -3382,7 +3355,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="total_waste_disposed_reused">
-                        <label for="usr">Re-used</label>
+                        <label for="usr">Landfilling</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_disposed_reused_unit" placeholder="Unit" id="total_waste_disposed_reused_unit" value="{{ isset($response['total_waste_disposed_reused_unit']) ? $response['total_waste_disposed_reused_unit'] : "" }}">
                         </div>
@@ -3411,7 +3384,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="total_waste_disposed_other_recovery">
-                        <label for="usr">Other recovery options</label>
+                        <label for="usr">Other Disposal Operations</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_disposed_other_recovery_unit" placeholder="Unit" id="total_waste_disposed_other_recovery_unit" value="{{ isset($response['total_waste_disposed_other_recovery_unit']) ? $response['total_waste_disposed_other_recovery_unit'] : "" }}">
                         </div>
