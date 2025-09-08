@@ -765,6 +765,20 @@ class ResponsibleCorporatesController extends Controller
                     'total_waste_generated_unit' => $corporate->wasteMetrics->total_waste_generated_unit ?? null,
                     'total_waste_recovered_unit' => $corporate->wasteMetrics->total_waste_recovered_unit ?? null,
                     'total_waste_disposed_unit' => $corporate->wasteMetrics->total_waste_disposed_unit ?? null,
+
+                    'total_waste_recovered_recycled' => $corporate->wasteMetrics->total_waste_recovered_recycled ?? null,
+                    'total_waste_recovered_reused' => $corporate->wasteMetrics->total_waste_recovered_reused ?? null,
+                    'total_waste_recovered_other_recovery' => $corporate->wasteMetrics->total_waste_recovered_other_recovery ?? null,
+                    'total_waste_recovered_recycled_unit' => $corporate->wasteMetrics->total_waste_recovered_recycled_unit ?? null,
+                    'total_waste_recovered_reused_unit' => $corporate->wasteMetrics->total_waste_recovered_reused_unit ?? null,
+                    'total_waste_recovered_other_recovery_unit' => $corporate->wasteMetrics->total_waste_recovered_other_recovery_unit ?? null,
+
+                    'total_waste_disposed_recycled' => $corporate->wasteMetrics->total_waste_disposed_recycled ?? null,
+                    'total_waste_disposed_reused' => $corporate->wasteMetrics->total_waste_disposed_reused ?? null,
+                    'total_waste_disposed_other_recovery' => $corporate->wasteMetrics->total_waste_disposed_other_recovery ?? null,
+                    'total_waste_disposed_recycled_unit' => $corporate->wasteMetrics->total_waste_disposed_recycled_unit ?? null,
+                    'total_waste_disposed_reused_unit' => $corporate->wasteMetrics->total_waste_disposed_reused_unit ?? null,
+                    'total_waste_disposed_other_recovery_unit' => $corporate->wasteMetrics->total_waste_disposed_other_recovery_unit ?? null,
                     // Emission Metrics
                     'emission_detail' => $corporate->emissionMetrics->emission_detail ?? null,
                     'emission_initiative_detail' => $corporate->emissionMetrics->emission_initiative_detail ?? null,
