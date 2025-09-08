@@ -3349,7 +3349,7 @@
                   echo "</ul>";?>
                   <button type="button" class="btn add-row-btn" data-field="total_waste_disposed">+</button>
                </div> -->
-               <h6>Total waste disposed</h6>
+               <h6>Total Waste Disposed by Nature of Disposal Method </h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="total_waste_disposed_recycled">
