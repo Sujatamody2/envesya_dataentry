@@ -3882,7 +3882,7 @@
             <div class="tab-pane fade" id="product-stewardship" role="tabpanel" aria-labelledby="product-stewardship-tab">
                <div class="form-group mt-3">
                   <label for="usr">Product Stewardship</label>
-                  <textarea name="product_stewardship" id="product_stewardship" rows="5" class="form-control" placeholder="Product Stewardship">{{ isset($response['product_stewardship']) ? $response['product_stewardship'] : "" }}</textarea>
+                  <textarea name="product_stewardship" id="product_stewardship" rows="5" class="form-control" placeholder="Product Stewardship">{{ isset($response['product_stewardship_field']) ? $response['product_stewardship_field'] : "" }}</textarea>
                   @if($errors->has('product_stewardship'))
                   <ul class="parsley-errors-list filled">
                      @foreach($errors->get('product_stewardship') as $error)

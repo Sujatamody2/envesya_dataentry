@@ -432,11 +432,16 @@ class ResponsibleCorporatesController extends Controller
         ];
 
         foreach ($relationsToMerge as $relationKey) {
-            // Check if the relationship data exists and is an array
-            if (isset($response[$relationKey]) && is_array($response[$relationKey])) {
-                // Merge the attributes of the related model into the main response array
-                $response = array_merge($response, $response[$relationKey]);
-                // Remove the original nested relationship array to keep the final structure clean
+            if (isset($response[$relationKey]) && is_array($response[$relationKey]) && !empty($response[$relationKey])) {
+                $relationData = $response[$relationKey];
+
+                // Prevent field name collision for product_stewardship
+                if ($relationKey === 'product_stewardship' && isset($relationData['product_stewardship'])) {
+                    $relationData['product_stewardship_field'] = $relationData['product_stewardship'];
+                    unset($relationData['product_stewardship']);
+                }
+
+                $response = array_merge($response, $relationData);
                 unset($response[$relationKey]);
             }
         }
