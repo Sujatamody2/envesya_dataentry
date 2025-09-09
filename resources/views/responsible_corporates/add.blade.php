@@ -409,22 +409,22 @@
                      </div>
                   </li>
                   <li>
-                     <div class="incrementable-section" data-field="energy_cosuption_through_source">
+                     <div class="incrementable-section" data-field="energy_consumption_through_source">
                         <label for="usr">Energy consumption through other sources</label>
                         <div class="form-group w-fit">
-                           <input type="text" class="form-control" name="energy_cosuption_through_source_unit" placeholder="Unit" id="energy_cosuption_through_source_unit" value="{{ isset($response['energy_cosuption_through_source_unit']) ? $response['energy_cosuption_through_source_unit'] : "" }}">
+                           <input type="text" class="form-control" name="energy_consumption_through_source_unit" placeholder="Unit" id="energy_consumption_through_source_unit" value="{{ isset($response['energy_consumption_through_source_unit']) ? $response['energy_consumption_through_source_unit'] : "" }}">
                         </div>
                         <?php 
                         $count = 0;
-                        $energyDetail = isset($response['energy_cosuption_through_source']) ? json_decode($response['energy_cosuption_through_source'], true): [];
+                        $energyDetail = isset($response['energy_consumption_through_source']) ? json_decode($response['energy_consumption_through_source'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2 w-100">
                               <div class="form-group w-fit">
-                                 <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
+                                 <input type="text" class="form-control" name="energy_consumption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="energy_consumption_through_source_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group w-fit">
-                                 <input type="text" class="form-control" name="energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
+                                 <input type="text" class="form-control" name="energy_consumption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="energy_consumption_through_source_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -434,7 +434,7 @@
                            $count++; 
                         } 
                         echo "</ul>";?>
-                        <button type="button" class="btn add-row-btn" data-field="energy_cosuption_through_source">+</button>
+                        <button type="button" class="btn add-row-btn" data-field="energy_consumption_through_source">+</button>
                      </div>
                   </li>
                   <li>
@@ -529,22 +529,22 @@
                      </div>
                   </li>
                   <li>
-                     <div class="incrementable-section" data-field="non_renewable_energy_cosuption_through_source">
+                     <div class="incrementable-section" data-field="non_renewable_energy_consumption_through_source">
                         <label for="usr">Energy consumption through other sources</label>
                         <div class="form-group w-fit">
-                           <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source_unit" placeholder="Unit" id="non_renewable_energy_cosuption_through_source_unit" value="{{ isset($response['non_renewable_energy_cosuption_through_source_unit']) ? $response['non_renewable_energy_cosuption_through_source_unit'] : "" }}">
+                           <input type="text" class="form-control" name="non_renewable_energy_consumption_through_source_unit" placeholder="Unit" id="non_renewable_energy_consumption_through_source_unit" value="{{ isset($response['non_renewable_energy_consumption_through_source_unit']) ? $response['non_renewable_energy_consumption_through_source_unit'] : "" }}">
                         </div>
                         <?php 
                         $count = 0;
-                        $energyDetail = isset($response['non_renewable_energy_cosuption_through_source']) ? json_decode($response['non_renewable_energy_cosuption_through_source'], true): [];
+                        $energyDetail = isset($response['non_renewable_energy_consumption_through_source']) ? json_decode($response['non_renewable_energy_consumption_through_source'], true): [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2 w-100">
                               <div class="form-group w-fit">
-                                 <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
+                                 <input type="text" class="form-control" name="non_renewable_energy_consumption_through_source[<?php echo $count; ?>][year]" placeholder="Year" id="non_renewable_energy_consumption_through_source_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group w-fit">
-                                 <input type="text" class="form-control" name="non_renewable_energy_cosuption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="non_renewable_energy_cosuption_through_source_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
+                                 <input type="text" class="form-control" name="non_renewable_energy_consumption_through_source[<?php echo $count; ?>][value]" placeholder="Value" id="non_renewable_energy_consumption_through_source_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -554,7 +554,7 @@
                            $count++; 
                         } 
                         echo "</ul>";?>
-                        <button type="button" class="btn add-row-btn" data-field="non_renewable_energy_cosuption_through_source">+</button>
+                        <button type="button" class="btn add-row-btn" data-field="non_renewable_energy_consumption_through_source">+</button>
                      </div>
                   </li>
                   <li>
@@ -3790,22 +3790,22 @@
                      </div>
                   </li>
                   <li>
-                     <div class="incrementable-section" data-field="particular_matter">
+                     <div class="incrementable-section" data-field="particulate_matter">
                         <label for="usr">Particulate Matter</label>
                         <div class="form-group w-fit">
-                           <input type="text" class="form-control" name="particular_matter_unit" placeholder="Unit" id="particular_matter_unit" value="{{ isset($response['particular_matter_unit']) ? $response['particular_matter_unit'] : "" }}">
+                           <input type="text" class="form-control" name="particulate_matter_unit" placeholder="Unit" id="particulate_matter_unit" value="{{ isset($response['particulate_matter_unit']) ? $response['particulate_matter_unit'] : "" }}">
                         </div>
                         <?php 
                         $count = 0;
-                        $energyDetail = isset($response['particular_matter']) ? json_decode($response['particular_matter'], true) : [];
+                        $energyDetail = isset($response['particulate_matter']) ? json_decode($response['particulate_matter'], true) : [];
                         echo "<ul>";
                         foreach ($energyDetail as $year => $value) { ?>
                            <li class="d-flex gap-2 w-100">
                               <div class="form-group w-fit">
-                                 <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][year]" placeholder="Year" id="particular_matter_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
+                                 <input type="text" class="form-control" name="particulate_matter[<?php echo $count; ?>][year]" placeholder="Year" id="particulate_matter_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
                               </div>
                               <div class="form-group w-fit">
-                                 <input type="text" class="form-control" name="particular_matter[<?php echo $count; ?>][value]" placeholder="Value" id="particular_matter_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
+                                 <input type="text" class="form-control" name="particulate_matter[<?php echo $count; ?>][value]" placeholder="Value" id="particulate_matter_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
                               </div>
                               <div class="form-group col-md-2">
                                  <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
@@ -3815,7 +3815,7 @@
                            $count++; 
                         } 
                         echo "</ul>"; ?>
-                        <button type="button" class="btn add-row-btn" data-field="particular_matter">+</button>
+                        <button type="button" class="btn add-row-btn" data-field="particulate_matter">+</button>
                      </div>
                   </li>
                   <li>
