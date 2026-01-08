@@ -2584,7 +2584,7 @@
 
                   <li>
                      <div class="incrementable-section" data-field="total_waste_recovered">
-                        <label for="usr">Other recovery options</label>
+                        <label for="usr">Total Waste recovered</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_recovered_unit" placeholder="Unit" id="total_waste_recovered_unit" value="{{ isset($response['total_waste_recovered_unit']) ? $response['total_waste_recovered_unit'] : "" }}">
                         </div>
