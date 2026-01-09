@@ -53,11 +53,10 @@
                                  <td>{{ $corporate->updated_at ? date('d M Y', strtotime($corporate->updated_at)) : '' }}</td>
                                  <td>
                                     <a href="{{ route('responsible-corp-update', [$corporate->id, 'page' => request()->query('page', '')]) }}" class='btn btn-success action-btn'>Edit</a>
-                                    <form action="{{ route('responsible-corp-delete', [$corporate->id, 'page' => request()->query('page', '')]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this record?')">
-                                       @csrf
-                                       @method('DELETE')
-                                       <button type="submit" class='btn btn-danger'>Delete</button>
-                                    </form>
+                                    @if(auth()->user()->is_admin == 1)
+                                    
+                                    <a href="{{ route('responsible-corp-delete',$corporate->id}}" class='btn btn-danger'>Delete</a>
+                                    @endif
                                     @if(auth()->user()->is_admin == 1)
                                        @if($corporate->approval == 2)
                                           <a href="{{ route('listing_statusupdateres', [$corporate->id, 1, 'page' => request()->query('page', '')]) }}" class='btn btn-success'>Approve</a>
