@@ -481,8 +481,9 @@ class ResponsibleCorporatesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ResponsibleCorporates $responsibleCorporate)
+    public function destroy($id)
     {
+        $responsibleCorporate = ResponsibleCorporates::find($id);
         $responsibleCorporate->delete(); // Cascades to related metrics tables due to ON DELETE CASCADE
         return redirect()->route('responsible-corp-list')->with('success', 'Corporate record deleted successfully.');
     }
