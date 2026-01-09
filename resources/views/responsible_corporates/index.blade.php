@@ -55,7 +55,7 @@
                                     <a href="{{ route('responsible-corp-update', [$corporate->id, 'page' => request()->query('page', '')]) }}" class='btn btn-success action-btn'>Edit</a>
                                     @if(auth()->user()->is_admin == 1)
                                     
-                                    <a href="{{ route('responsible-corp-delete',$corporate->id}}" class='btn btn-danger'>Delete</a>
+                                    <a href="{{ route('responsible-corp-delete',$corporate->id) }}" class='btn btn-danger'>Delete</a>
                                     @endif
                                     @if(auth()->user()->is_admin == 1)
                                        @if($corporate->approval == 2)
