@@ -488,25 +488,6 @@ class ResponsibleCorporatesController extends Controller
         return redirect()->route('responsible-corp-list')->with('success', 'Corporate record deleted successfully.');
     }
 
-    private function encodeArrays($data)
-    {
-        $input = []; // initialize
-
-        foreach ($data as $key => $value) {
-            if (is_array($value)) {
-                
-                    // Generic array (e.g. multi-select checkboxes)
-                    $input[$key] = json_encode($value);
-                
-            } else {
-                // Keep scalar values as-is
-                $input[$key] = $value;
-            }
-        }
-
-        return $input;
-    }
-
     public function listing_statusupdateRes($id, $status, Request $request)
     {
         // Check if the user is authorized
@@ -526,336 +507,448 @@ class ResponsibleCorporatesController extends Controller
 
         // Update the approval status
         $corporate->approval = $status;
+        
+        // Get the selected API push site from request
+        $apiPushSite = $request->input('api_push_site');
+        if ($apiPushSite) {
+            $corporate->api_push_site = $apiPushSite;
+        }
+        
         $corporate->save();
 
         // If status is approved (1), sync with external API
-        if ($status === '1') {
-            try {
-                // Prepare the payload by merging core and related metrics
-                $payload = [
-                    'name' => $corporate->name,
-                    'slug' => $corporate->slug,
-                    'short_name' => $corporate->short_name,
-                    'keyword_search' => $corporate->keyword_for_search,
-                    'industry' => $corporate->industry,
-                    'product_profile_sector' => $corporate->product_profile_sector,
-                    'ho_location' => $corporate->ho_location,
-                    'factory_locations' => $corporate->factory_locations,
-                    'net_zero_target' => $corporate->net_zero_target,
-                    'certifications_accreditations' => $corporate->certifications_accreditations,
-                    'reporting_formats' => $corporate->reporting_formats,
-                    'ratings' => $corporate->ratings,
-                    'assessment_verification' => $corporate->assessment_verification,
-                    'policy_ems' => $corporate->policy_ems,
-                    // Energy Metrics
-                    'energy_detail' => $corporate->energyMetrics->energy_detail ?? null,
-                    'energy_initiative_detail' => $corporate->energyMetrics->energy_initiative_detail ?? null,
-                    'total_electricity_consumption' => $corporate->energyMetrics->total_electricity_consumption ?? null,
-                    'total_electricity_consumption_unit' => $corporate->energyMetrics->total_electricity_consumption_unit ?? null,
-                    'total_fuel_consumption' => $corporate->energyMetrics->total_fuel_consumption ?? null,
-                    'total_fuel_consumption_unit' => $corporate->energyMetrics->total_fuel_consumption_unit ?? null,
-                    'energy_consumption_through_source' => $corporate->energyMetrics->energy_consumption_through_source ?? null,
-                    'energy_consumption_through_source_unit' => $corporate->energyMetrics->energy_consumption_through_source_unit ?? null,
-                    'total_renewable_energy_consumption' => $corporate->energyMetrics->total_renewable_energy_consumption ?? null,
-                    'total_renewable_energy_consumption_unit' => $corporate->energyMetrics->total_renewable_energy_consumption_unit ?? null,
-                    'total_non_renewable_energy_consumption' => $corporate->energyMetrics->total_non_renewable_energy_consumption ?? null,
-                    'total_non_renewable_energy_consumption_unit' => $corporate->energyMetrics->total_non_renewable_energy_consumption_unit ?? null,
-                    'total_non_renewable_electricity_consumption' => $corporate->energyMetrics->total_non_renewable_electricity_consumption ?? null,
-                    'total_non_renewable_electricity_consumption_unit' => $corporate->energyMetrics->total_non_renewable_electricity_consumption_unit ?? null,
-                    'total_non_renewable_fuel_consumption' => $corporate->energyMetrics->total_non_renewable_fuel_consumption ?? null,
-                    'total_non_renewable_fuel_consumption_unit' => $corporate->energyMetrics->total_non_renewable_fuel_consumption_unit ?? null,
-                    'non_renewable_energy_consumption_through_source' => $corporate->energyMetrics->non_renewable_energy_consumption_through_source ?? null,
-                    'non_renewable_energy_consumption_through_source_unit' => $corporate->energyMetrics->non_renewable_energy_consumption_through_source_unit ?? null,
-                    'total_energy_consumption' => $corporate->energyMetrics->total_energy_consumption ?? null,
-                    'total_energy_consumption_unit' => $corporate->energyMetrics->total_energy_consumption_unit ?? null,
-                    'energy_intensity_per_rupee_turnover' => $corporate->energyMetrics->energy_intensity_per_rupee_turnover ?? null,
-                    'energy_intensity_per_rupee_turnover_unit' => $corporate->energyMetrics->energy_intensity_per_rupee_turnover_unit ?? null,
-                    'energy_intensity_per_rupee_turnover_ppp' => $corporate->energyMetrics->energy_intensity_per_rupee_turnover_ppp ?? null,
-                    'energy_intensity_per_rupee_turnover_ppp_unit' => $corporate->energyMetrics->energy_intensity_per_rupee_turnover_ppp_unit ?? null,
-                    'energy_intensity_physical_output' => $corporate->energyMetrics->energy_intensity_physical_output ?? null,
-                    'energy_intensity_physical_output_unit' => $corporate->energyMetrics->energy_intensity_physical_output_unit ?? null,
-                    'energy_intensity' => $corporate->energyMetrics->energy_intensity ?? null,
-                    'energy_intensity_unit' => $corporate->energyMetrics->energy_intensity_unit ?? null,
-                    'renewable_power_percentage' => $corporate->energyMetrics->renewable_power_percentage ?? null,
-                    'renewable_power_percentage_unit' => $corporate->energyMetrics->renewable_power_percentage_unit ?? null,
-                    'specific_energy_consumption' => $corporate->energyMetrics->specific_energy_consumption ?? null,
-                    'specific_energy_consumption_unit' => $corporate->energyMetrics->specific_energy_consumption_unit ?? null,
-                    // Water Metrics
-                    'water_detail' => $corporate->waterMetrics->water_detail ?? null,
-                    'water_initiative_detail' => $corporate->waterMetrics->water_initiative_detail ?? null,
-                    'water_withdrawal_source_surface' => $corporate->waterMetrics->water_withdrawal_source_surface ?? null,
-                    'water_withdrawal_source_surface_unit' => $corporate->waterMetrics->water_withdrawal_source_surface_unit ?? null,
-                    'water_withdrawal_source_ground' => $corporate->waterMetrics->water_withdrawal_source_ground ?? null,
-                    'water_withdrawal_source_ground_unit' => $corporate->waterMetrics->water_withdrawal_source_ground_unit ?? null,
-                    'water_withdrawal_source_thirdparty' => $corporate->waterMetrics->water_withdrawal_source_thirdparty ?? null,
-                    'water_withdrawal_source_thirdparty_unit' => $corporate->waterMetrics->water_withdrawal_source_thirdparty_unit ?? null,
-                    'water_withdrawal_source_sea' => $corporate->waterMetrics->water_withdrawal_source_sea ?? null,
-                    'water_withdrawal_source_sea_unit' => $corporate->waterMetrics->water_withdrawal_source_sea_unit ?? null,
-                    'water_withdrawal_source_other' => $corporate->waterMetrics->water_withdrawal_source_other ?? null,
-                    'water_withdrawal_source_other_unit' => $corporate->waterMetrics->water_withdrawal_source_other_unit ?? null,
-                    'total_water_withdrawal' => $corporate->waterMetrics->total_water_withdrawal ?? null,
-                    'total_water_withdrawal_unit' => $corporate->waterMetrics->total_water_withdrawal_unit ?? null,
-                    'total_water_consumption' => $corporate->waterMetrics->total_water_consumption ?? null,
-                    'total_water_consumption_unit' => $corporate->waterMetrics->total_water_consumption_unit ?? null,
-                    'water_intensity_per_rupee_turnover' => $corporate->waterMetrics->water_intensity_per_rupee_turnover ?? null,
-                    'water_intensity_per_rupee_turnover_unit' => $corporate->waterMetrics->water_intensity_per_rupee_turnover_unit ?? null,
-                    'water_intensity_per_rupee_ppp_turnover' => $corporate->waterMetrics->water_intensity_per_rupee_ppp_turnover ?? null,
-                    'water_intensity_per_rupee_ppp_turnover_unit' => $corporate->waterMetrics->water_intensity_per_rupee_ppp_turnover_unit ?? null,
-                    'water_intensity_physical_output' => $corporate->waterMetrics->water_intensity_physical_output ?? null,
-                    'water_intensity_physical_output_unit' => $corporate->waterMetrics->water_intensity_physical_output_unit ?? null,
-                    'water_intensity' => $corporate->waterMetrics->water_intensity ?? null,
-                    'water_intensity_unit' => $corporate->waterMetrics->water_intensity_unit ?? null,
-                    'water_discharge_to_surface_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_surface_water_no_treatment ?? null,
-                    'water_discharge_to_surface_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_surface_water_no_treatment_unit ?? null,
-                    'water_discharge_to_surface_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_surface_water_with_treatment ?? null,
-                    'water_discharge_to_surface_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_surface_water_with_treatment_unit ?? null,
-                    'water_discharge_to_ground_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_ground_water_no_treatment ?? null,
-                    'water_discharge_to_ground_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_ground_water_no_treatment_unit ?? null,
-                    'water_discharge_to_ground_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_ground_water_with_treatment ?? null,
-                    'water_discharge_to_ground_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_ground_water_with_treatment_unit ?? null,
-                    'water_discharge_to_sea_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_sea_water_no_treatment ?? null,
-                    'water_discharge_to_sea_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_sea_water_no_treatment_unit ?? null,
-                    'water_discharge_to_sea_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_sea_water_with_treatment ?? null,
-                    'water_discharge_to_sea_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_sea_water_with_treatment_unit ?? null,
-                    'water_discharge_to_thirdparty_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_thirdparty_water_no_treatment ?? null,
-                    'water_discharge_to_thirdparty_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_thirdparty_water_no_treatment_unit ?? null,
-                    'water_discharge_to_thirdparty_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_thirdparty_water_with_treatment ?? null,
-                    'water_discharge_to_thirdparty_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_thirdparty_water_with_treatment_unit ?? null,
-                    'water_discharge_to_other_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_other_water_no_treatment ?? null,
-                    'water_discharge_to_other_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_other_water_no_treatment_unit ?? null,
-                    'water_discharge_to_other_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_other_water_with_treatment ?? null,
-                    'water_discharge_to_other_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_other_water_with_treatment_unit ?? null,
-                    'total_water_discharged' => $corporate->waterMetrics->total_water_discharged ?? null,
-                    'total_water_discharged_unit' => $corporate->waterMetrics->total_water_discharged_unit ?? null,
-                    'water_replenishment_percentage' => $corporate->waterMetrics->water_replenishment_percentage ?? null,
-                    'water_replenishment_percentage_unit' => $corporate->waterMetrics->water_replenishment_percentage_unit ?? null,
-                    'total_water_withdrawal_by_source' => $corporate->waterMetrics->total_water_withdrawal_by_source ?? null,
-                    'total_water_withdrawal_by_source_unit' => $corporate->waterMetrics->total_water_withdrawal_by_source_unit ?? null,
-                    'specific_water_consumption' => $corporate->waterMetrics->specific_water_consumption ?? null,
-                    'specific_water_consumption_unit' => $corporate->waterMetrics->specific_water_consumption_unit ?? null,
-                    // Waste Metrics
-                    'waste_detail' => $corporate->wasteMetrics->waste_detail ?? null,
-                    'waste_initiative_detail' => $corporate->wasteMetrics->waste_initiative_detail ?? null,
-                    'plastic_waste' => $corporate->wasteMetrics->plastic_waste ?? null,
-                    'plastic_waste_unit' => $corporate->wasteMetrics->plastic_waste_unit ?? null,
-                    'e_waste' => $corporate->wasteMetrics->e_waste ?? null,
-                    'e_waste_unit' => $corporate->wasteMetrics->e_waste_unit ?? null,
-                    'biological_waste' => $corporate->wasteMetrics->biological_waste ?? null,
-                    'biological_waste_unit' => $corporate->wasteMetrics->biological_waste_unit ?? null,
-                    'construction_waste' => $corporate->wasteMetrics->construction_waste ?? null,
-                    'construction_waste_unit' => $corporate->wasteMetrics->construction_waste_unit ?? null,
-                    'battery_waste' => $corporate->wasteMetrics->battery_waste ?? null,
-                    'battery_waste_unit' => $corporate->wasteMetrics->battery_waste_unit ?? null,
-                    'radioactive_waste' => $corporate->wasteMetrics->radioactive_waste ?? null,
-                    'radioactive_waste_unit' => $corporate->wasteMetrics->radioactive_waste_unit ?? null,
-                    'hazardous_waste' => $corporate->wasteMetrics->hazardous_waste ?? null,
-                    'hazardous_waste_unit' => $corporate->wasteMetrics->hazardous_waste_unit ?? null,
-                    'non_hazardous_waste' => $corporate->wasteMetrics->non_hazardous_waste ?? null,
-                    'non_hazardous_waste_unit' => $corporate->wasteMetrics->non_hazardous_waste_unit ?? null,
-                    'waste_intensity_per_rupee_turnover' => $corporate->wasteMetrics->waste_intensity_per_rupee_turnover ?? null,
-                    'waste_intensity_per_rupee_turnover_unit' => $corporate->wasteMetrics->waste_intensity_per_rupee_turnover_unit ?? null,
-                    'waste_intensity_ppp' => $corporate->wasteMetrics->waste_intensity_ppp ?? null,
-                    'waste_intensity_ppp_unit' => $corporate->wasteMetrics->waste_intensity_ppp_unit ?? null,
-                    'waste_intensity_physical_output' => $corporate->wasteMetrics->waste_intensity_physical_output ?? null,
-                    'waste_intensity_physical_output_unit' => $corporate->wasteMetrics->waste_intensity_physical_output_unit ?? null,
-                    'waste_intensity' => $corporate->wasteMetrics->waste_intensity ?? null,
-                    'waste_intensity_unit' => $corporate->wasteMetrics->waste_intensity_unit ?? null,
-                    'plastic_waste_recycled' => $corporate->wasteMetrics->plastic_waste_recycled ?? null,
-                    'plastic_waste_recycled_unit' => $corporate->wasteMetrics->plastic_waste_recycled_unit ?? null,
-                    'plastic_waste_reused' => $corporate->wasteMetrics->plastic_waste_reused ?? null,
-                    'plastic_waste_reused_unit' => $corporate->wasteMetrics->plastic_waste_reused_unit ?? null,
-                    'plastic_waste_other_recovery' => $corporate->wasteMetrics->plastic_waste_other_recovery ?? null,
-                    'plastic_waste_other_recovery_unit' => $corporate->wasteMetrics->plastic_waste_other_recovery_unit ?? null,
-                    'e_waste_recycled' => $corporate->wasteMetrics->e_waste_recycled ?? null,
-                    'e_waste_recycled_unit' => $corporate->wasteMetrics->e_waste_recycled_unit ?? null,
-                    'e_waste_reused' => $corporate->wasteMetrics->e_waste_reused ?? null,
-                    'e_waste_reused_unit' => $corporate->wasteMetrics->e_waste_reused_unit ?? null,
-                    'e_waste_other_recovery' => $corporate->wasteMetrics->e_waste_other_recovery ?? null,
-                    'e_waste_other_recovery_unit' => $corporate->wasteMetrics->e_waste_other_recovery_unit ?? null,
-                    'biological_waste_recycled' => $corporate->wasteMetrics->biological_waste_recycled ?? null,
-                    'biological_waste_recycled_unit' => $corporate->wasteMetrics->biological_waste_recycled_unit ?? null,
-                    'biological_waste_reused' => $corporate->wasteMetrics->biological_waste_reused ?? null,
-                    'biological_waste_reused_unit' => $corporate->wasteMetrics->biological_waste_reused_unit ?? null,
-                    'biological_waste_other_recovery' => $corporate->wasteMetrics->biological_waste_other_recovery ?? null,
-                    'biological_waste_other_recovery_unit' => $corporate->wasteMetrics->biological_waste_other_recovery_unit ?? null,
-                    'construction_waste_recycled' => $corporate->wasteMetrics->construction_waste_recycled ?? null,
-                    'construction_waste_recycled_unit' => $corporate->wasteMetrics->construction_waste_recycled_unit ?? null,
-                    'construction_waste_reused' => $corporate->wasteMetrics->construction_waste_reused ?? null,
-                    'construction_waste_reused_unit' => $corporate->wasteMetrics->construction_waste_reused_unit ?? null,
-                    'construction_waste_other_recovery' => $corporate->wasteMetrics->construction_waste_other_recovery ?? null,
-                    'construction_waste_other_recovery_unit' => $corporate->wasteMetrics->construction_waste_other_recovery_unit ?? null,
-                    'battery_waste_recycled' => $corporate->wasteMetrics->battery_waste_recycled ?? null,
-                    'battery_waste_recycled_unit' => $corporate->wasteMetrics->battery_waste_recycled_unit ?? null,
-                    'battery_waste_reused' => $corporate->wasteMetrics->battery_waste_reused ?? null,
-                    'battery_waste_reused_unit' => $corporate->wasteMetrics->battery_waste_reused_unit ?? null,
-                    'battery_waste_other_recovery' => $corporate->wasteMetrics->battery_waste_other_recovery ?? null,
-                    'battery_waste_other_recovery_unit' => $corporate->wasteMetrics->battery_waste_other_recovery_unit ?? null,
-                    'radioactive_waste_recycled' => $corporate->wasteMetrics->radioactive_waste_recycled ?? null,
-                    'radioactive_waste_recycled_unit' => $corporate->wasteMetrics->radioactive_waste_recycled_unit ?? null,
-                    'radioactive_waste_reused' => $corporate->wasteMetrics->radioactive_waste_reused ?? null,
-                    'radioactive_waste_reused_unit' => $corporate->wasteMetrics->radioactive_waste_reused_unit ?? null,
-                    'radioactive_waste_other_recovery' => $corporate->wasteMetrics->radioactive_waste_other_recovery ?? null,
-                    'radioactive_waste_other_recovery_unit' => $corporate->wasteMetrics->radioactive_waste_other_recovery_unit ?? null,
-                    'hazardous_waste_recycled' => $corporate->wasteMetrics->hazardous_waste_recycled ?? null,
-                    'hazardous_waste_recycled_unit' => $corporate->wasteMetrics->hazardous_waste_recycled_unit ?? null,
-                    'hazardous_waste_reused' => $corporate->wasteMetrics->hazardous_waste_reused ?? null,
-                    'hazardous_waste_reused_unit' => $corporate->wasteMetrics->hazardous_waste_reused_unit ?? null,
-                    'hazardous_waste_other_recovery' => $corporate->wasteMetrics->hazardous_waste_other_recovery ?? null,
-                    'hazardous_waste_other_recovery_unit' => $corporate->wasteMetrics->hazardous_waste_other_recovery_unit ?? null,
-                    'non_hazardous_waste_recycled' => $corporate->wasteMetrics->non_hazardous_waste_recycled ?? null,
-                    'non_hazardous_waste_recycled_unit' => $corporate->wasteMetrics->non_hazardous_waste_recycled_unit ?? null,
-                    'non_hazardous_waste_reused' => $corporate->wasteMetrics->non_hazardous_waste_reused ?? null,
-                    'non_hazardous_waste_reused_unit' => $corporate->wasteMetrics->non_hazardous_waste_reused_unit ?? null,
-                    'non_hazardous_waste_other_recovery' => $corporate->wasteMetrics->non_hazardous_waste_other_recovery ?? null,
-                    'non_hazardous_waste_other_recovery_unit' => $corporate->wasteMetrics->non_hazardous_waste_other_recovery_unit ?? null,
-                    'plastic_waste_incineration' => $corporate->wasteMetrics->plastic_waste_incineration ?? null,
-                    'plastic_waste_incineration_unit' => $corporate->wasteMetrics->plastic_waste_incineration_unit ?? null,
-                    'plastic_waste_landfilling' => $corporate->wasteMetrics->plastic_waste_landfilling ?? null,
-                    'plastic_waste_landfilling_unit' => $corporate->wasteMetrics->plastic_waste_landfilling_unit ?? null,
-                    'plastic_waste_other_disposal' => $corporate->wasteMetrics->plastic_waste_other_disposal ?? null,
-                    'plastic_waste_other_disposal_unit' => $corporate->wasteMetrics->plastic_waste_other_disposal_unit ?? null,
-                    'e_waste_incineration' => $corporate->wasteMetrics->e_waste_incineration ?? null,
-                    'e_waste_incineration_unit' => $corporate->wasteMetrics->e_waste_incineration_unit ?? null,
-                    'e_waste_landfilling' => $corporate->wasteMetrics->e_waste_landfilling ?? null,
-                    'e_waste_landfilling_unit' => $corporate->wasteMetrics->e_waste_landfilling_unit ?? null,
-                    'e_waste_other_disposal' => $corporate->wasteMetrics->e_waste_other_disposal ?? null,
-                    'e_waste_other_disposal_unit' => $corporate->wasteMetrics->e_waste_other_disposal_unit ?? null,
-                    'biological_waste_incineration' => $corporate->wasteMetrics->biological_waste_incineration ?? null,
-                    'biological_waste_incineration_unit' => $corporate->wasteMetrics->biological_waste_incineration_unit ?? null,
-                    'biological_waste_landfilling' => $corporate->wasteMetrics->biological_waste_landfilling ?? null,
-                    'biological_waste_landfilling_unit' => $corporate->wasteMetrics->biological_waste_landfilling_unit ?? null,
-                    'biological_waste_other_disposal' => $corporate->wasteMetrics->biological_waste_other_disposal ?? null,
-                    'biological_waste_other_disposal_unit' => $corporate->wasteMetrics->biological_waste_other_disposal_unit ?? null,
-                    'construction_waste_incineration' => $corporate->wasteMetrics->construction_waste_incineration ?? null,
-                    'construction_waste_incineration_unit' => $corporate->wasteMetrics->construction_waste_incineration_unit ?? null,
-                    'construction_waste_landfilling' => $corporate->wasteMetrics->construction_waste_landfilling ?? null,
-                    'construction_waste_landfilling_unit' => $corporate->wasteMetrics->construction_waste_landfilling_unit ?? null,
-                    'construction_waste_other_disposal' => $corporate->wasteMetrics->construction_waste_other_disposal ?? null,
-                    'construction_waste_other_disposal_unit' => $corporate->wasteMetrics->construction_waste_other_disposal_unit ?? null,
-                    'battery_waste_incineration' => $corporate->wasteMetrics->battery_waste_incineration ?? null,
-                    'battery_waste_incineration_unit' => $corporate->wasteMetrics->battery_waste_incineration_unit ?? null,
-                    'battery_waste_landfilling' => $corporate->wasteMetrics->battery_waste_landfilling ?? null,
-                    'battery_waste_landfilling_unit' => $corporate->wasteMetrics->battery_waste_landfilling_unit ?? null,
-                    'battery_waste_other_disposal' => $corporate->wasteMetrics->battery_waste_other_disposal ?? null,
-                    'battery_waste_other_disposal_unit' => $corporate->wasteMetrics->battery_waste_other_disposal_unit ?? null,
-                    'radioactive_waste_incineration' => $corporate->wasteMetrics->radioactive_waste_incineration ?? null,
-                    'radioactive_waste_incineration_unit' => $corporate->wasteMetrics->radioactive_waste_incineration_unit ?? null,
-                    'radioactive_waste_landfilling' => $corporate->wasteMetrics->radioactive_waste_landfilling ?? null,
-                    'radioactive_waste_landfilling_unit' => $corporate->wasteMetrics->radioactive_waste_landfilling_unit ?? null,
-                    'radioactive_waste_other_disposal' => $corporate->wasteMetrics->radioactive_waste_other_disposal ?? null,
-                    'radioactive_waste_other_disposal_unit' => $corporate->wasteMetrics->radioactive_waste_other_disposal_unit ?? null,
-                    'hazardous_waste_incineration' => $corporate->wasteMetrics->hazardous_waste_incineration ?? null,
-                    'hazardous_waste_incineration_unit' => $corporate->wasteMetrics->hazardous_waste_incineration_unit ?? null,
-                    'hazardous_waste_landfilling' => $corporate->wasteMetrics->hazardous_waste_landfilling ?? null,
-                    'hazardous_waste_landfilling_unit' => $corporate->wasteMetrics->hazardous_waste_landfilling_unit ?? null,
-                    'hazardous_waste_other_disposal' => $corporate->wasteMetrics->hazardous_waste_other_disposal ?? null,
-                    'hazardous_waste_other_disposal_unit' => $corporate->wasteMetrics->hazardous_waste_other_disposal_unit ?? null,
-                    'non_hazardous_waste_incineration' => $corporate->wasteMetrics->non_hazardous_waste_incineration ?? null,
-                    'non_hazardous_waste_incineration_unit' => $corporate->wasteMetrics->non_hazardous_waste_incineration_unit ?? null,
-                    'non_hazardous_waste_landfilling' => $corporate->wasteMetrics->non_hazardous_waste_landfilling ?? null,
-                    'non_hazardous_waste_landfilling_unit' => $corporate->wasteMetrics->non_hazardous_waste_landfilling_unit ?? null,
-                    'non_hazardous_waste_other_disposal' => $corporate->wasteMetrics->non_hazardous_waste_other_disposal ?? null,
-                    'non_hazardous_waste_other_disposal_unit' => $corporate->wasteMetrics->non_hazardous_waste_other_disposal_unit ?? null,
-                    'waste_by_type' => $corporate->wasteMetrics->waste_by_type ?? null,
-                    'waste_by_type_unit' => $corporate->wasteMetrics->waste_by_type_unit ?? null,
-                    'waste_by_disposal_method' => $corporate->wasteMetrics->waste_by_disposal_method ?? null,
-                    'waste_by_disposal_method_unit' => $corporate->wasteMetrics->waste_by_disposal_method_unit ?? null,
-                    'total_waste_generated' => $corporate->wasteMetrics->total_waste_generated ?? null,
-                    'total_waste_recovered' => $corporate->wasteMetrics->total_waste_recovered ?? null,
-                    'total_waste_disposed' => $corporate->wasteMetrics->total_waste_disposed ?? null,
-                    'total_waste_generated_unit' => $corporate->wasteMetrics->total_waste_generated_unit ?? null,
-                    'total_waste_recovered_unit' => $corporate->wasteMetrics->total_waste_recovered_unit ?? null,
-                    'total_waste_disposed_unit' => $corporate->wasteMetrics->total_waste_disposed_unit ?? null,
-
-                    'total_waste_recovered_recycled' => $corporate->wasteMetrics->total_waste_recovered_recycled ?? null,
-                    'total_waste_recovered_reused' => $corporate->wasteMetrics->total_waste_recovered_reused ?? null,
-                    'total_waste_recovered_other_recovery' => $corporate->wasteMetrics->total_waste_recovered_other_recovery ?? null,
-                    'total_waste_recovered_recycled_unit' => $corporate->wasteMetrics->total_waste_recovered_recycled_unit ?? null,
-                    'total_waste_recovered_reused_unit' => $corporate->wasteMetrics->total_waste_recovered_reused_unit ?? null,
-                    'total_waste_recovered_other_recovery_unit' => $corporate->wasteMetrics->total_waste_recovered_other_recovery_unit ?? null,
-
-                    'total_waste_disposed_recycled' => $corporate->wasteMetrics->total_waste_disposed_recycled ?? null,
-                    'total_waste_disposed_reused' => $corporate->wasteMetrics->total_waste_disposed_reused ?? null,
-                    'total_waste_disposed_other_recovery' => $corporate->wasteMetrics->total_waste_disposed_other_recovery ?? null,
-                    'total_waste_disposed_recycled_unit' => $corporate->wasteMetrics->total_waste_disposed_recycled_unit ?? null,
-                    'total_waste_disposed_reused_unit' => $corporate->wasteMetrics->total_waste_disposed_reused_unit ?? null,
-                    'total_waste_disposed_other_recovery_unit' => $corporate->wasteMetrics->total_waste_disposed_other_recovery_unit ?? null,
-                    // Emission Metrics
-                    'emission_detail' => $corporate->emissionMetrics->emission_detail ?? null,
-                    'emission_initiative_detail' => $corporate->emissionMetrics->emission_initiative_detail ?? null,
-                    'scope_1_emissions' => $corporate->emissionMetrics->scope_1_emissions ?? null,
-                    'scope_1_emissions_unit' => $corporate->emissionMetrics->scope_1_emissions_unit ?? null,
-                    'scope_2_emissions' => $corporate->emissionMetrics->scope_2_emissions ?? null,
-                    'scope_2_emissions_unit' => $corporate->emissionMetrics->scope_2_emissions_unit ?? null,
-                    'specific_emissions_scope_1_2_per_rupee_turnover' => $corporate->emissionMetrics->specific_emissions_scope_1_2_per_rupee_turnover ?? null,
-                    'specific_emissions_scope_1_2_per_rupee_turnover_unit' => $corporate->emissionMetrics->specific_emissions_scope_1_2_per_rupee_turnover_unit ?? null,
-                    'specific_emissions_scope_1_2_intensity_ppp' => $corporate->emissionMetrics->specific_emissions_scope_1_2_intensity_ppp ?? null,
-                    'specific_emissions_scope_1_2_intensity_ppp_unit' => $corporate->emissionMetrics->specific_emissions_scope_1_2_intensity_ppp_unit ?? null,
-                    'specific_emissions_scope_1_2_intensity_physical_output' => $corporate->emissionMetrics->specific_emissions_scope_1_2_intensity_physical_output ?? null,
-                    'specific_emissions_scope_1_2_intensity_physical_output_unit' => $corporate->emissionMetrics->specific_emissions_scope_1_2_intensity_physical_output_unit ?? null,
-                    'total_scope_1_2_emission_intensity' => $corporate->emissionMetrics->total_scope_1_2_emission_intensity ?? null,
-                    'total_scope_1_2_emission_intensity_unit' => $corporate->emissionMetrics->total_scope_1_2_emission_intensity_unit ?? null,
-                    'scope_3_emissions' => $corporate->emissionMetrics->scope_3_emissions ?? null,
-                    'scope_3_emissions_unit' => $corporate->emissionMetrics->scope_3_emissions_unit ?? null,
-                    'specific_emissions_scope_3_per_rupee_turnover' => $corporate->emissionMetrics->specific_emissions_scope_3_per_rupee_turnover ?? null,
-                    'specific_emissions_scope_3_per_rupee_turnover_unit' => $corporate->emissionMetrics->specific_emissions_scope_3_per_rupee_turnover_unit ?? null,
-                    'total_scope_3_emission_intensity' => $corporate->emissionMetrics->total_scope_3_emission_intensity ?? null,
-                    'total_scope_3_emission_intensity_unit' => $corporate->emissionMetrics->total_scope_3_emission_intensity_unit ?? null,
-                    'no_x' => $corporate->emissionMetrics->no_x ?? null,
-                    'no_x_unit' => $corporate->emissionMetrics->no_x_unit ?? null,
-                    'so_x' => $corporate->emissionMetrics->so_x ?? null,
-                    'so_x_unit' => $corporate->emissionMetrics->so_x_unit ?? null,
-                    'particulate_matter' => $corporate->emissionMetrics->particulate_matter ?? null,
-                    'particulate_matter_unit' => $corporate->emissionMetrics->particulate_matter_unit ?? null,
-                    'pop' => $corporate->emissionMetrics->pop ?? null,
-                    'pop_unit' => $corporate->emissionMetrics->pop_unit ?? null,
-                    'voc' => $corporate->emissionMetrics->voc ?? null,
-                    'voc_unit' => $corporate->emissionMetrics->voc_unit ?? null,
-                    'hazardous_air_pollutants' => $corporate->emissionMetrics->hazardous_air_pollutants ?? null,
-                    'hazardous_air_pollutants_unit' => $corporate->emissionMetrics->hazardous_air_pollutants_unit ?? null,
-                    'other_emission_detail' => $corporate->emissionMetrics->other_emission_detail ?? null,
-                    'air_pollutants' => $corporate->emissionMetrics->air_pollutants ?? null,
-                    'air_pollutants_unit' => $corporate->emissionMetrics->air_pollutants_unit ?? null,
-                    // CSR Metrics
-                    'csr_for_climate_action' => $corporate->csrMetrics->csr_for_climate_action ?? null,
-                    'csr_initiative_detail' => $corporate->csrMetrics->csr_initiative_detail ?? null,
-                    'csr_budget' => $corporate->csrMetrics->csr_budget ?? null,
-                    'csr_budget_unit' => $corporate->csrMetrics->csr_budget_unit ?? null,
-                    // Product Stewardship
-                    'product_stewardship' => $corporate->productStewardship->product_stewardship ?? null,
-                    'natural_capital' => $corporate->productStewardship->natural_capital ?? null,
-                ];
-
-                $response = Http::post('https://uat.envesya.com/api/store-responsible-corporate', $payload);
-
-                if (!$response->successful()) {
-                    Log::error('Failed to sync corporate data with external API', [
-                        'corporate_id' => $corporate->id,
-                        'response_status' => $response->status(),
-                        'response_body' => $response->body(),
-                    ]);
-
-                    return Redirect::route('responsible-corp-list', ['page' => $request->query('page')])
-                        ->with('error', 'Status updated, but failed to sync with external API.');
-                }
-
-                Log::info('Successfully synced corporate data with external API', [
-                    'corporate_id' => $corporate->id,
-                    'response_status' => $response->status(),
-                ]);
-            } catch (\Exception $e) {
-                Log::error('Exception occurred while syncing corporate data', [
-                    'corporate_id' => $corporate->id,
-                    'error' => $e->getMessage(),
-                ]);
-
-                return Redirect::route('responsible-corp-list', ['page' => $request->query('page')])
-                    ->with('error', 'Status updated, but an error occurred while syncing with external API.');
-            }
+        if ($status === '1' && $apiPushSite) {
+            $this->pushToApi($corporate, $apiPushSite, $request);
         }
 
         // Redirect back to the listing page with success message
         return Redirect::route('responsible-corp-list', ['page' => $request->query('page')])
             ->with('success', 'Status updated successfully!');
+    }
+
+    /**
+     * Push data to selected API site
+     */
+    private function pushToApi($corporate, $apiPushSite, $request)
+    {
+        try {
+            // Determine the API URL based on selected site
+            $apiUrl = $apiPushSite === 'production' 
+                ? 'https://envesya.com/api/store-responsible-corporate'
+                : 'https://uat.envesya.com/api/store-responsible-corporate';
+
+            // Prepare the payload
+            $payload = $this->preparePayload($corporate);
+
+            // Make API request
+            $response = Http::timeout(30)->post($apiUrl, $payload);
+
+            // Track push status
+            if ($response->successful()) {
+                $this->updatePushStatus($corporate, $apiPushSite, true, $response->json());
+                
+                Log::info('Successfully synced corporate data with external API', [
+                    'corporate_id' => $corporate->id,
+                    'site' => $apiPushSite,
+                    'response_status' => $response->status(),
+                ]);
+            } else {
+                $this->updatePushStatus($corporate, $apiPushSite, false, [
+                    'status' => $response->status(),
+                    'body' => $response->body()
+                ]);
+                
+                Log::error('Failed to sync corporate data with external API', [
+                    'corporate_id' => $corporate->id,
+                    'site' => $apiPushSite,
+                    'response_status' => $response->status(),
+                    'response_body' => $response->body(),
+                ]);
+
+                return Redirect::route('responsible-corp-list', ['page' => $request->query('page')])
+                    ->with('error', 'Status updated, but failed to sync with external API.');
+            }
+        } catch (\Exception $e) {
+            $this->updatePushStatus($corporate, $apiPushSite, false, [
+                'error' => $e->getMessage()
+            ]);
+            
+            Log::error('Exception occurred while syncing corporate data', [
+                'corporate_id' => $corporate->id,
+                'site' => $apiPushSite,
+                'error' => $e->getMessage(),
+            ]);
+
+            return Redirect::route('responsible-corp-list', ['page' => $request->query('page')])
+                ->with('error', 'Status updated, but an error occurred while syncing with external API.');
+        }
+    }
+
+    /**
+     * Update push status in database
+     */
+    private function updatePushStatus($corporate, $site, $success, $response)
+    {
+        if ($site === 'production') {
+            $corporate->pushed_to_production = $success;
+            $corporate->production_push_date = now();
+            $corporate->production_push_response = json_encode($response);
+        } else {
+            $corporate->pushed_to_uat = $success;
+            $corporate->uat_push_date = now();
+            $corporate->uat_push_response = json_encode($response);
+        }
+        
+        $corporate->save();
+    }
+
+    /**
+     * Prepare payload for API push
+     */
+    private function preparePayload($corporate)
+    {
+        return [
+            // Core fields
+            'name' => $corporate->name,
+            'slug' => $corporate->slug,
+            'short_name' => $corporate->short_name,
+            'keyword_search' => $corporate->keyword_for_search,
+            'industry' => $corporate->industry,
+            'product_profile_sector' => $corporate->product_profile_sector,
+            'ho_location' => $corporate->ho_location,
+            'factory_locations' => $corporate->factory_locations,
+            'net_zero_target' => $corporate->net_zero_target,
+            'certifications_accreditations' => $corporate->certifications_accreditations,
+            'reporting_formats' => $corporate->reporting_formats,
+            'ratings' => $corporate->ratings,
+            'assessment_verification' => $corporate->assessment_verification,
+            'policy_ems' => $corporate->policy_ems,
+            
+            // Energy Metrics
+            'energy_detail' => $corporate->energyMetrics->energy_detail ?? null,
+            'energy_initiative_detail' => $corporate->energyMetrics->energy_initiative_detail ?? null,
+            'total_electricity_consumption' => $corporate->energyMetrics->total_electricity_consumption ?? null,
+            'total_electricity_consumption_unit' => $corporate->energyMetrics->total_electricity_consumption_unit ?? null,
+            'total_fuel_consumption' => $corporate->energyMetrics->total_fuel_consumption ?? null,
+            'total_fuel_consumption_unit' => $corporate->energyMetrics->total_fuel_consumption_unit ?? null,
+            'energy_consumption_through_source' => $corporate->energyMetrics->energy_consumption_through_source ?? null,
+            'energy_consumption_through_source_unit' => $corporate->energyMetrics->energy_consumption_through_source_unit ?? null,
+            'total_renewable_energy_consumption' => $corporate->energyMetrics->total_renewable_energy_consumption ?? null,
+            'total_renewable_energy_consumption_unit' => $corporate->energyMetrics->total_renewable_energy_consumption_unit ?? null,
+            'total_non_renewable_energy_consumption' => $corporate->energyMetrics->total_non_renewable_energy_consumption ?? null,
+            'total_non_renewable_energy_consumption_unit' => $corporate->energyMetrics->total_non_renewable_energy_consumption_unit ?? null,
+            'total_non_renewable_electricity_consumption' => $corporate->energyMetrics->total_non_renewable_electricity_consumption ?? null,
+            'total_non_renewable_electricity_consumption_unit' => $corporate->energyMetrics->total_non_renewable_electricity_consumption_unit ?? null,
+            'total_non_renewable_fuel_consumption' => $corporate->energyMetrics->total_non_renewable_fuel_consumption ?? null,
+            'total_non_renewable_fuel_consumption_unit' => $corporate->energyMetrics->total_non_renewable_fuel_consumption_unit ?? null,
+            'non_renewable_energy_consumption_through_source' => $corporate->energyMetrics->non_renewable_energy_consumption_through_source ?? null,
+            'non_renewable_energy_consumption_through_source_unit' => $corporate->energyMetrics->non_renewable_energy_consumption_through_source_unit ?? null,
+            'total_energy_consumption' => $corporate->energyMetrics->total_energy_consumption ?? null,
+            'total_energy_consumption_unit' => $corporate->energyMetrics->total_energy_consumption_unit ?? null,
+            'energy_intensity_per_rupee_turnover' => $corporate->energyMetrics->energy_intensity_per_rupee_turnover ?? null,
+            'energy_intensity_per_rupee_turnover_unit' => $corporate->energyMetrics->energy_intensity_per_rupee_turnover_unit ?? null,
+            'energy_intensity_per_rupee_turnover_ppp' => $corporate->energyMetrics->energy_intensity_per_rupee_turnover_ppp ?? null,
+            'energy_intensity_per_rupee_turnover_ppp_unit' => $corporate->energyMetrics->energy_intensity_per_rupee_turnover_ppp_unit ?? null,
+            'energy_intensity_physical_output' => $corporate->energyMetrics->energy_intensity_physical_output ?? null,
+            'energy_intensity_physical_output_unit' => $corporate->energyMetrics->energy_intensity_physical_output_unit ?? null,
+            'energy_intensity' => $corporate->energyMetrics->energy_intensity ?? null,
+            'energy_intensity_unit' => $corporate->energyMetrics->energy_intensity_unit ?? null,
+            'renewable_power_percentage' => $corporate->energyMetrics->renewable_power_percentage ?? null,
+            'renewable_power_percentage_unit' => $corporate->energyMetrics->renewable_power_percentage_unit ?? null,
+            'specific_energy_consumption' => $corporate->energyMetrics->specific_energy_consumption ?? null,
+            'specific_energy_consumption_unit' => $corporate->energyMetrics->specific_energy_consumption_unit ?? null,
+            // Water Metrics
+            'water_detail' => $corporate->waterMetrics->water_detail ?? null,
+            'water_initiative_detail' => $corporate->waterMetrics->water_initiative_detail ?? null,
+            'water_withdrawal_source_surface' => $corporate->waterMetrics->water_withdrawal_source_surface ?? null,
+            'water_withdrawal_source_surface_unit' => $corporate->waterMetrics->water_withdrawal_source_surface_unit ?? null,
+            'water_withdrawal_source_ground' => $corporate->waterMetrics->water_withdrawal_source_ground ?? null,
+            'water_withdrawal_source_ground_unit' => $corporate->waterMetrics->water_withdrawal_source_ground_unit ?? null,
+            'water_withdrawal_source_thirdparty' => $corporate->waterMetrics->water_withdrawal_source_thirdparty ?? null,
+            'water_withdrawal_source_thirdparty_unit' => $corporate->waterMetrics->water_withdrawal_source_thirdparty_unit ?? null,
+            'water_withdrawal_source_sea' => $corporate->waterMetrics->water_withdrawal_source_sea ?? null,
+            'water_withdrawal_source_sea_unit' => $corporate->waterMetrics->water_withdrawal_source_sea_unit ?? null,
+            'water_withdrawal_source_other' => $corporate->waterMetrics->water_withdrawal_source_other ?? null,
+            'water_withdrawal_source_other_unit' => $corporate->waterMetrics->water_withdrawal_source_other_unit ?? null,
+            'total_water_withdrawal' => $corporate->waterMetrics->total_water_withdrawal ?? null,
+            'total_water_withdrawal_unit' => $corporate->waterMetrics->total_water_withdrawal_unit ?? null,
+            'total_water_consumption' => $corporate->waterMetrics->total_water_consumption ?? null,
+            'total_water_consumption_unit' => $corporate->waterMetrics->total_water_consumption_unit ?? null,
+            'water_intensity_per_rupee_turnover' => $corporate->waterMetrics->water_intensity_per_rupee_turnover ?? null,
+            'water_intensity_per_rupee_turnover_unit' => $corporate->waterMetrics->water_intensity_per_rupee_turnover_unit ?? null,
+            'water_intensity_per_rupee_ppp_turnover' => $corporate->waterMetrics->water_intensity_per_rupee_ppp_turnover ?? null,
+            'water_intensity_per_rupee_ppp_turnover_unit' => $corporate->waterMetrics->water_intensity_per_rupee_ppp_turnover_unit ?? null,
+            'water_intensity_physical_output' => $corporate->waterMetrics->water_intensity_physical_output ?? null,
+            'water_intensity_physical_output_unit' => $corporate->waterMetrics->water_intensity_physical_output_unit ?? null,
+            'water_intensity' => $corporate->waterMetrics->water_intensity ?? null,
+            'water_intensity_unit' => $corporate->waterMetrics->water_intensity_unit ?? null,
+            'water_discharge_to_surface_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_surface_water_no_treatment ?? null,
+            'water_discharge_to_surface_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_surface_water_no_treatment_unit ?? null,
+            'water_discharge_to_surface_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_surface_water_with_treatment ?? null,
+            'water_discharge_to_surface_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_surface_water_with_treatment_unit ?? null,
+            'water_discharge_to_ground_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_ground_water_no_treatment ?? null,
+            'water_discharge_to_ground_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_ground_water_no_treatment_unit ?? null,
+            'water_discharge_to_ground_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_ground_water_with_treatment ?? null,
+            'water_discharge_to_ground_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_ground_water_with_treatment_unit ?? null,
+            'water_discharge_to_sea_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_sea_water_no_treatment ?? null,
+            'water_discharge_to_sea_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_sea_water_no_treatment_unit ?? null,
+            'water_discharge_to_sea_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_sea_water_with_treatment ?? null,
+            'water_discharge_to_sea_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_sea_water_with_treatment_unit ?? null,
+            'water_discharge_to_thirdparty_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_thirdparty_water_no_treatment ?? null,
+            'water_discharge_to_thirdparty_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_thirdparty_water_no_treatment_unit ?? null,
+            'water_discharge_to_thirdparty_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_thirdparty_water_with_treatment ?? null,
+            'water_discharge_to_thirdparty_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_thirdparty_water_with_treatment_unit ?? null,
+            'water_discharge_to_other_water_no_treatment' => $corporate->waterMetrics->water_discharge_to_other_water_no_treatment ?? null,
+            'water_discharge_to_other_water_no_treatment_unit' => $corporate->waterMetrics->water_discharge_to_other_water_no_treatment_unit ?? null,
+            'water_discharge_to_other_water_with_treatment' => $corporate->waterMetrics->water_discharge_to_other_water_with_treatment ?? null,
+            'water_discharge_to_other_water_with_treatment_unit' => $corporate->waterMetrics->water_discharge_to_other_water_with_treatment_unit ?? null,
+            'total_water_discharged' => $corporate->waterMetrics->total_water_discharged ?? null,
+            'total_water_discharged_unit' => $corporate->waterMetrics->total_water_discharged_unit ?? null,
+            'water_replenishment_percentage' => $corporate->waterMetrics->water_replenishment_percentage ?? null,
+            'water_replenishment_percentage_unit' => $corporate->waterMetrics->water_replenishment_percentage_unit ?? null,
+            'total_water_withdrawal_by_source' => $corporate->waterMetrics->total_water_withdrawal_by_source ?? null,
+            'total_water_withdrawal_by_source_unit' => $corporate->waterMetrics->total_water_withdrawal_by_source_unit ?? null,
+            'specific_water_consumption' => $corporate->waterMetrics->specific_water_consumption ?? null,
+            'specific_water_consumption_unit' => $corporate->waterMetrics->specific_water_consumption_unit ?? null,
+            // Waste Metrics
+            'waste_detail' => $corporate->wasteMetrics->waste_detail ?? null,
+            'waste_initiative_detail' => $corporate->wasteMetrics->waste_initiative_detail ?? null,
+            'plastic_waste' => $corporate->wasteMetrics->plastic_waste ?? null,
+            'plastic_waste_unit' => $corporate->wasteMetrics->plastic_waste_unit ?? null,
+            'e_waste' => $corporate->wasteMetrics->e_waste ?? null,
+            'e_waste_unit' => $corporate->wasteMetrics->e_waste_unit ?? null,
+            'biological_waste' => $corporate->wasteMetrics->biological_waste ?? null,
+            'biological_waste_unit' => $corporate->wasteMetrics->biological_waste_unit ?? null,
+            'construction_waste' => $corporate->wasteMetrics->construction_waste ?? null,
+            'construction_waste_unit' => $corporate->wasteMetrics->construction_waste_unit ?? null,
+            'battery_waste' => $corporate->wasteMetrics->battery_waste ?? null,
+            'battery_waste_unit' => $corporate->wasteMetrics->battery_waste_unit ?? null,
+            'radioactive_waste' => $corporate->wasteMetrics->radioactive_waste ?? null,
+            'radioactive_waste_unit' => $corporate->wasteMetrics->radioactive_waste_unit ?? null,
+            'hazardous_waste' => $corporate->wasteMetrics->hazardous_waste ?? null,
+            'hazardous_waste_unit' => $corporate->wasteMetrics->hazardous_waste_unit ?? null,
+            'non_hazardous_waste' => $corporate->wasteMetrics->non_hazardous_waste ?? null,
+            'non_hazardous_waste_unit' => $corporate->wasteMetrics->non_hazardous_waste_unit ?? null,
+            'waste_intensity_per_rupee_turnover' => $corporate->wasteMetrics->waste_intensity_per_rupee_turnover ?? null,
+            'waste_intensity_per_rupee_turnover_unit' => $corporate->wasteMetrics->waste_intensity_per_rupee_turnover_unit ?? null,
+            'waste_intensity_ppp' => $corporate->wasteMetrics->waste_intensity_ppp ?? null,
+            'waste_intensity_ppp_unit' => $corporate->wasteMetrics->waste_intensity_ppp_unit ?? null,
+            'waste_intensity_physical_output' => $corporate->wasteMetrics->waste_intensity_physical_output ?? null,
+            'waste_intensity_physical_output_unit' => $corporate->wasteMetrics->waste_intensity_physical_output_unit ?? null,
+            'waste_intensity' => $corporate->wasteMetrics->waste_intensity ?? null,
+            'waste_intensity_unit' => $corporate->wasteMetrics->waste_intensity_unit ?? null,
+            'plastic_waste_recycled' => $corporate->wasteMetrics->plastic_waste_recycled ?? null,
+            'plastic_waste_recycled_unit' => $corporate->wasteMetrics->plastic_waste_recycled_unit ?? null,
+            'plastic_waste_reused' => $corporate->wasteMetrics->plastic_waste_reused ?? null,
+            'plastic_waste_reused_unit' => $corporate->wasteMetrics->plastic_waste_reused_unit ?? null,
+            'plastic_waste_other_recovery' => $corporate->wasteMetrics->plastic_waste_other_recovery ?? null,
+            'plastic_waste_other_recovery_unit' => $corporate->wasteMetrics->plastic_waste_other_recovery_unit ?? null,
+            'e_waste_recycled' => $corporate->wasteMetrics->e_waste_recycled ?? null,
+            'e_waste_recycled_unit' => $corporate->wasteMetrics->e_waste_recycled_unit ?? null,
+            'e_waste_reused' => $corporate->wasteMetrics->e_waste_reused ?? null,
+            'e_waste_reused_unit' => $corporate->wasteMetrics->e_waste_reused_unit ?? null,
+            'e_waste_other_recovery' => $corporate->wasteMetrics->e_waste_other_recovery ?? null,
+            'e_waste_other_recovery_unit' => $corporate->wasteMetrics->e_waste_other_recovery_unit ?? null,
+            'biological_waste_recycled' => $corporate->wasteMetrics->biological_waste_recycled ?? null,
+            'biological_waste_recycled_unit' => $corporate->wasteMetrics->biological_waste_recycled_unit ?? null,
+            'biological_waste_reused' => $corporate->wasteMetrics->biological_waste_reused ?? null,
+            'biological_waste_reused_unit' => $corporate->wasteMetrics->biological_waste_reused_unit ?? null,
+            'biological_waste_other_recovery' => $corporate->wasteMetrics->biological_waste_other_recovery ?? null,
+            'biological_waste_other_recovery_unit' => $corporate->wasteMetrics->biological_waste_other_recovery_unit ?? null,
+            'construction_waste_recycled' => $corporate->wasteMetrics->construction_waste_recycled ?? null,
+            'construction_waste_recycled_unit' => $corporate->wasteMetrics->construction_waste_recycled_unit ?? null,
+            'construction_waste_reused' => $corporate->wasteMetrics->construction_waste_reused ?? null,
+            'construction_waste_reused_unit' => $corporate->wasteMetrics->construction_waste_reused_unit ?? null,
+            'construction_waste_other_recovery' => $corporate->wasteMetrics->construction_waste_other_recovery ?? null,
+            'construction_waste_other_recovery_unit' => $corporate->wasteMetrics->construction_waste_other_recovery_unit ?? null,
+            'battery_waste_recycled' => $corporate->wasteMetrics->battery_waste_recycled ?? null,
+            'battery_waste_recycled_unit' => $corporate->wasteMetrics->battery_waste_recycled_unit ?? null,
+            'battery_waste_reused' => $corporate->wasteMetrics->battery_waste_reused ?? null,
+            'battery_waste_reused_unit' => $corporate->wasteMetrics->battery_waste_reused_unit ?? null,
+            'battery_waste_other_recovery' => $corporate->wasteMetrics->battery_waste_other_recovery ?? null,
+            'battery_waste_other_recovery_unit' => $corporate->wasteMetrics->battery_waste_other_recovery_unit ?? null,
+            'radioactive_waste_recycled' => $corporate->wasteMetrics->radioactive_waste_recycled ?? null,
+            'radioactive_waste_recycled_unit' => $corporate->wasteMetrics->radioactive_waste_recycled_unit ?? null,
+            'radioactive_waste_reused' => $corporate->wasteMetrics->radioactive_waste_reused ?? null,
+            'radioactive_waste_reused_unit' => $corporate->wasteMetrics->radioactive_waste_reused_unit ?? null,
+            'radioactive_waste_other_recovery' => $corporate->wasteMetrics->radioactive_waste_other_recovery ?? null,
+            'radioactive_waste_other_recovery_unit' => $corporate->wasteMetrics->radioactive_waste_other_recovery_unit ?? null,
+            'hazardous_waste_recycled' => $corporate->wasteMetrics->hazardous_waste_recycled ?? null,
+            'hazardous_waste_recycled_unit' => $corporate->wasteMetrics->hazardous_waste_recycled_unit ?? null,
+            'hazardous_waste_reused' => $corporate->wasteMetrics->hazardous_waste_reused ?? null,
+            'hazardous_waste_reused_unit' => $corporate->wasteMetrics->hazardous_waste_reused_unit ?? null,
+            'hazardous_waste_other_recovery' => $corporate->wasteMetrics->hazardous_waste_other_recovery ?? null,
+            'hazardous_waste_other_recovery_unit' => $corporate->wasteMetrics->hazardous_waste_other_recovery_unit ?? null,
+            'non_hazardous_waste_recycled' => $corporate->wasteMetrics->non_hazardous_waste_recycled ?? null,
+            'non_hazardous_waste_recycled_unit' => $corporate->wasteMetrics->non_hazardous_waste_recycled_unit ?? null,
+            'non_hazardous_waste_reused' => $corporate->wasteMetrics->non_hazardous_waste_reused ?? null,
+            'non_hazardous_waste_reused_unit' => $corporate->wasteMetrics->non_hazardous_waste_reused_unit ?? null,
+            'non_hazardous_waste_other_recovery' => $corporate->wasteMetrics->non_hazardous_waste_other_recovery ?? null,
+            'non_hazardous_waste_other_recovery_unit' => $corporate->wasteMetrics->non_hazardous_waste_other_recovery_unit ?? null,
+            'plastic_waste_incineration' => $corporate->wasteMetrics->plastic_waste_incineration ?? null,
+            'plastic_waste_incineration_unit' => $corporate->wasteMetrics->plastic_waste_incineration_unit ?? null,
+            'plastic_waste_landfilling' => $corporate->wasteMetrics->plastic_waste_landfilling ?? null,
+            'plastic_waste_landfilling_unit' => $corporate->wasteMetrics->plastic_waste_landfilling_unit ?? null,
+            'plastic_waste_other_disposal' => $corporate->wasteMetrics->plastic_waste_other_disposal ?? null,
+            'plastic_waste_other_disposal_unit' => $corporate->wasteMetrics->plastic_waste_other_disposal_unit ?? null,
+            'e_waste_incineration' => $corporate->wasteMetrics->e_waste_incineration ?? null,
+            'e_waste_incineration_unit' => $corporate->wasteMetrics->e_waste_incineration_unit ?? null,
+            'e_waste_landfilling' => $corporate->wasteMetrics->e_waste_landfilling ?? null,
+            'e_waste_landfilling_unit' => $corporate->wasteMetrics->e_waste_landfilling_unit ?? null,
+            'e_waste_other_disposal' => $corporate->wasteMetrics->e_waste_other_disposal ?? null,
+            'e_waste_other_disposal_unit' => $corporate->wasteMetrics->e_waste_other_disposal_unit ?? null,
+            'biological_waste_incineration' => $corporate->wasteMetrics->biological_waste_incineration ?? null,
+            'biological_waste_incineration_unit' => $corporate->wasteMetrics->biological_waste_incineration_unit ?? null,
+            'biological_waste_landfilling' => $corporate->wasteMetrics->biological_waste_landfilling ?? null,
+            'biological_waste_landfilling_unit' => $corporate->wasteMetrics->biological_waste_landfilling_unit ?? null,
+            'biological_waste_other_disposal' => $corporate->wasteMetrics->biological_waste_other_disposal ?? null,
+            'biological_waste_other_disposal_unit' => $corporate->wasteMetrics->biological_waste_other_disposal_unit ?? null,
+            'construction_waste_incineration' => $corporate->wasteMetrics->construction_waste_incineration ?? null,
+            'construction_waste_incineration_unit' => $corporate->wasteMetrics->construction_waste_incineration_unit ?? null,
+            'construction_waste_landfilling' => $corporate->wasteMetrics->construction_waste_landfilling ?? null,
+            'construction_waste_landfilling_unit' => $corporate->wasteMetrics->construction_waste_landfilling_unit ?? null,
+            'construction_waste_other_disposal' => $corporate->wasteMetrics->construction_waste_other_disposal ?? null,
+            'construction_waste_other_disposal_unit' => $corporate->wasteMetrics->construction_waste_other_disposal_unit ?? null,
+            'battery_waste_incineration' => $corporate->wasteMetrics->battery_waste_incineration ?? null,
+            'battery_waste_incineration_unit' => $corporate->wasteMetrics->battery_waste_incineration_unit ?? null,
+            'battery_waste_landfilling' => $corporate->wasteMetrics->battery_waste_landfilling ?? null,
+            'battery_waste_landfilling_unit' => $corporate->wasteMetrics->battery_waste_landfilling_unit ?? null,
+            'battery_waste_other_disposal' => $corporate->wasteMetrics->battery_waste_other_disposal ?? null,
+            'battery_waste_other_disposal_unit' => $corporate->wasteMetrics->battery_waste_other_disposal_unit ?? null,
+            'radioactive_waste_incineration' => $corporate->wasteMetrics->radioactive_waste_incineration ?? null,
+            'radioactive_waste_incineration_unit' => $corporate->wasteMetrics->radioactive_waste_incineration_unit ?? null,
+            'radioactive_waste_landfilling' => $corporate->wasteMetrics->radioactive_waste_landfilling ?? null,
+            'radioactive_waste_landfilling_unit' => $corporate->wasteMetrics->radioactive_waste_landfilling_unit ?? null,
+            'radioactive_waste_other_disposal' => $corporate->wasteMetrics->radioactive_waste_other_disposal ?? null,
+            'radioactive_waste_other_disposal_unit' => $corporate->wasteMetrics->radioactive_waste_other_disposal_unit ?? null,
+            'hazardous_waste_incineration' => $corporate->wasteMetrics->hazardous_waste_incineration ?? null,
+            'hazardous_waste_incineration_unit' => $corporate->wasteMetrics->hazardous_waste_incineration_unit ?? null,
+            'hazardous_waste_landfilling' => $corporate->wasteMetrics->hazardous_waste_landfilling ?? null,
+            'hazardous_waste_landfilling_unit' => $corporate->wasteMetrics->hazardous_waste_landfilling_unit ?? null,
+            'hazardous_waste_other_disposal' => $corporate->wasteMetrics->hazardous_waste_other_disposal ?? null,
+            'hazardous_waste_other_disposal_unit' => $corporate->wasteMetrics->hazardous_waste_other_disposal_unit ?? null,
+            'non_hazardous_waste_incineration' => $corporate->wasteMetrics->non_hazardous_waste_incineration ?? null,
+            'non_hazardous_waste_incineration_unit' => $corporate->wasteMetrics->non_hazardous_waste_incineration_unit ?? null,
+            'non_hazardous_waste_landfilling' => $corporate->wasteMetrics->non_hazardous_waste_landfilling ?? null,
+            'non_hazardous_waste_landfilling_unit' => $corporate->wasteMetrics->non_hazardous_waste_landfilling_unit ?? null,
+            'non_hazardous_waste_other_disposal' => $corporate->wasteMetrics->non_hazardous_waste_other_disposal ?? null,
+            'non_hazardous_waste_other_disposal_unit' => $corporate->wasteMetrics->non_hazardous_waste_other_disposal_unit ?? null,
+            'waste_by_type' => $corporate->wasteMetrics->waste_by_type ?? null,
+            'waste_by_type_unit' => $corporate->wasteMetrics->waste_by_type_unit ?? null,
+            'waste_by_disposal_method' => $corporate->wasteMetrics->waste_by_disposal_method ?? null,
+            'waste_by_disposal_method_unit' => $corporate->wasteMetrics->waste_by_disposal_method_unit ?? null,
+            'total_waste_generated' => $corporate->wasteMetrics->total_waste_generated ?? null,
+            'total_waste_recovered' => $corporate->wasteMetrics->total_waste_recovered ?? null,
+            'total_waste_disposed' => $corporate->wasteMetrics->total_waste_disposed ?? null,
+            'total_waste_generated_unit' => $corporate->wasteMetrics->total_waste_generated_unit ?? null,
+            'total_waste_recovered_unit' => $corporate->wasteMetrics->total_waste_recovered_unit ?? null,
+            'total_waste_disposed_unit' => $corporate->wasteMetrics->total_waste_disposed_unit ?? null,
+
+            'total_waste_recovered_recycled' => $corporate->wasteMetrics->total_waste_recovered_recycled ?? null,
+            'total_waste_recovered_reused' => $corporate->wasteMetrics->total_waste_recovered_reused ?? null,
+            'total_waste_recovered_other_recovery' => $corporate->wasteMetrics->total_waste_recovered_other_recovery ?? null,
+            'total_waste_recovered_recycled_unit' => $corporate->wasteMetrics->total_waste_recovered_recycled_unit ?? null,
+            'total_waste_recovered_reused_unit' => $corporate->wasteMetrics->total_waste_recovered_reused_unit ?? null,
+            'total_waste_recovered_other_recovery_unit' => $corporate->wasteMetrics->total_waste_recovered_other_recovery_unit ?? null,
+
+            'total_waste_disposed_recycled' => $corporate->wasteMetrics->total_waste_disposed_recycled ?? null,
+            'total_waste_disposed_reused' => $corporate->wasteMetrics->total_waste_disposed_reused ?? null,
+            'total_waste_disposed_other_recovery' => $corporate->wasteMetrics->total_waste_disposed_other_recovery ?? null,
+            'total_waste_disposed_recycled_unit' => $corporate->wasteMetrics->total_waste_disposed_recycled_unit ?? null,
+            'total_waste_disposed_reused_unit' => $corporate->wasteMetrics->total_waste_disposed_reused_unit ?? null,
+            'total_waste_disposed_other_recovery_unit' => $corporate->wasteMetrics->total_waste_disposed_other_recovery_unit ?? null,
+            // Emission Metrics
+            'emission_detail' => $corporate->emissionMetrics->emission_detail ?? null,
+            'emission_initiative_detail' => $corporate->emissionMetrics->emission_initiative_detail ?? null,
+            'scope_1_emissions' => $corporate->emissionMetrics->scope_1_emissions ?? null,
+            'scope_1_emissions_unit' => $corporate->emissionMetrics->scope_1_emissions_unit ?? null,
+            'scope_2_emissions' => $corporate->emissionMetrics->scope_2_emissions ?? null,
+            'scope_2_emissions_unit' => $corporate->emissionMetrics->scope_2_emissions_unit ?? null,
+            'specific_emissions_scope_1_2_per_rupee_turnover' => $corporate->emissionMetrics->specific_emissions_scope_1_2_per_rupee_turnover ?? null,
+            'specific_emissions_scope_1_2_per_rupee_turnover_unit' => $corporate->emissionMetrics->specific_emissions_scope_1_2_per_rupee_turnover_unit ?? null,
+            'specific_emissions_scope_1_2_intensity_ppp' => $corporate->emissionMetrics->specific_emissions_scope_1_2_intensity_ppp ?? null,
+            'specific_emissions_scope_1_2_intensity_ppp_unit' => $corporate->emissionMetrics->specific_emissions_scope_1_2_intensity_ppp_unit ?? null,
+            'specific_emissions_scope_1_2_intensity_physical_output' => $corporate->emissionMetrics->specific_emissions_scope_1_2_intensity_physical_output ?? null,
+            'specific_emissions_scope_1_2_intensity_physical_output_unit' => $corporate->emissionMetrics->specific_emissions_scope_1_2_intensity_physical_output_unit ?? null,
+            'total_scope_1_2_emission_intensity' => $corporate->emissionMetrics->total_scope_1_2_emission_intensity ?? null,
+            'total_scope_1_2_emission_intensity_unit' => $corporate->emissionMetrics->total_scope_1_2_emission_intensity_unit ?? null,
+            'scope_3_emissions' => $corporate->emissionMetrics->scope_3_emissions ?? null,
+            'scope_3_emissions_unit' => $corporate->emissionMetrics->scope_3_emissions_unit ?? null,
+            'specific_emissions_scope_3_per_rupee_turnover' => $corporate->emissionMetrics->specific_emissions_scope_3_per_rupee_turnover ?? null,
+            'specific_emissions_scope_3_per_rupee_turnover_unit' => $corporate->emissionMetrics->specific_emissions_scope_3_per_rupee_turnover_unit ?? null,
+            'total_scope_3_emission_intensity' => $corporate->emissionMetrics->total_scope_3_emission_intensity ?? null,
+            'total_scope_3_emission_intensity_unit' => $corporate->emissionMetrics->total_scope_3_emission_intensity_unit ?? null,
+            'no_x' => $corporate->emissionMetrics->no_x ?? null,
+            'no_x_unit' => $corporate->emissionMetrics->no_x_unit ?? null,
+            'so_x' => $corporate->emissionMetrics->so_x ?? null,
+            'so_x_unit' => $corporate->emissionMetrics->so_x_unit ?? null,
+            'particulate_matter' => $corporate->emissionMetrics->particulate_matter ?? null,
+            'particulate_matter_unit' => $corporate->emissionMetrics->particulate_matter_unit ?? null,
+            'pop' => $corporate->emissionMetrics->pop ?? null,
+            'pop_unit' => $corporate->emissionMetrics->pop_unit ?? null,
+            'voc' => $corporate->emissionMetrics->voc ?? null,
+            'voc_unit' => $corporate->emissionMetrics->voc_unit ?? null,
+            'hazardous_air_pollutants' => $corporate->emissionMetrics->hazardous_air_pollutants ?? null,
+            'hazardous_air_pollutants_unit' => $corporate->emissionMetrics->hazardous_air_pollutants_unit ?? null,
+            'other_emission_detail' => $corporate->emissionMetrics->other_emission_detail ?? null,
+            'air_pollutants' => $corporate->emissionMetrics->air_pollutants ?? null,
+            'air_pollutants_unit' => $corporate->emissionMetrics->air_pollutants_unit ?? null,
+            // CSR Metrics
+            'csr_for_climate_action' => $corporate->csrMetrics->csr_for_climate_action ?? null,
+            'csr_initiative_detail' => $corporate->csrMetrics->csr_initiative_detail ?? null,
+            'csr_budget' => $corporate->csrMetrics->csr_budget ?? null,
+            'csr_budget_unit' => $corporate->csrMetrics->csr_budget_unit ?? null,
+            
+            // Product Stewardship
+            'product_stewardship' => $corporate->productStewardship->product_stewardship ?? null,
+            'natural_capital' => $corporate->productStewardship->natural_capital ?? null,
+        ];
+    }
+
+    /**
+     * Manual push to API (for already approved records)
+     */
+    public function manualPushToApi($id, Request $request)
+    {
+        if (Auth::user()->is_admin !== 1) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $corporate = ResponsibleCorporates::with([
+            'energyMetrics',
+            'waterMetrics',
+            'wasteMetrics',
+            'emissionMetrics',
+            'csrMetrics',
+            'productStewardship'
+        ])->findOrFail($id);
+
+        $apiPushSite = $request->input('api_push_site');
+        
+        if (!$apiPushSite) {
+            return Redirect::route('responsible-corp-list', ['page' => $request->query('page')])
+                ->with('error', 'Please select a site to push data to.');
+        }
+
+        $this->pushToApi($corporate, $apiPushSite, $request);
+
+        return Redirect::route('responsible-corp-list', ['page' => $request->query('page')])
+            ->with('success', 'Data pushed to ' . ($apiPushSite === 'production' ? 'Production' : 'UAT') . ' successfully!');
+    }
+
+    // Keep your existing encodeArrays method
+    private function encodeArrays($data)
+    {
+        $input = [];
+
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $input[$key] = json_encode($value);
+            } else {
+                $input[$key] = $value;
+            }
+        }
+
+        return $input;
     }
 }

@@ -46,7 +46,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/responsible-corp-update/{id?}', [ResponsibleCorporatesController::class, 'edit'])->name('responsible-corp-update');
     Route::post('/responsible-corp-updating/{id?}', [ResponsibleCorporatesController::class, 'update'])->name('responsible-corp-updating');
     Route::get('/responsible-corp-delete/{id?}', [ResponsibleCorporatesController::class, 'destroy'])->name('responsible-corp-delete');
-    Route::get('/listing_statusupdateres/{id}/{status}', [ResponsibleCorporatesController::class, 'listing_statusupdateRes'])->name('listing_statusupdateres');
+    // Route::get('/listing_statusupdateres/{id}/{status}', [ResponsibleCorporatesController::class, 'listing_statusupdateRes'])->name('listing_statusupdateres');
+
+    Route::get('/responsible-corp/listing_statusupdateres/{id}/{status}', 
+        [ResponsibleCorporatesController::class, 'listing_statusupdateRes'])
+        ->name('listing_statusupdateres');
+    
+    // New route for manual API push
+    Route::get('/responsible-corp/manual-push/{id}', 
+        [ResponsibleCorporatesController::class, 'manualPushToApi'])
+        ->name('responsible-corp-manual-push');
+        
 });
 
 require __DIR__.'/auth.php';

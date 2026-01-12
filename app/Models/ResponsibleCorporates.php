@@ -27,6 +27,13 @@ class ResponsibleCorporates extends Model
         'type',
         'approval',
         'entered_by',
+        'api_push_site',
+        'pushed_to_uat',
+        'pushed_to_production',
+        'uat_push_date',
+        'production_push_date',
+        'uat_push_response',
+        'production_push_response',
     ];
 
     /**
