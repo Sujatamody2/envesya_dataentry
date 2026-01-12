@@ -56,7 +56,7 @@
                                           <div class="mb-1">
                                              <span class="badge bg-success">✓ UAT</span>
                                              <small class="d-block text-muted" style="font-size: 0.7rem;">
-                                                {{ $corporate->uat_push_date ? $corporate->uat_push_date->format('d M Y H:i') : '' }}
+                                                {{ $corporate->uat_push_date ??  '' }}
                                              </small>
                                           </div>
                                        @endif
@@ -64,7 +64,7 @@
                                           <div>
                                              <span class="badge bg-success">✓ Production</span>
                                              <small class="d-block text-muted" style="font-size: 0.7rem;">
-                                                {{ $corporate->production_push_date ? $corporate->production_push_date->format('d M Y H:i') : '' }}
+                                                {{ $corporate->production_push_date ?? '' }}
                                              </small>
                                           </div>
                                        @endif
