@@ -346,11 +346,11 @@
                   @endif
                </div>
 
-               <h6>From Renewable Sources</h6>
+               <h6>Renewable Sources</h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="total_electricity_consumption">
-                        <label for="usr">Total Electricity Consumption</label>
+                        <label for="usr">Electricity</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_electricity_consumption_unit" placeholder="Unit" id="total_electricity_consumption_unit" value="{{ isset($response['total_electricity_consumption_unit']) ? $response['total_electricity_consumption_unit'] : "" }}">
                         </div>
@@ -381,7 +381,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="total_fuel_consumption">
-                        <label for="usr">Total Fuel Consumption</label>
+                        <label for="usr">Fuel</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_fuel_consumption_unit" placeholder="Unit" id="total_fuel_consumption_unit" value="{{ isset($response['total_fuel_consumption_unit']) ? $response['total_fuel_consumption_unit'] : "" }}">
                         </div>
@@ -410,7 +410,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="energy_consumption_through_source">
-                        <label for="usr">Energy consumption through other sources</label>
+                        <label for="usr">Other sources</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="energy_consumption_through_source_unit" placeholder="Unit" id="energy_consumption_through_source_unit" value="{{ isset($response['energy_consumption_through_source_unit']) ? $response['energy_consumption_through_source_unit'] : "" }}">
                         </div>
@@ -439,7 +439,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="total_renewable_energy_consumption">
-                        <label for="usr">Total Renewable Energy Consumption</label>
+                        <label for="usr">Total renewable energy</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_renewable_energy_consumption_unit" placeholder="Unit" id="total_renewable_energy_consumption_unit" value="{{ isset($response['total_renewable_energy_consumption_unit']) ? $response['total_renewable_energy_consumption_unit'] : "" }}">
                         </div>
@@ -468,11 +468,11 @@
                      </div>
                   </li>
                </ol>
-               <h6>From Non-renewable Sources</h6>
+               <h6>Non-Renewable Sources</h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="total_non_renewable_electricity_consumption">
-                        <label for="usr">Total electricity consumption</label>
+                        <label for="usr">Electricity</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_non_renewable_electricity_consumption_unit" placeholder="Unit" id="total_non_renewable_electricity_consumption_unit" value="{{ isset($response['total_non_renewable_electricity_consumption_unit']) ? $response['total_non_renewable_electricity_consumption_unit'] : "" }}">
                         </div>
@@ -501,7 +501,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="total_non_renewable_fuel_consumption">
-                        <label for="usr">Total fuel consumption</label>
+                        <label for="usr">Fuel</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_non_renewable_fuel_consumption_unit" placeholder="Unit" id="total_non_renewable_fuel_consumption_unit" value="{{ isset($response['total_non_renewable_fuel_consumption_unit']) ? $response['total_non_renewable_fuel_consumption_unit'] : "" }}">
                         </div>
@@ -530,7 +530,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="non_renewable_energy_consumption_through_source">
-                        <label for="usr">Energy consumption through other sources</label>
+                        <label for="usr">Other sources</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="non_renewable_energy_consumption_through_source_unit" placeholder="Unit" id="non_renewable_energy_consumption_through_source_unit" value="{{ isset($response['non_renewable_energy_consumption_through_source_unit']) ? $response['non_renewable_energy_consumption_through_source_unit'] : "" }}">
                         </div>
@@ -559,7 +559,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="total_non_renewable_energy_consumption">
-                        <label for="usr">Total Non Renewable Energy Consumption</label>
+                        <label for="usr">Total non-renewable energy</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_non_renewable_energy_consumption_unit" placeholder="Unit" id="total_non_renewable_energy_consumption_unit" value="{{ isset($response['total_non_renewable_energy_consumption_unit']) ? $response['total_non_renewable_energy_consumption_unit'] : "" }}">
                         </div>
@@ -589,7 +589,7 @@
                   </li>
                </ol>
                <div class="incrementable-section" data-field="total_energy_consumption">
-                  <h6>Total Energy Consumption</h6>
+                  <h6>Total Energy Consumed</h6>
                   <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_energy_consumption_unit" placeholder="Unit" id="total_energy_consumption_unit" value="{{ isset($response['total_energy_consumption_unit']) ? $response['total_energy_consumption_unit'] : "" }}">
                   </div>
@@ -617,7 +617,7 @@
                   <button type="button" class="btn add-row-btn" data-field="total_energy_consumption">+</button>
                </div>
                <div class="incrementable-section" data-field="renewable_power_percentage">
-                  <h6>Renewable Power % of Total</h6>
+                  <h6>Renewable Power %</h6>
                   <div class="form-group w-fit">
                      <input type="text" class="form-control" name="renewable_power_percentage_unit" placeholder="Unit" id="renewable_power_percentage_unit" value="{{ isset($response['renewable_power_percentage_unit']) ? $response['renewable_power_percentage_unit'] : "" }}">
                   </div>
@@ -643,7 +643,7 @@
                   echo "</ul>"; ?>
                   <button type="button" class="btn add-row-btn" data-field="renewable_power_percentage">+</button>
                </div>
-               <h6>Energy Intensity Metrics</h6>
+               <h6>Intensity Metrics</h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="energy_intensity_per_rupee_turnover">
@@ -758,7 +758,7 @@
                   </ul>
                   @endif
                </div>
-               <h6>Water Withdrawal by Source</h6>
+               <h6>Source</h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="water_withdrawal_source_surface">
@@ -822,7 +822,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="water_withdrawal_source_thirdparty">
-                        <label for="usr">Third-party water</label>
+                        <label for="usr">Purchased water</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_withdrawal_source_thirdparty_unit" placeholder="Unit" id="water_withdrawal_source_thirdparty_unit" value="{{ isset($response['water_withdrawal_source_thirdparty_unit']) ? $response['water_withdrawal_source_thirdparty_unit'] : "" }}">
                         </div>
@@ -882,7 +882,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="water_withdrawal_source_other">
-                        <label for="usr">Other</label>
+                        <label for="usr">Other sources</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="water_withdrawal_source_other_unit" placeholder="Unit" id="water_withdrawal_source_other_unit" value="{{ isset($response['water_withdrawal_source_other_unit']) ? $response['water_withdrawal_source_other_unit'] : "" }}">
                         </div>
@@ -912,7 +912,7 @@
                   </li>
                </ol>
                <div class="incrementable-section" data-field="total_water_withdrawal">
-                  <h6>Total Volume of Water Withdrawal</h6>
+                  <h6>Total</h6>
                   <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_water_withdrawal_unit" placeholder="Unit" id="total_water_withdrawal_unit" value="{{ isset($response['total_water_withdrawal_unit']) ? $response['total_water_withdrawal_unit'] : "" }}">
                   </div>
@@ -940,7 +940,7 @@
                </div>
 
                <div class="incrementable-section" data-field="total_water_consumption">
-                  <h6>Total Volume of Water Consumption</h6>
+                  <h6>Consumption</h6>
                   <div class="form-group w-fit">
                      <input type="text" class="form-control" name="total_water_consumption_unit" placeholder="Unit" id="total_water_consumption_unit" value="{{ isset($response['total_water_consumption_unit']) ? $response['total_water_consumption_unit'] : "" }}">
                   </div>
@@ -966,7 +966,7 @@
                   echo "</ul>";?>
                   <button type="button" class="btn add-row-btn" data-field="total_water_consumption">+</button>
                </div>
-               <h6>Water Discharge by Channel and Level of Treatment </h6>
+               <h6>Water discharged</h6>
                <ol>
                   <li>
                      <h6>To Surface Water</h6>
@@ -1229,7 +1229,7 @@
                      </ol>
                   </li>
                   <li>
-                     <h6>Others</h6>
+                     <h6>Other channels</h6>
                      <ol type="i">
                         <li>
                            <div class="incrementable-section" data-field="water_discharge_to_other_water_no_treatment">
@@ -1321,7 +1321,7 @@
                   echo "</ul>";?>
                   <button type="button" class="btn add-row-btn" data-field="total_water_discharged">+</button>
                </div>
-               <h6>Water Intensity Metrics</h6>
+               <h6>Intensity Metrics</h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="water_intensity_per_rupee_turnover">
@@ -1650,7 +1650,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="hazardous_waste">
-                        <label for="usr">Hazardous Waste</label>
+                        <label for="usr">Other Hazardous Waste</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="hazardous_waste_unit" placeholder="Unit" id="hazardous_waste_unit" value="{{ isset($response['hazardous_waste_unit']) ? $response['hazardous_waste_unit'] : "" }}">
                         </div>
@@ -1679,7 +1679,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="non_hazardous_waste">
-                        <label for="usr">Non-Hazardous Waste</label>
+                        <label for="usr">Other Non-Hazardous Waste</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="non_hazardous_waste_unit" placeholder="Unit" id="non_hazardous_waste_unit" value="{{ isset($response['non_hazardous_waste_unit']) ? $response['non_hazardous_waste_unit'] : "" }}">
                         </div>
@@ -1801,7 +1801,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="plastic_waste_other_recovery">
-                              <label for="usr">Other recovery operations</label>
+                              <label for="usr">Recovered</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="plastic_waste_other_recovery_unit" placeholder="Unit" id="plastic_waste_other_recovery_unit" value="{{ isset($response['plastic_waste_other_recovery_unit']) ? $response['plastic_waste_other_recovery_unit'] : "" }}">
                               </div>
@@ -1896,7 +1896,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="e_waste_other_recovery">
-                              <label for="usr">Other Recovery Operations</label>
+                              <label for="usr">Recovered</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="e_waste_other_recovery_unit" placeholder="Unit" id="e_waste_other_recovery_unit" value="{{ isset($response['e_waste_other_recovery_unit']) ? $response['e_waste_other_recovery_unit'] : "" }}">
                               </div>
@@ -1991,7 +1991,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="biological_waste_other_recovery">
-                              <label for="usr">Other Recovery Operations</label>
+                              <label for="usr">Recovered</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="biological_waste_other_recovery_unit" placeholder="Unit" id="biological_waste_other_recovery_unit" value="{{ isset($response['biological_waste_other_recovery_unit']) ? $response['biological_waste_other_recovery_unit'] : "" }}">
                               </div>
@@ -2086,7 +2086,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="construction_waste_other_recovery">
-                              <label for="usr">Other Recovery Operations</label>
+                              <label for="usr">Recovered</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="construction_waste_other_recovery_unit" placeholder="Unit" id="construction_waste_other_recovery_unit" value="{{ isset($response['construction_waste_other_recovery_unit']) ? $response['construction_waste_other_recovery_unit'] : '' }}">
                               </div>
@@ -2181,7 +2181,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="battery_waste_other_recovery">
-                              <label for="usr">Other Recovery Operations</label>
+                              <label for="usr">Recovered</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="battery_waste_other_recovery_unit" placeholder="Unit" id="battery_waste_other_recovery_unit" value="{{ isset($response['battery_waste_other_recovery_unit']) ? $response['battery_waste_other_recovery_unit'] : '' }}">
                               </div>
@@ -2276,7 +2276,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="radioactive_waste_other_recovery">
-                              <label for="usr">Other Recovery Operations</label>
+                              <label for="usr">Recovered</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="radioactive_waste_other_recovery_unit" placeholder="Unit" id="radioactive_waste_other_recovery_unit" value="{{ isset($response['radioactive_waste_other_recovery_unit']) ? $response['radioactive_waste_other_recovery_unit'] : '' }}">
                               </div>
@@ -2369,7 +2369,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="hazardous_waste_other_recovery">
-                              <label for="usr">Other Recovery Operations</label>
+                              <label for="usr">Recovered</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste_other_recovery_unit" placeholder="Unit" id="hazardous_waste_other_recovery_unit" value="{{ isset($response['hazardous_waste_other_recovery_unit']) ? $response['hazardous_waste_other_recovery_unit'] : '' }}">
                               </div>
@@ -2461,7 +2461,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_other_recovery">
-                              <label for="usr">Other Recovery Operations</label>
+                              <label for="usr">Recovered</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste_other_recovery_unit" placeholder="Unit" id="non_hazardous_waste_other_recovery_unit" value="{{ isset($response['non_hazardous_waste_other_recovery_unit']) ? $response['non_hazardous_waste_other_recovery_unit'] : '' }}">
                               </div>
@@ -2554,7 +2554,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="total_waste_recovered_other_recovery">
-                        <label for="usr">Other recovery options</label>
+                        <label for="usr">Recovered</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_recovered_other_recovery_unit" placeholder="Unit" id="total_waste_recovered_other_recovery_unit" value="{{ isset($response['total_waste_recovered_other_recovery_unit']) ? $response['total_waste_recovered_other_recovery_unit'] : "" }}">
                         </div>
@@ -2679,7 +2679,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="plastic_waste_other_disposal">
-                              <label for="usr">Other Disposal Operation</label>
+                              <label for="usr">Others</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="plastic_waste_other_disposal_unit" placeholder="Unit" id="plastic_waste_other_disposal_unit" value="{{ isset($response['plastic_waste_other_disposal_unit']) ? $response['plastic_waste_other_disposal_unit'] : '' }}">
                               </div>
@@ -2771,7 +2771,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="e_waste_other_disposal">
-                              <label for="usr">Other Disposal Operation</label>
+                              <label for="usr">Others</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="e_waste_other_disposal_unit" placeholder="Unit" id="e_waste_other_disposal_unit" value="{{ isset($response['e_waste_other_disposal_unit']) ? $response['e_waste_other_disposal_unit'] : '' }}">
                               </div>
@@ -2863,7 +2863,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="biological_waste_other_disposal">
-                              <label for="usr">Other Disposal Operation</label>
+                              <label for="usr">Others</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="biological_waste_other_disposal_unit" placeholder="Unit" id="biological_waste_other_disposal_unit" value="{{ isset($response['biological_waste_other_disposal_unit']) ? $response['biological_waste_other_disposal_unit'] : '' }}">
                               </div>
@@ -2955,7 +2955,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="construction_waste_other_disposal">
-                              <label for="usr">Other Disposal Operation</label>
+                              <label for="usr">Others</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="construction_waste_other_disposal_unit" placeholder="Unit" id="construction_waste_other_disposal_unit" value="{{ isset($response['construction_waste_other_disposal_unit']) ? $response['construction_waste_other_disposal_unit'] : '' }}">
                               </div>
@@ -3047,7 +3047,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="battery_waste_other_disposal">
-                              <label for="usr">Other Disposal Operation</label>
+                              <label for="usr">Others</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="battery_waste_other_disposal_unit" placeholder="Unit" id="battery_waste_other_disposal_unit" value="{{ isset($response['battery_waste_other_disposal_unit']) ? $response['battery_waste_other_disposal_unit'] : '' }}">
                               </div>
@@ -3139,7 +3139,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="radioactive_waste_other_disposal">
-                              <label for="usr">Other Disposal Operation</label>
+                              <label for="usr">Others</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="radioactive_waste_other_disposal_unit" placeholder="Unit" id="radioactive_waste_other_disposal_unit" value="{{ isset($response['radioactive_waste_other_disposal_unit']) ? $response['radioactive_waste_other_disposal_unit'] : '' }}">
                               </div>
@@ -3231,7 +3231,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="hazardous_waste_other_disposal">
-                              <label for="usr">Other Disposal Operations</label>
+                              <label for="usr">Others</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="hazardous_waste_other_disposal_unit" placeholder="Unit" id="hazardous_waste_other_disposal_unit" value="{{ isset($response['hazardous_waste_other_disposal_unit']) ? $response['hazardous_waste_other_disposal_unit'] : '' }}">
                               </div>
@@ -3261,7 +3261,7 @@
                      </ol>
                   </li>
                   <li>
-                     <h6>Other Non Hazardous Waste</h6>
+                     <h6>Other Non-Hazardous Waste</h6>
                      <ol type="i">
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_incineration">
@@ -3323,7 +3323,7 @@
                         </li>
                         <li>
                            <div class="incrementable-section" data-field="non_hazardous_waste_other_disposal">
-                              <label for="usr">Other Disposal Operations</label>
+                              <label for="usr">Others</label>
                               <div class="form-group w-fit">
                                  <input type="text" class="form-control" name="non_hazardous_waste_other_disposal_unit" placeholder="Unit" id="non_hazardous_waste_other_disposal_unit" value="{{ isset($response['non_hazardous_waste_other_disposal_unit']) ? $response['non_hazardous_waste_other_disposal_unit'] : '' }}">
                               </div>
@@ -3353,7 +3353,7 @@
                      </ol>
                   </li>
                </ol>
-               <h6>Total Waste Disposed by Nature of Disposal Method </h6>
+               <h6>Total Waste Disposed</h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="total_waste_disposed_recycled">
@@ -3415,7 +3415,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="total_waste_disposed_other_recovery">
-                        <label for="usr">Other Disposal Operations</label>
+                        <label for="usr">Others</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="total_waste_disposed_other_recovery_unit" placeholder="Unit" id="total_waste_disposed_other_recovery_unit" value="{{ isset($response['total_waste_disposed_other_recovery_unit']) ? $response['total_waste_disposed_other_recovery_unit'] : "" }}">
                         </div>
@@ -3443,7 +3443,7 @@
                      </div>
                   </li>
                </ol>
-               <h6>Waste Intensity Metrics</h6>
+               <h6>Intensity Metrics</h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="waste_intensity_per_rupee_turnover">
@@ -3559,7 +3559,7 @@
                </div>
 
                <div class="incrementable-section" data-field="scope_1_emissions">
-                  <h6>Total Scope 1 Emissions</h6>
+                  <h6>Scope 1</h6>
                   <div class="form-group w-fit">
                      <input type="text" class="form-control" name="scope_1_emissions_unit" placeholder="Unit" id="scope_1_emissions_unit" value="{{ isset($response['scope_1_emissions_unit']) ? $response['scope_1_emissions_unit'] : "" }}">
                   </div>
@@ -3587,7 +3587,7 @@
                </div>
 
                <div class="incrementable-section" data-field="scope_2_emissions">
-                  <h6>Total Scope 2 Emissions</h6>
+                  <h6>Scope 2</h6>
                   <div class="form-group w-fit">
                      <input type="text" class="form-control" name="scope_2_emissions_unit" placeholder="Unit" id="scope_2_emissions_unit" value="{{ isset($response['scope_2_emissions_unit']) ? $response['scope_2_emissions_unit'] : "" }}">
                   </div>
@@ -3615,7 +3615,7 @@
                </div>
 
                <div class="incrementable-section" data-field="scope_3_emissions">
-                  <h6>Total Scope 3 Emissions</h6>
+                  <h6>Scope 3</h6>
                   <div class="form-group w-fit">
                      <input type="text" class="form-control" name="scope_3_emissions_unit" placeholder="Unit" id="scope_3_emissions_unit" value="{{ isset($response['scope_3_emissions_unit']) ? $response['scope_3_emissions_unit'] : "" }}">
                   </div>
@@ -3641,7 +3641,7 @@
                   echo "</ul>";?>
                   <button type="button" class="btn add-row-btn" data-field="scope_3_emissions">+</button>
                </div>
-               <h6>Emission Intensity Metrics</h6>
+               <h6>Intensity Metrics</h6>
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="specific_emissions_scope_1_2_per_rupee_turnover">
@@ -3764,7 +3764,7 @@
                <ol>
                   <li>
                      <div class="incrementable-section" data-field="no_x">
-                        <label for="usr">NOx Emissions</label>
+                        <label for="usr">NOx</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="no_x_unit" placeholder="Unit" id="no_x_unit" value="{{ isset($response['no_x_unit']) ? $response['no_x_unit'] : "" }}">
                         </div>
@@ -3793,7 +3793,7 @@
                   </li>
                   <li>
                      <div class="incrementable-section" data-field="so_x">
-                        <label for="usr">SOx Emissions</label>
+                        <label for="usr">SOx</label>
                         <div class="form-group w-fit">
                            <input type="text" class="form-control" name="so_x_unit" placeholder="Unit" id="so_x_unit" value="{{ isset($response['so_x_unit']) ? $response['so_x_unit'] : "" }}">
                         </div>
