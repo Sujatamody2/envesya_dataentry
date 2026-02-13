@@ -3442,6 +3442,35 @@
                         <button type="button" class="btn add-row-btn" data-field="total_waste_disposed_other_recovery">+</button>
                      </div>
                   </li>
+                  <li>
+                     <div class="incrementable-section" data-field="total_waste_disposed">
+                        <label for="usr">Total Waste disposed</label>
+                        <div class="form-group w-fit">
+                           <input type="text" class="form-control" name="total_waste_disposed_unit" placeholder="Unit" id="total_waste_disposed_unit" value="{{ isset($response['total_waste_disposed_unit']) ? $response['total_waste_disposed_unit'] : "" }}">
+                        </div>
+                        <?php 
+                        $count = 0;
+                        $energyDetail = isset($response['total_waste_disposed']) ? json_decode($response['total_waste_disposed'], true): [];
+                        echo "<ul>";
+                        foreach ($energyDetail as $year => $value) { ?>
+                           <li class="d-flex gap-2 w-100">
+                              <div class="form-group w-fit">
+                                 <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][year]" placeholder="Year" id="total_waste_disposed_<?php echo $count; ?>_year" value="<?php echo $value['year']; ?>">
+                              </div>
+                              <div class="form-group w-fit">
+                                 <input type="text" class="form-control" name="total_waste_disposed[<?php echo $count; ?>][value]" placeholder="Value" id="total_waste_disposed_<?php echo $count; ?>_value" value="<?php echo $value['value']; ?>">
+                              </div>
+                              <div class="form-group col-md-2">
+                                 <button type="button" class="btn remove-row-btn" data-index="<?php echo $count; ?>">-</button>
+                              </div>
+                           </li>
+                        <?php 
+                           $count++; 
+                        } 
+                        echo "</ul>";?>
+                        <button type="button" class="btn add-row-btn" data-field="total_waste_disposed">+</button>
+                     </div>
+                  </li>
                </ol>
                <h6>Intensity Metrics</h6>
                <ol>
