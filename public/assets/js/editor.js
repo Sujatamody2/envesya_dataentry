@@ -619,6 +619,18 @@ You should have received a copy of the GNU General Public License along with thi
 											"commandname":"strikeThrough", 
 											"custom":null },
 
+							'superscript': { "text": "<small>x<sup>2</sup></small>", 
+											"icon": null,
+											"tooltip": "Superscript", 
+											"commandname": "superscript", 
+											"custom": null },
+
+							'subscript':   { "text": "<small>x<sub>2</sub></small>", 
+											"icon": null,
+											"tooltip": "Subscript", 
+											"commandname": "subscript", 
+											"custom": null},
+
 						     'ol'		: { "text": "N", 
 											"icon": "fa fa-list-ol", 
 											"tooltip": "Insert/Remove Numbered List", 
@@ -969,7 +981,7 @@ You should have received a copy of the GNU General Public License along with thi
 							  'fonteffects' : ['fonts', 'styles', 'font_size'],
 							  'actions' : ['undo', 'redo'],
 							  'insertoptions' : ['insert_link', 'unlink', 'insert_img', 'insert_table'],
-							  'extraeffects' : ['strikeout', 'hr_line', 'splchars'],
+							  'extraeffects' : ['strikeout', 'hr_line', 'splchars', 'superscript', 'subscript'],
 							  'advancedoptions' : ['print', 'rm_format', 'select_all', 'source'],
 							  'screeneffects' : ['togglescreen']
 							};
