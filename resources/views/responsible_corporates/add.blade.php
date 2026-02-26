@@ -4558,7 +4558,120 @@
       });
    });
 </script>
+<style>
+.script-toolbar {
+    position: absolute;
+    background: #444;
+    border: 1px solid #666;
+    border-radius: 4px;
+    padding: 3px 6px;
+    z-index: 99999;
+    display: none;
+    gap: 4px;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.script-toolbar button {
+    background: #555;
+    color: #fff;
+    border: 1px solid #777;
+    border-radius: 3px;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1.4;
+}
+.script-toolbar button:hover {
+    background: #28a745;
+    border-color: #28a745;
+}
+</style>
 
+<div class="script-toolbar" id="scriptToolbar">
+   <div class="d-flex">
+      <small style="color:#aaa; font-size:11px; margin-right:4px;">Insert:</small>
+      <button type="button" id="insertSuperscript" title="Superscript">X<sup>2</sup> Sup</button>
+      <button type="button" id="insertSubscript" title="Subscript">X<sub>2</sub> Sub</button>
+   </div>
+</div>
+
+<script>
+(function () {
+
+   var toolbar = document.getElementById('scriptToolbar');
+   var currentInput = null;
+    function isUnitInput(el){
+        var name = $(el).attr('name') || '';
+        return name.toLowerCase().includes('unit');
+    }
+
+   function insertTag(openTag, closeTag){
+
+      if(!currentInput) return;
+
+      var start = currentInput.selectionStart;
+      var end   = currentInput.selectionEnd;
+
+      var val   = currentInput.value;
+      var text  = val.substring(start, end);
+
+      var inserted = openTag + text + closeTag;
+
+      currentInput.value =
+         val.substring(0, start) +
+         inserted +
+         val.substring(end);
+
+      var newPos = start + inserted.length;
+
+      currentInput.setSelectionRange(newPos, newPos);
+      currentInput.focus();
+   }
+
+   $('#insertSuperscript').on('click', function(){
+      insertTag('<sup>','</sup>');
+   });
+
+   $('#insertSubscript').on('click', function(){
+      insertTag('<sub>','</sub>');
+   });
+
+    // SHOW on focus
+    $(document).on('focus', 'input[type="text"]', function () {
+
+        if(!isUnitInput(this)) return;
+         currentInput = this;
+        var $input = $(this);
+        var offset = $input.offset();
+
+        $(toolbar).css({
+            top:  (offset.top + $input.outerHeight() + 4) + 'px',
+            left: offset.left + 'px'
+        }).show();
+    });
+
+    // HIDE on outside click
+    $(document).on('mousedown', function (e){
+
+        var $t = $(e.target);
+
+        var clickedInput   = $t.closest('input[type="text"]').length &&
+                             isUnitInput($t.closest('input[type="text"]')[0]);
+
+        var clickedToolbar = $t.closest('#scriptToolbar').length;
+        console.log(clickedInput, clickedToolbar);
+        if(!clickedInput && !clickedToolbar){
+            $(toolbar).hide();
+        }
+    });
+
+    // prevent input blur when clicking toolbar buttons
+   //  $(toolbar).on('mousedown', function(e){
+   //      e.preventDefault();
+   //  });
+
+})();
+</script>
 @endsection
 @section('scripts')
 @parent
