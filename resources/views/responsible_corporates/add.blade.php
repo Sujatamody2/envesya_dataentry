@@ -4637,18 +4637,18 @@
    });
 
     // SHOW on focus
-    $(document).on('focus', 'input[type="text"]', function () {
+   //  $(document).on('focus', 'input[type="text"]', function () {
 
-        if(!isUnitInput(this)) return;
-         currentInput = this;
-        var $input = $(this);
-        var offset = $input.offset();
+   //      if(!isUnitInput(this)) return;
+   //       currentInput = this;
+   //      var $input = $(this);
+   //      var offset = $input.offset();
 
-        $(toolbar).css({
-            top:  (offset.top + $input.outerHeight() + 4) + 'px',
-            left: offset.left + 'px'
-        }).show();
-    });
+   //      $(toolbar).css({
+   //          top:  (offset.top + $input.outerHeight() + 4) + 'px',
+   //          left: offset.left + 'px'
+   //      }).show();
+   //  });
 
     // HIDE on outside click
     $(document).on('mousedown', function (e){
