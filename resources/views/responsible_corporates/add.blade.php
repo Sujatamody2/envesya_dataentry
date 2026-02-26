@@ -317,7 +317,7 @@
                            <li class="d-flex" style="gap:10px;">
                               <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
-                                 <input type="text" class="form-control" name="energy_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="energy_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                                 <textarea class="form-control" name="energy_initiative_detail[<?php echo $count; ?>][undertaken]" rows="3" placeholder="Initiative Undertaken" id="energy_initiative_detail_<?php echo $count; ?>_undertaken"><?php echo htmlspecialchars($item['undertaken'] ?? ''); ?></textarea>
                               </div>
                               <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
@@ -730,7 +730,7 @@
                            <li class="d-flex" style="gap:10px;">
                               <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
-                                 <input type="text" class="form-control" name="water_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="water_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                                 <textarea class="form-control" name="water_initiative_detail[<?php echo $count; ?>][undertaken]" rows="3" placeholder="Initiative Undertaken" id="water_initiative_detail_<?php echo $count; ?>_undertaken"><?php echo htmlspecialchars($item['undertaken'] ?? ''); ?></textarea>
                               </div>
                               <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
@@ -1438,7 +1438,7 @@
                            <li class="d-flex" style="gap:10px">
                               <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
-                                 <input type="text" class="form-control" name="waste_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="waste_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                                 <textarea class="form-control" name="waste_initiative_detail[<?php echo $count; ?>][undertaken]" rows="3" placeholder="Initiative Undertaken" id="waste_initiative_detail_<?php echo $count; ?>_undertaken"><?php echo htmlspecialchars($item['undertaken'] ?? ''); ?></textarea>
                               </div>
                               <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
@@ -3558,7 +3558,7 @@
                            <li class="d-flex" style="gap:10px">
                               <div class="form-group" style="1">
                                  <label>Initiative Undertaken</label>
-                                 <input type="text" class="form-control" name="emission_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="emission_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                                 <textarea class="form-control" name="emission_initiative_detail[<?php echo $count; ?>][undertaken]" row="3" placeholder="Initiative Undertaken" id="emission_initiative_detail_<?php echo $count; ?>_undertaken"><?php echo htmlspecialchars($item['undertaken'] ?? ''); ?></textarea>
                               </div>
                               <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
@@ -4007,7 +4007,7 @@
                            <li class="d-flex" style="gap:10px;">
                               <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
-                                 <input type="text" class="form-control" name="csr_initiative_detail[<?php echo $count; ?>][undertaken]" placeholder="Initiative Undertaken" id="csr_initiative_detail_<?php echo $count; ?>_undertaken" value="<?php echo htmlspecialchars($item['undertaken'] ?? ''); ?>">
+                                 <textarea class="form-control" name="csr_initiative_detail[<?php echo $count; ?>][undertaken]" rows="3" placeholder="Initiative Undertaken" id="csr_initiative_detail_<?php echo $count; ?>_undertaken"><?php echo htmlspecialchars($item['undertaken'] ?? ''); ?></textarea>
                               </div>
                               <div class="form-group" style="flex:1">
                                  <label>Details of the Initiative</label>
@@ -4188,7 +4188,7 @@
                      <li class="d-flex" style="gap:10px">
                            <div class="form-group" style="flex:1">
                               <label>Initiative Undertaken</label>
-                              <input type="text" class="form-control" name="${fieldName}[${newIndex}][undertaken]" placeholder="Initiative Undertaken" id="${fieldName}_${newIndex}_undertaken">
+                              <textarea class="form-control" name="${fieldName}[${newIndex}][undertaken]" rows="3" placeholder="Initiative Undertaken" id="${fieldName}_${newIndex}_undertaken"></textarea>
                            </div>
                            <div class="form-group" style="flex:1">
                               <label>Details of the Initiative</label>
@@ -4245,7 +4245,7 @@
                     <li class="d-flex" style="gap:10px">
                            <div class="form-group" style="flex:1">
                               <label>Initiative Undertaken</label>
-                              <input type="text" class="form-control" name="${field}[${newIndex}][undertaken]" placeholder="Initiative Undertaken" id="${field}_${newIndex}_undertaken">
+                              <textarea class="form-control" name="${field}[${newIndex}][undertaken]" rows="3" placeholder="Initiative Undertaken" id="${field}_${newIndex}_undertaken"></textarea>
                            </div>
                            <div class="form-group" style="flex:1">
                               <label>Details of the Initiative</label>
