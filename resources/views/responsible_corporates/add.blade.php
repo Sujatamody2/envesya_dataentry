@@ -4248,6 +4248,18 @@
                      </li>
                   `;
                   $ul.append(newRow);
+                  var detailsId = fieldName + '_' + newIndex + '_details';
+                  var outcomeId = fieldName + '_' + newIndex + '_outcome';
+                  var undertakenId = fieldName + '_' + newIndex + '_undertaken';
+
+                  $('#' + detailsId).Editor(editorSetting);
+                  $('#' + detailsId).parent().find('.Editor-editor').html('');
+
+                  $('#' + outcomeId).Editor(editorSetting);
+                  $('#' + outcomeId).parent().find('.Editor-editor').html('');
+
+                  $('#' + undertakenId).Editor(editorSetting);
+                  $('#' + undertakenId).parent().find('.Editor-editor').html('');
             }
         } else {
          var $ul = $section.find('ul');
