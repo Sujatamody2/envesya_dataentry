@@ -313,14 +313,26 @@ class ResponsibleCorporatesController extends Controller
      */
     public function index()
     {
-        $corporates = ResponsibleCorporates::with([
-            'energyMetrics',
-            'waterMetrics',
-            'wasteMetrics',
-            'emissionMetrics',
-            'csrMetrics',
-            'productStewardship'
-        ])->get();
+        if(auth()->user()->is_admin == 1){
+            $corporates = ResponsibleCorporates::with([
+                'energyMetrics',
+                'waterMetrics',
+                'wasteMetrics',
+                'emissionMetrics',
+                'csrMetrics',
+                'productStewardship'
+            ])->get();
+        } else {
+            $corporates = ResponsibleCorporates::with([
+                'energyMetrics',
+                'waterMetrics',
+                'wasteMetrics',
+                'emissionMetrics',
+                'csrMetrics',
+                'productStewardship'
+            ])->where('entered_by', auth()->id())->get();
+        }
+
         
         return view('responsible_corporates.index', compact('corporates'));
     }
