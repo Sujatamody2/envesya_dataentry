@@ -1006,9 +1006,10 @@ class ResponsibleCorporatesController extends Controller
 
             $draftId = $request->listing_id ?? $request->draft_id ?? Auth::id();
 
-            $formData = $request->except('_token');
+            $input = $request->all();
 
             $jsonFields = [
+                
                 'industry',
                 'factory_locations',
                 // Energy
