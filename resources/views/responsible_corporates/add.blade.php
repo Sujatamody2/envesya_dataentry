@@ -67,8 +67,14 @@
         position: relative;
         top: 0.25em;
     }
+    
 </style>
+@php
+if(isset($response) && $response == NULL) {
+   unset($response)
+}
 
+@endphp
 <div class="container">
    <div class="card mt-4">
       <div class="card-header"><?php echo (isset($response)) ? "Edit" : "Add" ?> Responsible Corporate</div>
