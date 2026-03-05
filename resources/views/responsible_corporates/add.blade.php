@@ -4631,8 +4631,22 @@ $(document).ready(function() {
         };
     }
 
+    function syncEditors() {
+
+      $('.Editor-editor').each(function () {
+
+         let content = $(this).html();
+         let textarea = $(this).closest('.Editor-container').find('textarea');
+
+         textarea.val(content);
+
+      });
+
+   }
+
     // Auto-save function
     function autosave() {
+      syncEditors();
         var formData = new FormData($('#checkRecorpform')[0]);
 
         $.ajax({
