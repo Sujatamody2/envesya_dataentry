@@ -344,19 +344,12 @@ class ResponsibleCorporatesController extends Controller
      */
     public function create()
     {
-        $temp = TempResponsibleCorporate::where('user_id', auth()->id())->first();
+        $temp = TempResponsibleCorporate::where('user_id', auth()->id())->latest()->first();
         $temp = $temp ? $temp->form_data : [];
-        if (!empty($main) && !empty($temp)) {
-            $response = array_merge(
-                $main,
-                array_filter($temp, fn($v) => $v !== null && $v !== "")
-            );
-        } elseif (!empty($main)) {
-            $response = $main;
-        } elseif (!empty($temp)) {
+        if (!empty($temp)) {
             $response = $temp;
         } else {
-            $response = [];
+            $response = NULL;
         }
 
         $corporates_exist_names = ResponsibleCorporates::pluck('name')->toArray();
@@ -450,21 +443,27 @@ class ResponsibleCorporatesController extends Controller
         }
 
         // Convert the main model object to an array. This is the base for our response.
-        $response = $corporateData->toArray();
+        $main = $corporateData->toArray();
 
         $temp = TempResponsibleCorporate::where('user_id', auth()->id())
             ->where('draft_id', $id)
             ->latest()
             ->first();
 
-        if ($temp && !empty($temp->form_data)) {
+        $temp = $temp ? $temp->form_data : [];
 
-            $tempData = $temp->form_data;
-
-            if (is_array($tempData)) {
-                $response = array_merge($response, $tempData);
-            }
-
+        // FINAL MERGE LOGIC for Responsible Corporate
+        if (!empty($main) && !empty($temp)) {
+            $response = array_merge(
+                $main,
+                array_filter($temp, fn($v) => $v !== null && $v !== "")
+            );
+        } elseif (!empty($main)) {
+            $response = $main;
+        } elseif (!empty($temp)) {
+            $response = $temp;
+        } else {
+            $response = [];
         }
 
 
