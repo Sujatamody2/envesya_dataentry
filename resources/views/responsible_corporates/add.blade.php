@@ -4161,8 +4161,11 @@
       $(this).attr('id', 'txtEditor' + i);
       var editorid = $(this).attr('id');
 
+      let content = $("#" + editorid).val();
+
       $("#" + editorid).Editor(editorSetting);
-      $('#' + editorid).parent().find(".Editor-editor").html($("#" + editorid).val());
+
+      $("#" + editorid).parent().find(".Editor-editor").html(content);
    });
 </script>
 <script>
