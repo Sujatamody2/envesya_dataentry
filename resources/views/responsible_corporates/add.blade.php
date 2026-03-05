@@ -313,6 +313,7 @@
                      <?php
                      $count = 0;
                      $initiativeDetails = isset($response['energy_initiative_detail']) ? json_decode($response['energy_initiative_detail'], true) : [];
+                     
                      foreach ($initiativeDetails as $item) { ?>
                            <li class="d-flex" style="gap:10px;">
                               <div class="form-group" style="flex:1">

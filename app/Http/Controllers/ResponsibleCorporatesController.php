@@ -454,7 +454,7 @@ class ResponsibleCorporatesController extends Controller
 
         // FINAL MERGE LOGIC for Responsible Corporate
         if (!empty($main) && !empty($temp)) {
-            dd($temp);
+            // dd($temp);
             $response = array_merge(
                 $main,
                 array_filter($temp, fn($v) => $v !== null && $v !== "")
@@ -466,7 +466,7 @@ class ResponsibleCorporatesController extends Controller
         } else {
             $response = [];
         }
-
+        dd($response);
 
         // Define the relationships that need to be merged into the main response array.
         // When using toArray(), Laravel converts camelCase relationship names to snake_case keys.
