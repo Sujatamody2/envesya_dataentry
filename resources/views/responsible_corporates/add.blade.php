@@ -69,18 +69,11 @@
     }
     
 </style>
-@php
-dd($response);
-if(isset($response) && $response == NULL) {
-   unset($response);
-}
-
-@endphp
 <div class="container">
    <div class="card mt-4">
       <div class="card-header"><?php echo (isset($response)) ? "Edit" : "Add" ?> Responsible Corporate</div>
       <div class="card-body">
-         <?php if (isset($response)) { ?>
+         <?php if (isset($response) && $isCreate == 0) { ?>
          <form action="<?php echo route('responsible-corp-updating', $id); ?>" id="checkRecorpform" page="<?php echo (isset($response)) ? 'edit' : 'add'; ?>" method="post" class="form-horizontal">
             <input type="hidden" name="listing_id" value="<?php echo (isset($id) && $id) ? $id : ''; ?>">
             <input type="hidden" name="slug" value="<?php echo (isset($response['slug']) && $response['slug']) ? $response['slug'] : ''; ?>">

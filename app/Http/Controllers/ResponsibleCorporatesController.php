@@ -351,10 +351,10 @@ class ResponsibleCorporatesController extends Controller
         } else {
             $response = NULL;
         }
-
+        $isCreate = 1;
         $corporates_exist_names = ResponsibleCorporates::pluck('name')->toArray();
         $corporates_exist_shortnames = ResponsibleCorporates::pluck('name')->toArray();
-        return view('responsible_corporates.add', compact('corporates_exist_names','corporates_exist_shortnames','response'));
+        return view('responsible_corporates.add', compact('corporates_exist_names','corporates_exist_shortnames','response','isCreate'));
     }
 
     /**
@@ -444,7 +444,7 @@ class ResponsibleCorporatesController extends Controller
 
         // Convert the main model object to an array. This is the base for our response.
         $main = $corporateData->toArray();
-
+        $isCreate = 0;
        
         // dd($response);
 
@@ -500,7 +500,7 @@ class ResponsibleCorporatesController extends Controller
 
         // The $response array now has a flat structure with all keys at the top level,
         // which matches the expectations of your Blade view.
-        return view('responsible_corporates.add', compact('response','id','corporates_exist_names','corporates_exist_shortnames'));
+        return view('responsible_corporates.add', compact('response','id','isCreate','corporates_exist_names','corporates_exist_shortnames'));
     }
 
     /**
