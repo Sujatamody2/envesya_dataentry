@@ -48,6 +48,26 @@
       color: red;
    }
 </style>
+<style>
+    .Editor-container .btn-default.active {
+        background-color: #abadba !important;
+    }
+    .Editor-editor span[style*="vertical-align: super"] {
+        font-size: 70% !important;
+        vertical-align: super !important;
+        line-height: 0;
+        position: relative;
+        top: -0.35em;
+    }
+
+    .Editor-editor span[style*="vertical-align: sub"] {
+        font-size: 70% !important;
+        vertical-align: sub !important;
+        line-height: 0;
+        position: relative;
+        top: 0.25em;
+    }
+</style>
 
 <div class="container">
    <div class="card mt-4">
