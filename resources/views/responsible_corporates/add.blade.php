@@ -4637,7 +4637,7 @@ $(document).ready(function() {
 
          let content = $(this).html();
          let textarea = $(this).closest('.Editor-container').find('textarea');
-
+         console.log(textarea);
          textarea.val(content);
          console.log(content);
       });
