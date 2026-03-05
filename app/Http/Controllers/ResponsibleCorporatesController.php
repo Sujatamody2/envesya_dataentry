@@ -1004,9 +1004,7 @@ class ResponsibleCorporatesController extends Controller
     {
         try {
 
-            // If editing → use listing_id
-            // If creating → use draft_id
-            $draftId = $request->listing_id ?? $request->draft_id ?? Str::uuid()->toString();
+            $draftId = $request->listing_id ?? $request->draft_id ?? Auth::id();
 
             $formData = $request->except('_token');
 
