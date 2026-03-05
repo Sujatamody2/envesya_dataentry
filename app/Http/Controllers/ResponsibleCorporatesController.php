@@ -459,7 +459,7 @@ class ResponsibleCorporatesController extends Controller
 
         if ($temp && !empty($temp->form_data)) {
 
-            // $tempData = json_decode($temp->form_data, true);
+            $tempData = $temp->form_data;
 
             if (is_array($tempData)) {
                 $response = array_merge($response, $tempData);
