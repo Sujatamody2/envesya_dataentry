@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TempResponsibleCorporate extends Model
 {
-     protected $fillable = ['user_id','form_data'];
+     protected $fillable = ['user_id','draft_id','form_data'];
 
     protected $casts = [
         'form_data' => 'array'
