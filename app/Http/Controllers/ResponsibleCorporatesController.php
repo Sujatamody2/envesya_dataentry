@@ -9,12 +9,14 @@ use App\Models\ResponsibleCorporateWasteMetrics;
 use App\Models\ResponsibleCorporateEmissionMetrics;
 use App\Models\ResponsibleCorporateCsrMetrics;
 use App\Models\ResponsibleCorporateProductStewardship;
+use App\Models\TempResponsibleCorporate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 
 class ResponsibleCorporatesController extends Controller
 {
@@ -342,9 +344,24 @@ class ResponsibleCorporatesController extends Controller
      */
     public function create()
     {
+        $temp = TempResponsibleCorporate::where('user_id', auth()->id())->first();
+        $temp = $temp ? $temp->form_data : [];
+        if (!empty($main) && !empty($temp)) {
+            $response = array_merge(
+                $main,
+                array_filter($temp, fn($v) => $v !== null && $v !== "")
+            );
+        } elseif (!empty($main)) {
+            $response = $main;
+        } elseif (!empty($temp)) {
+            $response = $temp;
+        } else {
+            $response = [];
+        }
+
         $corporates_exist_names = ResponsibleCorporates::pluck('name')->toArray();
         $corporates_exist_shortnames = ResponsibleCorporates::pluck('name')->toArray();
-        return view('responsible_corporates.add', compact('corporates_exist_names','corporates_exist_shortnames'));
+        return view('responsible_corporates.add', compact('corporates_exist_names','corporates_exist_shortnames','response'));
     }
 
     /**
@@ -382,6 +399,9 @@ class ResponsibleCorporatesController extends Controller
             $corporate->emissionMetrics()->create($data);
             $corporate->csrMetrics()->create($data);
             $corporate->productStewardship()->create($data);
+            TempResponsibleCorporate::where('user_id', auth()->id())->delete();
+
+
             return redirect()->route('responsible-corp-list')->with('success', 'Corporate record created successfully.');
         } catch (ExceptionType $e) {
             \Log::error('Error creating corporate record: ' . $e->getMessage());
@@ -431,6 +451,22 @@ class ResponsibleCorporatesController extends Controller
 
         // Convert the main model object to an array. This is the base for our response.
         $response = $corporateData->toArray();
+
+        $temp = TempResponsibleCorporate::where('user_id', auth()->id())
+            ->where('draft_id', $id)
+            ->latest()
+            ->first();
+
+        if ($temp && !empty($temp->form_data)) {
+
+            $tempData = json_decode($temp->form_data, true);
+
+            if (is_array($tempData)) {
+                $response = array_merge($response, $tempData);
+            }
+
+        }
+
 
         // Define the relationships that need to be merged into the main response array.
         // When using toArray(), Laravel converts camelCase relationship names to snake_case keys.
@@ -963,4 +999,41 @@ class ResponsibleCorporatesController extends Controller
 
         return $input;
     }
+
+    public function autoSaveResponsibleCorporate(Request $request)
+    {
+        try {
+
+            // If editing → use listing_id
+            // If creating → use draft_id
+            $draftId = $request->listing_id ?? $request->draft_id ?? Str::uuid()->toString();
+
+            $formData = $request->except('_token');
+
+            TempResponsibleCorporate::updateOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'draft_id' => $draftId
+                ],
+                [
+                    'form_data' => json_encode($formData)
+                ]
+            );
+
+            return response()->json([
+                'success' => true,
+                'draft_id' => $draftId,
+                'message' => 'Auto saved successfully'
+            ]);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Auto-save failed',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 }

@@ -54,12 +54,12 @@
       <div class="card-header"><?php echo (isset($response)) ? "Edit" : "Add" ?> Responsible Corporate</div>
       <div class="card-body">
          <?php if (isset($response)) { ?>
-         <form action="<?php echo route('responsible-corp-updating', $id); ?>" page="<?php echo (isset($response)) ? 'edit' : 'add'; ?>" method="post" class="form-horizontal">
+         <form action="<?php echo route('responsible-corp-updating', $id); ?>" id="checkRecorpform" page="<?php echo (isset($response)) ? 'edit' : 'add'; ?>" method="post" class="form-horizontal">
             <input type="hidden" name="listing_id" value="<?php echo (isset($id) && $id) ? $id : ''; ?>">
             <input type="hidden" name="slug" value="<?php echo (isset($response['slug']) && $response['slug']) ? $response['slug'] : ''; ?>">
             <input type="hidden" name="org_id" value="<?php echo (isset($response['org_id']) && $response['org_id']) ? $response['org_id'] : ''; ?>">
          <?php } else { ?>
-            <form action="<?php echo route('responsible-corp-add'); ?>" method="post" class="form-horizontal">
+            <form action="<?php echo route('responsible-corp-add'); ?>" method="post" class="form-horizontal" id="checkRecorpform">
          <?php } ?>
          @csrf
 
@@ -4594,7 +4594,65 @@
       <button type="button" id="insertSubscript" title="Subscript">X<sub>2</sub> Sub</button>
    </div>
 </div>
+<script>
+$(document).ready(function() {
+    // Debounce function
+    function debounce(func, delay) {
+        let timer;
+        return function() {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                func.apply(this, arguments);
+            }, delay);
+        };
+    }
 
+    // Auto-save function
+    function autosave() {
+        var formData = new FormData($('#checkRecorpform')[0]);
+
+        $.ajax({
+            url: "{{ route('autosave.responsible-corporate') }}",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("Auto-saved successfully");
+                // Optionally show a subtle notification
+                // showNotification('Auto-saved', 'success');
+            },
+            error: function (xhr) {
+                console.error("Auto-save error:", xhr.responseText);
+            }
+        });
+    }
+
+    // Debounced version of autosave (800ms delay)
+    const debouncedAutosave = debounce(autosave, 800);
+
+    // Attach listener to form inputs
+    $(document).on("keyup change input", "form :input", function () {
+        debouncedAutosave();
+    });
+    
+    // Auto-save on textarea change
+    $(document).on("keyup input paste", "textarea", function () {
+        debouncedAutosave();
+    });
+    
+    // Auto-save when adding/removing dynamic rows
+    $(document).on("click", ".add-row-btn, .remove-row-btn", function () {
+        setTimeout(debouncedAutosave, 100);
+    });
+    
+    // Optional: Show visual feedback
+    function showNotification(message, type) {
+        // Implement a subtle notification system
+        console.log(message);
+    }
+});
+</script>
 <script>
 (function () {
 
