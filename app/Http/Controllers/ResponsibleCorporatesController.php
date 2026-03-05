@@ -1008,7 +1008,7 @@ class ResponsibleCorporatesController extends Controller
     {
         try {
 
-            $draftId = $request->listing_id ?? $request->draft_id ?? Auth::id();
+            $draftId = $request->listing_id ?? $request->draft_id ?? "TEMP".Auth::id();
 
             $input = $request->all();
 
