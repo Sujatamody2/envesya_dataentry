@@ -4750,6 +4750,66 @@ $(document).ready(function() {
    //  });
 
 })();
+
+$(document).ready(function () {
+
+        function updateToolbarStates(editor) {
+
+            let container = editor.closest('.Editor-container');
+
+            // Bold
+            container.find('[title="Bold"]').toggleClass(
+                'active',
+                document.queryCommandState('bold')
+            );
+
+            // Italic
+            container.find('[title="Italics"]').toggleClass(
+                'active',
+                document.queryCommandState('italic')
+            );
+
+            container.find('[title="Superscript"]').toggleClass(
+                'active',
+                document.queryCommandState('superscript')
+            );
+
+            // Subscript
+            container.find('[title="Subscript"]').toggleClass(
+                'active',
+                document.queryCommandState('subscript')
+            );
+
+            // Underline
+            container.find('[title="Underline"]').toggleClass(
+                'active',
+                document.queryCommandState('underline')
+            );
+
+            // Bulleted List
+            container.find('[title="Insert/Remove Bulleted List"]').toggleClass(
+                'active',
+                document.queryCommandState('insertUnorderedList')
+            );
+        }
+
+        // When interacting inside an editor
+        $(document).on('click keyup mouseup focus', '.Editor-editor', function () {
+            updateToolbarStates($(this));
+        });
+
+        // When clicking toolbar buttons
+        $(document).on('click', '.Editor-container .btn', function () {
+            let container = $(this).closest('.Editor-container');
+            let editor = container.find('.Editor-editor');
+
+            setTimeout(function () {
+                updateToolbarStates(editor);
+            }, 50);
+        });
+
+    });
+    
 </script>
 @endsection
 @section('scripts')
