@@ -490,8 +490,8 @@ class ResponsibleCorporatesController extends Controller
                     unset($relationData['product_stewardship']);
                 }
 
-                $response = array_merge($response, $relationData);
-                // $response = array_merge($relationData, $response);
+                // $response = array_merge($response, $relationData);
+                $response = array_replace($relationData, $response);
                 unset($response[$relationKey]);
             }
         }
