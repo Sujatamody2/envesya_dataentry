@@ -454,6 +454,7 @@ class ResponsibleCorporatesController extends Controller
 
         // FINAL MERGE LOGIC for Responsible Corporate
         if (!empty($main) && !empty($temp)) {
+            dd($temp);
             $response = array_merge(
                 $main,
                 array_filter($temp, fn($v) => $v !== null && $v !== "")
