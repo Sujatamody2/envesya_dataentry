@@ -1008,13 +1008,152 @@ class ResponsibleCorporatesController extends Controller
 
             $formData = $request->except('_token');
 
+            $jsonFields = [
+                'industry',
+                'factory_locations',
+                // Energy
+                'total_electricity_consumption',
+                'total_fuel_consumption',
+                'energy_consumption_through_source',
+                'total_renewable_energy_consumption',
+                'total_non_renewable_electricity_consumption',
+                'total_non_renewable_fuel_consumption',
+                'non_renewable_energy_consumption_through_source',
+                'total_non_renewable_energy_consumption',
+                'total_energy_consumption',
+                'renewable_power_percentage',
+                'energy_intensity_per_rupee_turnover',
+                'energy_intensity_physical_output',
+                // Water
+                'water_withdrawal_source_surface',
+                'water_withdrawal_source_ground',
+                'water_withdrawal_source_thirdparty',
+                'water_withdrawal_source_sea',
+                'water_withdrawal_source_other',
+                'total_water_withdrawal',
+                'total_water_consumption',
+                'water_discharge_to_surface_water_no_treatment',
+                'water_discharge_to_surface_water_with_treatment',
+                'water_discharge_to_ground_water_no_treatment',
+                'water_discharge_to_ground_water_with_treatment',
+                'water_discharge_to_sea_water_no_treatment',
+                'water_discharge_to_sea_water_with_treatment',
+                'water_discharge_to_thirdparty_water_no_treatment',
+                'water_discharge_to_thirdparty_water_with_treatment',
+                'water_discharge_to_other_water_no_treatment',
+                'water_discharge_to_other_water_with_treatment',
+                'total_water_discharged',
+                'water_intensity_per_rupee_turnover',
+                'water_intensity_physical_output',
+                'water_replenishment_percentage',
+                // Waste
+                'plastic_waste',
+                'e_waste',
+                'biological_waste',
+                'construction_waste',
+                'battery_waste',
+                'radioactive_waste',
+                'hazardous_waste',
+                'non_hazardous_waste',
+                'total_waste_generated',
+                'plastic_waste_recycled',
+                'plastic_waste_reused',
+                'plastic_waste_other_recovery',
+                'e_waste_recycled',
+                'e_waste_reused',
+                'e_waste_other_recovery',
+                'biological_waste_recycled',
+                'biological_waste_reused',
+                'biological_waste_other_recovery',
+                'construction_waste_recycled',
+                'construction_waste_reused',
+                'construction_waste_other_recovery',
+                'battery_waste_recycled',
+                'battery_waste_reused',
+                'battery_waste_other_recovery',
+                'radioactive_waste_recycled',
+                'radioactive_waste_reused',
+                'radioactive_waste_other_recovery',
+                'hazardous_waste_recycled',
+                'hazardous_waste_reused',
+                'hazardous_waste_other_recovery',
+                'non_hazardous_waste_recycled',
+                'non_hazardous_waste_reused',
+                'non_hazardous_waste_other_recovery',
+                'total_waste_recovered_recycled',
+                'total_waste_recovered_reused',
+                'total_waste_recovered_other_recovery',
+                'plastic_waste_incineration',
+                'plastic_waste_landfilling',
+                'plastic_waste_other_disposal',
+                'e_waste_incineration',
+                'e_waste_landfilling',
+                'e_waste_other_disposal',
+                'biological_waste_incineration',
+                'biological_waste_landfilling',
+                'biological_waste_other_disposal',
+                'construction_waste_incineration',
+                'construction_waste_landfilling',
+                'construction_waste_other_disposal',
+                'battery_waste_incineration',
+                'battery_waste_landfilling',
+                'battery_waste_other_disposal',
+                'radioactive_waste_incineration',
+                'radioactive_waste_landfilling',
+                'radioactive_waste_other_disposal',
+                'hazardous_waste_incineration',
+                'hazardous_waste_landfilling',
+                'hazardous_waste_other_disposal',
+                'non_hazardous_waste_incineration',
+                'non_hazardous_waste_landfilling',
+                'non_hazardous_waste_other_disposal',
+                'total_waste_disposed_incineration',
+                'total_waste_disposed_landfilling',
+                'total_waste_disposed_other_disposal',
+                'waste_intensity_per_rupee_turnover',
+                'waste_intensity_physical_output',
+                // Emissions
+                'scope_1_emissions',
+                'scope_2_emissions',
+                'scope_3_emissions',
+                'specific_emissions_scope_1_2_per_rupee_turnover',
+                'specific_emissions_scope_1_2_intensity_physical_output',
+                'specific_emissions_scope_3_per_rupee_turnover',
+                'total_scope_3_emission_intensity',
+                'no_x',
+                'so_x',
+                'particulate_matter',
+                'pop',
+                'voc',
+                'hazardous_air_pollutants',
+                // CSR
+                'csr_budget',
+                // Initiative details
+                'energy_initiative_detail',
+                'water_initiative_detail',
+                'waste_initiative_detail',
+                'emission_initiative_detail',
+                'csr_initiative_detail',
+            ];
+            
+            // Ensure all JSON fields exist (even if empty)
+            foreach ($jsonFields as $field) {
+                if (!array_key_exists($field, $input)) {
+                    $input[$field] = [];
+                }
+            }
+            
+            // Encode arrays to JSON
+            $encode = $this->encodeArraysTemp($input);
+
+
             TempResponsibleCorporate::updateOrCreate(
                 [
                     'user_id' => Auth::id(),
                     'draft_id' => $draftId
                 ],
                 [
-                    'form_data' => json_encode($formData)
+                    'form_data' => $encode
                 ]
             );
 
@@ -1032,6 +1171,19 @@ class ResponsibleCorporatesController extends Controller
                 'error' => $e->getMessage()
             ], 500);
         }
+    }
+
+    private function encodeArraysTemp($data)
+    {
+        $encoded = [];
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $encoded[$key] = json_encode($value);
+            } else {
+                $encoded[$key] = $value;
+            }
+        }
+        return $encoded;
     }
 
 }
