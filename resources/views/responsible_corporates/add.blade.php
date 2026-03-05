@@ -71,7 +71,7 @@
 </style>
 <div class="container">
    <div class="card mt-4">
-      <div class="card-header"><?php echo (isset($response)) ? "Edit" : "Add" ?> Responsible Corporate</div>
+      <div class="card-header"><?php echo (isset($response) && $isCreate == 0) ? "Edit" : "Add" ?> Responsible Corporate</div>
       <div class="card-body">
          <?php if (isset($response) && $isCreate == 0) { ?>
          <form action="<?php echo route('responsible-corp-updating', $id); ?>" id="checkRecorpform" page="<?php echo (isset($response)) ? 'edit' : 'add'; ?>" method="post" class="form-horizontal">
@@ -4104,7 +4104,7 @@
          </div>
 
          <div class="form-group mt-3">
-            <button type="submit" class="btn btn-primary Theme-Btn" id="save-from"><?php echo (isset($response)) ? "Update" : "Submit" ?></button>
+            <button type="submit" class="btn btn-primary Theme-Btn" id="save-from"><?php echo (isset($response) && $isCreate == 0) ? "Update" : "Submit" ?></button>
          </div>
          </form>
       </div>
