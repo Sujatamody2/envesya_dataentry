@@ -4639,7 +4639,7 @@ $(document).ready(function() {
          let textarea = $(this).closest('.Editor-container').find('textarea');
 
          textarea.val(content);
-
+         console.log(content);
       });
 
    }
