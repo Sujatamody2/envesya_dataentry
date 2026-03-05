@@ -4121,19 +4121,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
 
 <script>
-   function syncEditors() {
-
-      $('.Editor-editor').each(function () {
-
-         let content = $(this).html();
-         let textarea = $(this).closest('.Editor-container').find('textarea');
-
-         textarea.val(content);
-
-      });
-
-   }
-
    const editorSetting = {
       "strikeout": false,
       "ol": false,
@@ -4643,7 +4630,6 @@ $(document).ready(function() {
 
     // Auto-save function
     function autosave() {
-         syncEditors();
         var formData = new FormData($('#checkRecorpform')[0]);
 
         $.ajax({
@@ -4823,7 +4809,7 @@ $(document).ready(function () {
         });
 
     });
-
+    
 </script>
 @endsection
 @section('scripts')
