@@ -445,7 +445,38 @@ class ResponsibleCorporatesController extends Controller
         // Convert the main model object to an array. This is the base for our response.
         $main = $corporateData->toArray();
 
-        $temp = TempResponsibleCorporate::where('user_id', auth()->id())
+       
+        // dd($response);
+
+        // Define the relationships that need to be merged into the main response array.
+        // When using toArray(), Laravel converts camelCase relationship names to snake_case keys.
+        $relationsToMerge = [
+            'energy_metrics',
+            'water_metrics',
+            'waste_metrics',
+            'emission_metrics',
+            'csr_metrics',
+            'product_stewardship'
+        ];
+
+        foreach ($relationsToMerge as $relationKey) {
+            if (isset($main[$relationKey]) && is_array($main[$relationKey]) && !empty($main[$relationKey])) {
+                $relationData = $main[$relationKey];
+                
+
+                // Prevent field name collision for product_stewardship
+                if ($relationKey === 'product_stewardship' && isset($relationData['product_stewardship'])) {
+                    $relationData['product_stewardship_field'] = $relationData['product_stewardship'];
+                    unset($relationData['product_stewardship']);
+                }
+
+                // $response = array_merge($response, $relationData);
+                $main = array_replace($relationData, $main);
+                unset($main[$relationKey]);
+            }
+        }
+
+         $temp = TempResponsibleCorporate::where('user_id', auth()->id())
             ->where('draft_id', $id)
             ->latest()
             ->first();
@@ -465,35 +496,6 @@ class ResponsibleCorporatesController extends Controller
             $response = $temp;
         } else {
             $response = [];
-        }
-        // dd($response);
-
-        // Define the relationships that need to be merged into the main response array.
-        // When using toArray(), Laravel converts camelCase relationship names to snake_case keys.
-        $relationsToMerge = [
-            'energy_metrics',
-            'water_metrics',
-            'waste_metrics',
-            'emission_metrics',
-            'csr_metrics',
-            'product_stewardship'
-        ];
-
-        foreach ($relationsToMerge as $relationKey) {
-            if (isset($response[$relationKey]) && is_array($response[$relationKey]) && !empty($response[$relationKey])) {
-                $relationData = $response[$relationKey];
-                
-
-                // Prevent field name collision for product_stewardship
-                if ($relationKey === 'product_stewardship' && isset($relationData['product_stewardship'])) {
-                    $relationData['product_stewardship_field'] = $relationData['product_stewardship'];
-                    unset($relationData['product_stewardship']);
-                }
-
-                // $response = array_merge($response, $relationData);
-                $response = array_replace($relationData, $response);
-                unset($response[$relationKey]);
-            }
         }
 
         // The $response array now has a flat structure with all keys at the top level,
