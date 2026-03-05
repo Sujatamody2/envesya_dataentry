@@ -71,7 +71,7 @@
 </style>
 @php
 if(isset($response) && $response == NULL) {
-   unset($response)
+   unset($response);
 }
 
 @endphp
