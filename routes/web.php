@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         [ResponsibleCorporatesController::class, 'manualPushToApi'])
         ->name('responsible-corp-manual-push');
         
-    Route::post('/autosave-responsible-corporate', 'ResponsibleCorporatesController@autoSaveResponsibleCorporate')->name('autosave.responsible-corporate');
+    Route::post('/autosave-responsible-corporate', [ResponsibleCorporatesController::class, 'autoSaveResponsibleCorporate'])->name('autosave.responsible-corporate');
 });
 
 require __DIR__.'/auth.php';
