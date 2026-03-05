@@ -482,6 +482,7 @@ class ResponsibleCorporatesController extends Controller
         foreach ($relationsToMerge as $relationKey) {
             if (isset($response[$relationKey]) && is_array($response[$relationKey]) && !empty($response[$relationKey])) {
                 $relationData = $response[$relationKey];
+                
 
                 // Prevent field name collision for product_stewardship
                 if ($relationKey === 'product_stewardship' && isset($relationData['product_stewardship'])) {
@@ -489,8 +490,8 @@ class ResponsibleCorporatesController extends Controller
                     unset($relationData['product_stewardship']);
                 }
 
-                // $response = array_merge($response, $relationData);
-                $response = array_merge($relationData, $response);
+                $response = array_merge($response, $relationData);
+                // $response = array_merge($relationData, $response);
                 unset($response[$relationKey]);
             }
         }
