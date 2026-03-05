@@ -4644,6 +4644,8 @@ $(document).ready(function() {
 
    }
 
+
+
     // Auto-save function
     function autosave() {
       syncEditors();
@@ -4676,6 +4678,9 @@ $(document).ready(function() {
     
     // Auto-save on textarea change
     $(document).on("keyup input paste", "textarea", function () {
+        debouncedAutosave();
+    });
+    $(document).on("keyup input paste", ".Editor-editor", function () {
         debouncedAutosave();
     });
     
