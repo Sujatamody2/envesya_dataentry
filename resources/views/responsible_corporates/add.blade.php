@@ -70,6 +70,7 @@
     
 </style>
 @php
+dd($response);
 if(isset($response) && $response == NULL) {
    unset($response);
 }
