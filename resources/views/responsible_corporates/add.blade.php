@@ -4636,7 +4636,7 @@ $(document).ready(function() {
       $('.Editor-editor').each(function () {
 
          let content = $(this).html();
-         let textarea = $(this).closest('.Editor-container').find('textarea');
+         let textarea = $(this).closest('.form-group').find('textarea');
          console.log(textarea);
          textarea.val(content);
          console.log(content);
