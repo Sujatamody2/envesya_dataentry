@@ -471,7 +471,7 @@ class ResponsibleCorporatesController extends Controller
                 }
 
                 // $response = array_merge($response, $relationData);
-                $main = array_replace($relationData, $main);
+                $main = array_merge($main, $relationData);
                 unset($main[$relationKey]);
             }
         }
