@@ -12,7 +12,7 @@ class ResponsibleCorporates extends Model
         'name',
         'slug',
         'short_name',
-        'keyword_for_search',
+        'keyword_search',
         'industry',
         'product_profile_sector',
         'ho_location',
