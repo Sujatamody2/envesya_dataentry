@@ -661,7 +661,7 @@ class ResponsibleCorporatesController extends Controller
             'name' => $corporate->name,
             'slug' => $corporate->slug,
             'short_name' => $corporate->short_name,
-            'keyword_search' => $corporate->keyword_for_search,
+            'keyword_for_search' => $corporate->keyword_for_search,
             'industry' => $corporate->industry,
             'product_profile_sector' => $corporate->product_profile_sector,
             'ho_location' => $corporate->ho_location,

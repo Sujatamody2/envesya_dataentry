@@ -130,10 +130,10 @@
 
                <div class="form-group">
                   <label for="search_key">Search Keyword</label>
-                  <input type="text" class="form-control" name="keyword_search" placeholder="Search Keyword" value="{{(isset($response['keyword_search']) && $response['keyword_search'] != '') ? $response['keyword_search'] : ''}}" id="keyword_search">
-                  @if($errors->has('keyword_search'))
+                  <input type="text" class="form-control" name="keyword_for_search" placeholder="Search Keyword" value="{{(isset($response['keyword_for_search']) && $response['keyword_for_search'] != '') ? $response['keyword_for_search'] : ''}}" id="keyword_for_search">
+                  @if($errors->has('keyword_for_search'))
                   <ul class="parsley-errors-list filled">
-                     @foreach($errors->get('keyword_search') as $error)
+                     @foreach($errors->get('keyword_for_search') as $error)
                      <li class="parsley-required">{{ $error }}</li>
                      @endforeach
                   </ul>
@@ -313,7 +313,7 @@
                      <?php
                      $count = 0;
                      $initiativeDetails = isset($response['energy_initiative_detail']) ? json_decode($response['energy_initiative_detail'], true) : [];
-                     
+
                      foreach ($initiativeDetails as $item) { ?>
                            <li class="d-flex" style="gap:10px;">
                               <div class="form-group" style="flex:1">
