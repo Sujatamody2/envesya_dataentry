@@ -459,7 +459,7 @@ class ResponsibleCorporatesController extends Controller
 
         if ($temp && !empty($temp->form_data)) {
 
-            $tempData = json_decode($temp->form_data, true);
+            // $tempData = json_decode($temp->form_data, true);
 
             if (is_array($tempData)) {
                 $response = array_merge($response, $tempData);
@@ -1005,7 +1005,7 @@ class ResponsibleCorporatesController extends Controller
         try {
 
             $draftId = $request->listing_id ?? $request->draft_id ?? Auth::id();
-            
+
             $formData = $request->except('_token');
 
             TempResponsibleCorporate::updateOrCreate(
