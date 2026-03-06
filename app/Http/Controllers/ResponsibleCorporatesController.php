@@ -323,7 +323,7 @@ class ResponsibleCorporatesController extends Controller
                 'emissionMetrics',
                 'csrMetrics',
                 'productStewardship'
-            ])->get();
+            ])->orderBy('updated_at', 'desc')->get();
         } else {
             $corporates = ResponsibleCorporates::with([
                 'energyMetrics',
@@ -332,7 +332,7 @@ class ResponsibleCorporatesController extends Controller
                 'emissionMetrics',
                 'csrMetrics',
                 'productStewardship'
-            ])->where('entered_by', auth()->id())->get();
+            ])->where('entered_by', auth()->id())->orderBy('updated_at', 'desc')->get();
         }
 
         
@@ -526,6 +526,7 @@ class ResponsibleCorporatesController extends Controller
         $corporate->emissionMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
         $corporate->csrMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
         $corporate->productStewardship()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
+        $corporate->touch();
         TempResponsibleCorporate::where('draft_id', $corporate->id)->delete();
         return redirect()->route('responsible-corp-list')->with('success', 'Corporate record updated successfully.');
     }
