@@ -4504,7 +4504,7 @@
                      (normalizedFullNames.includes(normalizedValue) || normalizedFullNamesExist.includes(normalizedValue)) && 
                      (!isEdit || normalizedValue !== normalizeName(currentName))) {
                      
-                     errorSpan.text('Legal Name already exists').addClass('error');
+                     errorSpan.text('This entity is already listed. You can search for this listing and view. Or re-enter the name of entity you wish to list').addClass('error');
                   }
                });
 
