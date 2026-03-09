@@ -527,7 +527,7 @@ class ResponsibleCorporatesController extends Controller
         $corporate->csrMetrics()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
         $corporate->productStewardship()->updateOrCreate(['responsible_corporate_id' => $corporate->id], $data);
         $corporate->touch();
-        TempResponsibleCorporate::where('draft_id', $corporate->id)->delete();
+        TempResponsibleCorporate::where('draft_id',"LIKE", $corporate->id)->delete();
         return redirect()->route('responsible-corp-list')->with('success', 'Corporate record updated successfully.');
     }
 
