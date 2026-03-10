@@ -4697,6 +4697,15 @@ $(document).ready(function() {
 });
 </script>
 <script>
+$(document).on('paste', '.Editor-editor', function(e) {
+    e.preventDefault();
+    
+    var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+    
+    document.execCommand('insertText', false, text);
+});
+</script>
+<script>
 (function () {
 
    var toolbar = document.getElementById('scriptToolbar');
