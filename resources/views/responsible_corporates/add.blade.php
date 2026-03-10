@@ -4156,7 +4156,7 @@
    };
 
    $('textarea').each(function (i, v) {
-      if ($(this).hasClass('')) return;
+      // if ($(this).hasClass('')) return;
 
       $(this).attr('id', 'txtEditor' + i);
       var editorid = $(this).attr('id');
