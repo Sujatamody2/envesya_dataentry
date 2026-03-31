@@ -367,41 +367,63 @@ class ResponsibleCorporatesController extends Controller
             return redirect()->route('responsible-corp-list')->with('error', 'Duplicate form submission detected.');
         }
         session()->forget('_token');
-
+    
         $data = $this->encodeArrays($request->all());
-        $data['slug'] = $data['short_name'];
+        $data['slug']       = $data['short_name'];
         $data['entered_by'] = Auth::id();
-        // echo "<pre>";
-        // print_r($data);
-        // die;
+    
+        // ── Check if a corporate with this name already exists ────────────────────
+        $existing = ResponsibleCorporates::where('name', $data['name'])->first();
+    
         try {
-            // Main record
-            $corporate = ResponsibleCorporates::create(Arr::only($data, [
-                'name','slug','short_name','keyword_for_search','industry',
-                'product_profile_sector','ho_location','factory_locations',
-                'net_zero_target','certifications_accreditations','reporting_formats',
-                'ratings','assessment_verification','policy_ems','org_id',
-                'type','approval','entered_by'
-            ]));
-
-            // Related metrics
-
-            $corporate->energyMetrics()->create($data);
-            $corporate->waterMetrics()->create($data);
-            $corporate->wasteMetrics()->create($data);
-            $corporate->emissionMetrics()->create($data);
-            $corporate->csrMetrics()->create($data);
-            $corporate->productStewardship()->create($data);
-            TempResponsibleCorporate::where('user_id', auth()->id())->delete();
-
-
-            return redirect()->route('responsible-corp-list')->with('success', 'Corporate record created successfully.');
-        } catch (ExceptionType $e) {
-            \Log::error('Error creating corporate record: ' . $e->getMessage());
-            return redirect()->route('responsible-corp-list')->with('success', 'Corporate record created successfully.');
+            if ($existing) {
+                // ── UPDATE existing record ────────────────────────────────────────
+                $existing->update(Arr::only($data, [
+                    'name', 'slug', 'short_name', 'keyword_for_search', 'industry',
+                    'product_profile_sector', 'ho_location', 'factory_locations',
+                    'net_zero_target', 'certifications_accreditations', 'reporting_formats',
+                    'ratings', 'assessment_verification', 'policy_ems', 'org_id',
+                    'type', 'approval', 'entered_by'
+                ]));
+    
+                $existing->energyMetrics()->updateOrCreate(['responsible_corporate_id' => $existing->id], $data);
+                $existing->waterMetrics()->updateOrCreate(['responsible_corporate_id'  => $existing->id], $data);
+                $existing->wasteMetrics()->updateOrCreate(['responsible_corporate_id'  => $existing->id], $data);
+                $existing->emissionMetrics()->updateOrCreate(['responsible_corporate_id' => $existing->id], $data);
+                $existing->csrMetrics()->updateOrCreate(['responsible_corporate_id'    => $existing->id], $data);
+                $existing->productStewardship()->updateOrCreate(['responsible_corporate_id' => $existing->id], $data);
+                $existing->touch();
+    
+                TempResponsibleCorporate::where('user_id', auth()->id())->delete();
+    
+                return redirect()->route('responsible-corp-list')->with('success', 'Corporate record updated successfully (matched existing name).');
+    
+            } else {
+                // ── CREATE new record ─────────────────────────────────────────────
+                $corporate = ResponsibleCorporates::create(Arr::only($data, [
+                    'name', 'slug', 'short_name', 'keyword_for_search', 'industry',
+                    'product_profile_sector', 'ho_location', 'factory_locations',
+                    'net_zero_target', 'certifications_accreditations', 'reporting_formats',
+                    'ratings', 'assessment_verification', 'policy_ems', 'org_id',
+                    'type', 'approval', 'entered_by'
+                ]));
+    
+                $corporate->energyMetrics()->create($data);
+                $corporate->waterMetrics()->create($data);
+                $corporate->wasteMetrics()->create($data);
+                $corporate->emissionMetrics()->create($data);
+                $corporate->csrMetrics()->create($data);
+                $corporate->productStewardship()->create($data);
+    
+                TempResponsibleCorporate::where('user_id', auth()->id())->delete();
+    
+                return redirect()->route('responsible-corp-list')->with('success', 'Corporate record created successfully.');
+            }
+    
+        } catch (\Exception $e) {
+            \Log::error('Error saving corporate record: ' . $e->getMessage());
+            return redirect()->route('responsible-corp-list')->with('error', 'Something went wrong. Please try again.');
         }
-
-        
     }
 
     /**
