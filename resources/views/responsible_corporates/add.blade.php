@@ -3577,7 +3577,7 @@
                      $initiativeDetails = isset($response['emission_initiative_detail']) ? json_decode($response['emission_initiative_detail'], true) : [];
                      foreach ($initiativeDetails as $item) { ?>
                            <li class="d-flex" style="gap:10px">
-                              <div class="form-group" style="1">
+                              <div class="form-group" style="flex:1">
                                  <label>Initiative Undertaken</label>
                                  <textarea class="form-control " name="emission_initiative_detail[<?php echo $count; ?>][undertaken]" row="3" placeholder="Initiative Undertaken" id="emission_initiative_detail_<?php echo $count; ?>_undertaken"><?php echo $item['undertaken'] ?? ''; ?></textarea>
                               </div>
