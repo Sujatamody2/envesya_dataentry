@@ -1,18 +1,21 @@
 @extends('layouts.app')
 @section('content')
-<!-- page content -->
-<!-- top tiles -->
 <div class="container">
    <div class="card mt-4">
       <div class="card-header">All Responsible Corporates</div>
       <div class="card-body">
          <div class="row clear">
             <div class="col-lg-12">
-               <div class="d-flex justify-content-end mb-2">
+               <div class="d-flex justify-content-between mb-2">
+                  <!-- Search Bar -->
+                  <div class="d-flex gap-2">
+                     <input type="text" id="searchInput" class="form-control" placeholder="Search by Legal Name, Short Name..." style="width: 300px;">
+                     <button class="btn btn-secondary" onclick="clearSearch()">Clear</button>
+                  </div>
                   <a href="{{ route('responsible-corp-add') }}" class='btn btn-primary action-btn'>Add</a>
                </div>
                <div class="table-responsive">
-                  <table id="" class="table table-striped table-bordered category-tbl freelist_tbl">
+                  <table id="corporateTable" class="table table-striped table-bordered category-tbl freelist_tbl">
                      <thead>
                         <tr>
                            <th>S.No</th>
@@ -26,7 +29,7 @@
                            <th>Action</th>
                         </tr>
                      </thead>
-                     <tbody>
+                     <tbody id="tableBody">
                         @if ($corporates->count() == 0)
                            <tr>
                               <td colspan="9">No records to display.</td>
@@ -56,7 +59,7 @@
                                           <div class="mb-1">
                                              <span class="badge bg-success">✓ UAT</span>
                                              <small class="d-block text-muted" style="font-size: 0.7rem;">
-                                                {{ $corporate->uat_push_date ??  '' }}
+                                                {{ $corporate->uat_push_date ?? '' }}
                                              </small>
                                           </div>
                                        @endif
@@ -105,7 +108,6 @@
                                              <a href="{{ route('listing_statusupdateres', [$corporate->id, 3, 'page' => request()->query('page', '')]) }}" 
                                                 class='btn btn-sm btn-info'>Review</a>
                                           @elseif($corporate->approval == 1)
-                                             <!-- Already approved - show push options -->
                                              <button type="button" class="btn btn-sm btn-primary" 
                                                 onclick="showPushModal({{ $corporate->id }}, '{{ request()->query('page', '') }}')">
                                                 Push to API
@@ -119,6 +121,10 @@
                         @endif
                      </tbody>
                   </table>
+                  <!-- No results message -->
+                  <div id="noResults" class="text-center text-muted py-3" style="display: none;">
+                     No matching records found.
+                  </div>
                </div>
             </div>
          </div>
@@ -139,21 +145,15 @@
                <p>Select the site where you want to push this data:</p>
                <div class="form-check mb-2">
                   <input class="form-check-input" type="radio" name="api_push_site" id="pushToUat" value="uat" checked>
-                  <label class="form-check-label" for="pushToUat">
-                     UAT (uat.envesya.com)
-                  </label>
+                  <label class="form-check-label" for="pushToUat">UAT (uat.envesya.com)</label>
                </div>
                <div class="form-check mb-2">
                   <input class="form-check-input" type="radio" name="api_push_site" id="pushToProduction" value="production">
-                  <label class="form-check-label" for="pushToProduction">
-                     Production (envesya.com)
-                  </label>
+                  <label class="form-check-label" for="pushToProduction">Production (envesya.com)</label>
                </div>
                <div class="form-check">
                   <input class="form-check-input" type="radio" name="api_push_site" id="noPush" value="">
-                  <label class="form-check-label" for="noPush">
-                     Don't push to any site (only approve)
-                  </label>
+                  <label class="form-check-label" for="noPush">Don't push to any site (only approve)</label>
                </div>
             </div>
             <div class="modal-footer">
@@ -165,7 +165,7 @@
    </div>
 </div>
 
-<!-- Push Modal (for already approved records) -->
+<!-- Push Modal -->
 <div class="modal fade" id="pushModal" tabindex="-1" aria-labelledby="pushModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
@@ -178,15 +178,11 @@
                <p>Select the site where you want to push this data:</p>
                <div class="form-check mb-2">
                   <input class="form-check-input" type="radio" name="api_push_site" id="pushToUat2" value="uat" checked>
-                  <label class="form-check-label" for="pushToUat2">
-                     UAT (uat.envesya.com)
-                  </label>
+                  <label class="form-check-label" for="pushToUat2">UAT (uat.envesya.com)</label>
                </div>
                <div class="form-check">
                   <input class="form-check-input" type="radio" name="api_push_site" id="pushToProduction2" value="production">
-                  <label class="form-check-label" for="pushToProduction2">
-                     Production (envesya.com)
-                  </label>
+                  <label class="form-check-label" for="pushToProduction2">Production (envesya.com)</label>
                </div>
             </div>
             <div class="modal-footer">
@@ -199,18 +195,47 @@
 </div>
 
 <script type="text/javascript">
+   // Scroll to bottom if page param exists
    var urlParams = new URLSearchParams(window.location.search);
    var param_x = urlParams.get('page');
-   if(param_x){
-      $('html,body').animate({
-         scrollTop: $(document).height()
+   if (param_x) {
+      $('html,body').animate({ scrollTop: $(document).height() });
+   }
+
+   // Live Search
+   document.getElementById('searchInput').addEventListener('keyup', function () {
+      filterTable();
+   });
+
+   function filterTable() {
+      var input = document.getElementById('searchInput').value.toLowerCase().trim();
+      var rows = document.querySelectorAll('#tableBody tr');
+      var visibleCount = 0;
+
+      rows.forEach(function (row) {
+         var legalName = row.cells[1] ? row.cells[1].textContent.toLowerCase() : '';
+         var shortName = row.cells[2] ? row.cells[2].textContent.toLowerCase() : '';
+         var enteredBy = row.cells[3] ? row.cells[3].textContent.toLowerCase() : '';
+
+         if (legalName.includes(input) || shortName.includes(input) || enteredBy.includes(input)) {
+            row.style.display = '';
+            visibleCount++;
+         } else {
+            row.style.display = 'none';
+         }
       });
+
+      document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+   }
+
+   function clearSearch() {
+      document.getElementById('searchInput').value = '';
+      filterTable();
    }
 
    function showApprovalModal(corporateId, status, page) {
       var form = document.getElementById('approvalForm');
       form.action = "{{ url('responsible-corp/listing_statusupdateres') }}/" + corporateId + "/" + status + "?page=" + page;
-      
       var modal = new bootstrap.Modal(document.getElementById('approvalModal'));
       modal.show();
    }
@@ -218,7 +243,6 @@
    function showPushModal(corporateId, page) {
       var form = document.getElementById('pushForm');
       form.action = "{{ url('responsible-corp/manual-push') }}/" + corporateId + "?page=" + page;
-      
       var modal = new bootstrap.Modal(document.getElementById('pushModal'));
       modal.show();
    }
@@ -231,15 +255,15 @@
        enterMode: CKEDITOR.ENTER_BR,
        shiftEnterMode: CKEDITOR.ENTER_P,
        toolbar: [
-           { name: 'basicstyles', groups: [ 'basicstyles' ], items: [ 'Bold', 'Italic', 'Underline', "-", 'TextColor', 'BGColor' ] },
-           { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
-           { name: 'scripts', items: [ 'Subscript', 'Superscript' ] },
-           { name: 'justify', groups: [ 'blocks', 'align' ], items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-           { name: 'paragraph', groups: [ 'list', 'indent' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'] },
-           { name: 'links', items: [ 'Link', 'Unlink' ] },
-           { name: 'insert', items: [ 'Image'] },
-           { name: 'spell', items: [ 'jQuerySpellChecker' ] },
-           { name: 'table', items: [ 'Table' ] }
+           { name: 'basicstyles', groups: ['basicstyles'], items: ['Bold', 'Italic', 'Underline', "-", 'TextColor', 'BGColor'] },
+           { name: 'styles', items: ['Format', 'Font', 'FontSize'] },
+           { name: 'scripts', items: ['Subscript', 'Superscript'] },
+           { name: 'justify', groups: ['blocks', 'align'], items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+           { name: 'paragraph', groups: ['list', 'indent'], items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'] },
+           { name: 'links', items: ['Link', 'Unlink'] },
+           { name: 'insert', items: ['Image'] },
+           { name: 'spell', items: ['jQuerySpellChecker'] },
+           { name: 'table', items: ['Table'] }
        ],
    });
 </script>
@@ -250,8 +274,6 @@
 @section('styles')
 @parent
 <style>
-   .gap-1 {
-      gap: 0.25rem;
-   }
+   .gap-1 { gap: 0.25rem; }
 </style>
 @endsection
